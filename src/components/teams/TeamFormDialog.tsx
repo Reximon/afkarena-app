@@ -187,6 +187,7 @@ interface FormationRowProps {
   heroes: Record<string, HeroProgress>
   ownedHeroes: OwnedHero[]
   usedHeroIds: Set<string>
+  isDragging: boolean
   onAssign: (position: TeamSlot['position'], heroId: string) => void
 }
 
@@ -196,6 +197,7 @@ function FormationRow({
   heroes,
   ownedHeroes,
   usedHeroIds,
+  isDragging,
   onAssign,
 }: FormationRowProps) {
   const { t } = useTranslation()
