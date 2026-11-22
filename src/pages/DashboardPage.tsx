@@ -125,6 +125,19 @@ export function DashboardPage() {
               </span>
               <ChevronRight size={16} aria-hidden="true" />
             </Link>
+            <Link
+              to="/artifacts"
+              className={buttonStyles({
+                variant: 'secondary',
+                className: 'w-full justify-between',
+              })}
+            >
+              <span className="flex items-center gap-2">
+                <Gem size={16} aria-hidden="true" />
+                {t('nav.artifacts')}
+              </span>
+              <ChevronRight size={16} aria-hidden="true" />
+            </Link>
             <button
               type="button"
               disabled

@@ -33,6 +33,8 @@ export const gearPieceSchema = z.object({
   tier: gearTierSchema,
   stars: gearStarsSchema,
   faction: factionSchema.optional(),
+  resonant: z.boolean().optional(),
+  exclusive: z.boolean().optional(),
 })
 
 export const collectionSchema = z.object({
@@ -50,6 +52,7 @@ export const heroProgressSchema = z.object({
   engraving: z.union([z.literal(0), z.literal(30), z.literal(60), z.literal(80)]),
   gear: z.partialRecord(gearSlotSchema, gearPieceSchema).default({}),
   artifact: z.string().optional(),
+  linkedHeroId: z.string().optional(),
   collection: collectionSchema.optional(),
   notes: z.string().optional(),
   updatedAt: z.string().min(1),

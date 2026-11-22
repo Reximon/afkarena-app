@@ -101,6 +101,8 @@ export interface GearPiece {
   tier: GearTier
   stars: 0 | 1 | 2 | 3 | 4 | 5
   faction?: Faction
+  resonant?: boolean
+  exclusive?: boolean
 }
 
 export interface CollectionProgress {
@@ -114,10 +116,11 @@ export interface HeroProgress {
   level: number
   inCrystal: boolean
   signatureItem: number
-  furniture: 0 | 3 | 9 
+  furniture: 0 | 3 | 9 | 36
   engraving: 0 | 30 | 60 | 80
   gear: Partial<Record<GearSlot, GearPiece>>
   artifact?: string
+  linkedHeroId?: string
   collection?: CollectionProgress
   notes?: string
   updatedAt: string

@@ -22,6 +22,10 @@ function createSampleData(): AppData {
         furniture: 9,
         engraving: 60,
       }),
+      '98': createDefaultHeroProgress('98', {
+        artifact: 'duras-call',
+        linkedHeroId: '9',
+      }),
     },
     teams: [
       createEmptyTeam({
@@ -44,6 +48,25 @@ describe('import/export', () => {
     const parsed = parseImport(serializeExport(data))
 
     expect(parsed).toEqual(data)
+  })
+
+  it('round-trips T5 resonant and exclusive gear', () => {
+    const data = createSampleData()
+    data.heroes['9'].gear.weapon = {
+      slot: 'weapon',
+      tier: 't5',
+      stars: 5,
+      exclusive: true,
+    }
+    data.heroes['9'].gear.helmet = {
+      slot: 'helmet',
+      tier: 't2',
+      stars: 2,
+      faction: 'Wilder',
+      resonant: true,
+    }
+
+    expect(parseImport(serializeExport(data))).toEqual(data)
   })
 
   it('adds game metadata to exports', () => {

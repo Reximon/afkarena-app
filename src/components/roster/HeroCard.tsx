@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Pencil, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
-import { getFactionColor } from '@/features/heroes/heroCatalog'
+import { getFactionColor, getHeroCatalogEntry } from '@/features/heroes/heroCatalog'
 import type { HeroCatalogEntry, HeroProgress } from '@/types'
 
 interface HeroCardProps {
@@ -14,6 +14,7 @@ interface HeroCardProps {
 
 export function HeroCard({ hero, entry, onEdit, onRemove }: HeroCardProps) {
   const { t } = useTranslation()
+  const linkedEntry = hero.linkedHeroId ? getHeroCatalogEntry(hero.linkedHeroId) : undefined
 
   return (
     <article className="codex-panel-soft group overflow-hidden">
@@ -46,6 +47,11 @@ export function HeroCard({ hero, entry, onEdit, onRemove }: HeroCardProps) {
             <p className="mt-0.5 truncate font-mono text-[10px] tracking-wide text-muted">
               {t(`faction.${entry.faction}`)} · {t(`heroClass.${entry.class}`)}
             </p>
+            {linkedEntry ? (
+              <p className="mt-1 truncate text-[11px] text-cyan">
+                {t('hero.linkedTo', { name: linkedEntry.displayName })}
+              </p>
+            ) : null}
           </div>
           <div className="flex shrink-0 gap-1">
             <button
