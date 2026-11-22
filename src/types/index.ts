@@ -1,0 +1,153 @@
+export const FACTIONS = [
+  'Lightbearer',
+  'Mauler',
+  'Wilder',
+  'Graveborn',
+  'Celestial',
+  'Hypogean',
+  'Dimensional',
+  'Draconis',
+] as const
+
+export type Faction = (typeof FACTIONS)[number]
+
+export const HERO_CLASSES = ['Warrior', 'Ranger', 'Mage'] as const
+
+export type HeroClass = (typeof HERO_CLASSES)[number]
+
+export const HERO_ROLES = [
+  'Tank',
+  'Continuous Damage',
+  'Heal',
+  'Burst Damage',
+  'Control',
+  'Assassin',
+  'Buff',
+  'AoE',
+  'Debuff',
+] as const
+
+export type HeroRole = (typeof HERO_ROLES)[number]
+
+export const HERO_RARITIES = ['common', 'rare', 'elite', 'legendary'] as const
+
+export type HeroRarity = (typeof HERO_RARITIES)[number]
+
+export const ASCENSIONS = [
+  'common',
+  'rare',
+  'rare+',
+  'elite',
+  'elite+',
+  'legendary',
+  'legendary+',
+  'mythic',
+  'mythic+',
+  'ascended',
+  'ascended1',
+  'ascended2',
+  'ascended3',
+  'ascended4',
+  'ascended5',
+] as const
+
+export type Ascension = (typeof ASCENSIONS)[number]
+
+export const GEAR_SLOTS = ['weapon', 'helmet', 'chest', 'boots'] as const
+
+export type GearSlot = (typeof GEAR_SLOTS)[number]
+
+export const GEAR_TIERS = ['none', 'mythic', 't1', 't2', 't3', 't4', 't5'] as const
+
+export type GearTier = (typeof GEAR_TIERS)[number]
+
+export const TEAM_MODES = [
+  'campaign',
+  'arena',
+  'dreamRealm',
+  'guildHunt',
+  'tower',
+  'other',
+] as const
+
+export type TeamMode = (typeof TEAM_MODES)[number]
+
+export interface HeroSkin {
+  id: number
+  name: string
+}
+
+export interface HeroCatalogEntry {
+  id: string
+  name: string
+  displayName: string
+  faction: Faction
+  class: HeroClass
+  rarity: HeroRarity
+  isAwakened: boolean
+  roles: HeroRole[]
+  skins: HeroSkin[]
+}
+
+export interface HeroCatalogFile {
+  game: 'afk-arena-classic'
+  source: string
+  count: number
+  heroes: HeroCatalogEntry[]
+}
+
+export interface GearPiece {
+  slot: GearSlot
+  tier: GearTier
+  stars: 0 | 1 | 2 | 3 | 4 | 5
+  faction?: Faction
+}
+
+export interface CollectionProgress {
+  level: 0 | 1 | 2 | 3
+  mythicStats: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+}
+
+export interface HeroProgress {
+  heroId: string
+  ascension: Ascension
+  level: number
+  inCrystal: boolean
+  signatureItem: number
+  furniture: 0 | 3 | 9 
+  engraving: 0 | 30 | 60 | 80
+  gear: Partial<Record<GearSlot, GearPiece>>
+  artifact?: string
+  collection?: CollectionProgress
+  notes?: string
+  updatedAt: string
+}
+
+export interface Profile {
+  playerName?: string
+  server?: string
+  crystalLevel: number
+}
+
+export interface TeamSlot {
+  position: 1 | 2 | 3 | 4 | 5
+  row: 'front' | 'back'
+  heroId?: string
+}
+
+export interface Team {
+  id: string
+  name: string
+  mode: TeamMode
+  slots: TeamSlot[]
+  notes?: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface AppData {
+  schemaVersion: 1
+  profile: Profile
+  heroes: Record<string, HeroProgress>
+  teams: Team[]
+}

@@ -1,0 +1,239 @@
+import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Plus, Search, SlidersHorizontal, Users } from 'lucide-react'
+import { HeroCard } from '@/components/roster/HeroCard'
+import { HeroFormDialog } from '@/components/roster/HeroFormDialog'
+import { Badge } from '@/components/ui/Badge'
+import { Button } from '@/components/ui/Button'
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { EmptyState } from '@/components/ui/EmptyState'
+import { Input, Select } from '@/components/ui/Input'
+import { PageHeader } from '@/components/ui/PageHeader'
+import { getHeroCatalogEntry } from '@/features/heroes/heroCatalog'
+import { useAppStore } from '@/store/useAppStore'
+import {
+  ASCENSIONS,
+  FACTIONS,
+  HERO_CLASSES,
+  HERO_ROLES,
+  type Ascension,
+  type Faction,
+  type HeroClass,
+  type HeroRole,
+} from '@/types'
+
+type FactionFilter = Faction | 'all'
+type ClassFilter = HeroClass | 'all'
+type AscensionFilter = Ascension | 'all'
+type RoleFilter = HeroRole | 'all'
+
+export function RosterPage() {
+  const { t } = useTranslation()
+  const heroes = useAppStore((state) => state.heroes)
+  const removeHero = useAppStore((state) => state.removeHero)
+  const [search, setSearch] = useState('')
+  const [faction, setFaction] = useState<FactionFilter>('all')
+  const [heroClass, setHeroClass] = useState<ClassFilter>('all')
+  const [ascension, setAscension] = useState<AscensionFilter>('all')
+  const [role, setRole] = useState<RoleFilter>('all')
+  const [dialog, setDialog] = useState<{ heroId: string | null } | null>(null)
+  const [removeTarget, setRemoveTarget] = useState<string | null>(null)
+
+  const ownedHeroes = useMemo(
+    () =>
+      Object.values(heroes)
+        .flatMap((hero) => {
+          const entry = getHeroCatalogEntry(hero.heroId)
+          return entry ? [{ hero, entry }] : []
+        })
+        .sort((a, b) => a.entry.displayName.localeCompare(b.entry.displayName)),
+    [heroes],
+  )
+
+  const filteredHeroes = useMemo(() => {
+    const term = search.trim().toLowerCase()
+
+    return ownedHeroes.filter(({ hero, entry }) => {
+      if (
+        term &&
+        !entry.displayName.toLowerCase().includes(term) &&
+        !entry.name.toLowerCase().includes(term)
+      ) {
+        return false
+      }
+      if (faction !== 'all' && entry.faction !== faction) return false
+      if (heroClass !== 'all' && entry.class !== heroClass) return false
+      if (ascension !== 'all' && hero.ascension !== ascension) return false
+      if (role !== 'all' && !entry.roles.includes(role)) return false
+      return true
+    })
+  }, [ascension, faction, heroClass, ownedHeroes, role, search])
+
+  const hasFilters =
+    search.trim().length > 0 ||
+    faction !== 'all' ||
+    heroClass !== 'all' ||
+    ascension !== 'all' ||
+    role !== 'all'
+
+  const removeEntry = removeTarget ? getHeroCatalogEntry(removeTarget) : undefined
+
+  function clearFilters() {
+    setSearch('')
+    setFaction('all')
+    setHeroClass('all')
+    setAscension('all')
+    setRole('all')
+  }
+
+  return (
+    <div className="space-y-8">
+      <PageHeader
+        eyebrow={t('app.game')}
+        title={t('roster.title')}
+        subtitle={t('roster.subtitle')}
+        actions={
+          <>
+            <Badge variant="cyan">{t('roster.resultsCount', { count: ownedHeroes.length })}</Badge>
+            <Button onClick={() => setDialog({ heroId: null })}>
+              <Plus size={16} aria-hidden="true" />
+              {t('roster.addHero')}
+            </Button>
+          </>
+        }
+      />
+
+      <div className="codex-panel space-y-3 p-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="relative flex-1">
+            <Search
+              size={16}
+              className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted"
+              aria-hidden="true"
+            />
+            <Input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder={t('roster.searchPlaceholder')}
+              className="pl-9"
+              aria-label={t('roster.searchPlaceholder')}
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <SlidersHorizontal size={15} className="text-muted" aria-hidden="true" />
+            <span className="font-mono text-[10px] tracking-[0.16em] text-muted uppercase">
+              {t('roster.filters')}
+            </span>
+            {hasFilters ? (
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                {t('roster.clearFilters')}
+              </Button>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <Select
+            value={faction}
+            onChange={(event) => setFaction(event.target.value as FactionFilter)}
+            aria-label={t('roster.allFactions')}
+          >
+            <option value="all">{t('roster.allFactions')}</option>
+            {FACTIONS.map((value) => (
+              <option key={value} value={value}>
+                {t(`faction.${value}`)}
+              </option>
+            ))}
+          </Select>
+
+          <Select
+            value={heroClass}
+            onChange={(event) => setHeroClass(event.target.value as ClassFilter)}
+            aria-label={t('roster.allClasses')}
+          >
+            <option value="all">{t('roster.allClasses')}</option>
+            {HERO_CLASSES.map((value) => (
+              <option key={value} value={value}>
+                {t(`heroClass.${value}`)}
+              </option>
+            ))}
+          </Select>
+
+          <Select
+            value={ascension}
+            onChange={(event) => setAscension(event.target.value as AscensionFilter)}
+            aria-label={t('roster.allAscensions')}
+          >
+            <option value="all">{t('roster.allAscensions')}</option>
+            {ASCENSIONS.map((value) => (
+              <option key={value} value={value}>
+                {t(`ascension.${value}`)}
+              </option>
+            ))}
+          </Select>
+
+          <Select
+            value={role}
+            onChange={(event) => setRole(event.target.value as RoleFilter)}
+            aria-label={t('roster.allRoles')}
+          >
+            <option value="all">{t('roster.allRoles')}</option>
+            {HERO_ROLES.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
+        </div>
+      </div>
+
+      {ownedHeroes.length === 0 ? (
+        <EmptyState
+          icon={Users}
+          title={t('roster.emptyTitle')}
+          body={t('roster.emptyBody')}
+          action={
+            <Button onClick={() => setDialog({ heroId: null })}>
+              <Plus size={16} aria-hidden="true" />
+              {t('roster.addHero')}
+            </Button>
+          }
+        />
+      ) : filteredHeroes.length === 0 ? (
+        <div className="codex-panel px-6 py-12 text-center">
+          <p className="text-sm text-muted">{t('roster.noResults')}</p>
+          <Button variant="ghost" className="mt-3" onClick={clearFilters}>
+            {t('roster.clearFilters')}
+          </Button>
+        </div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          {filteredHeroes.map(({ hero, entry }) => (
+            <HeroCard
+              key={hero.heroId}
+              hero={hero}
+              entry={entry}
+              onEdit={(heroId) => setDialog({ heroId })}
+              onRemove={setRemoveTarget}
+            />
+          ))}
+        </div>
+      )}
+
+      {dialog ? <HeroFormDialog heroId={dialog.heroId} onClose={() => setDialog(null)} /> : null}
+
+      <ConfirmDialog
+        open={Boolean(removeTarget)}
+        onOpenChange={(open) => {
+          if (!open) setRemoveTarget(null)
+        }}
+        title={t('roster.removeTitle')}
+        body={t('roster.removeBody', { name: removeEntry?.displayName ?? '' })}
+        onConfirm={() => {
+          if (removeTarget) removeHero(removeTarget)
+        }}
+      />
+    </div>
+  )
+}

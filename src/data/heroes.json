@@ -1,0 +1,3908 @@
+{
+  "game": "afk-arena-classic",
+  "source": "https://raw.githubusercontent.com/afk-mine/cdn/main/unit.json",
+  "count": 255,
+  "heroes": [
+    {
+      "id": "182",
+      "name": "Adrian & Elyse",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Adrian & Elyse"
+    },
+    {
+      "id": "98",
+      "name": "Ainz Ooal Gown",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Ainz Ooal Gown"
+    },
+    {
+      "id": "131",
+      "name": "Alaro",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Alaro"
+    },
+    {
+      "id": "97",
+      "name": "Albedo",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Albedo"
+    },
+    {
+      "id": "102",
+      "name": "Alna",
+      "faction": "Celestial",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 10201,
+          "name": "Phantom's Embrace"
+        }
+      ],
+      "displayName": "Alna"
+    },
+    {
+      "id": "220",
+      "name": "Alvida",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Alvida"
+    },
+    {
+      "id": "137",
+      "name": "Anasta",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 13701,
+          "name": "Will of Gold"
+        }
+      ],
+      "displayName": "Anasta"
+    },
+    {
+      "id": "3",
+      "name": "Angelo",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Angelo"
+    },
+    {
+      "id": "11",
+      "name": "Ankhira",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Ankhira"
+    },
+    {
+      "id": "87",
+      "name": "Anoki",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Anoki"
+    },
+    {
+      "id": "47",
+      "name": "Antandra",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 4701,
+          "name": "Summer Moon"
+        }
+      ],
+      "displayName": "Antandra"
+    },
+    {
+      "id": "7",
+      "name": "Arden",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Arden"
+    },
+    {
+      "id": "31",
+      "name": "Arkadios",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Arkadios"
+    },
+    {
+      "id": "78",
+      "name": "Arthur",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Burst Damage"
+      ],
+      "skins": [
+        {
+          "id": 7801,
+          "name": "King's Break"
+        }
+      ],
+      "displayName": "Arthur"
+    },
+    {
+      "id": "126",
+      "name": "Astar",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Astar"
+    },
+    {
+      "id": "55",
+      "name": "Athalia",
+      "faction": "Celestial",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Athalia"
+    },
+    {
+      "id": "251",
+      "name": "Athena",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Athena"
+    },
+    {
+      "id": "179",
+      "name": "Atheus",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Atheus"
+    },
+    {
+      "id": "132",
+      "name": "Audrae",
+      "faction": "Celestial",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Audrae"
+    },
+    {
+      "id": "202",
+      "name": "Aurelia",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 20201,
+          "name": "Fantasia Blossoms"
+        }
+      ],
+      "displayName": "Aurelia"
+    },
+    {
+      "id": "196",
+      "name": "Antandra",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Antandra"
+    },
+    {
+      "id": "161",
+      "name": "Athalia",
+      "faction": "Celestial",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Burst Damage",
+        "Assassin"
+      ],
+      "skins": [],
+      "displayName": "Awakened Athalia"
+    },
+    {
+      "id": "148",
+      "name": "Baden",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Awakened Baden"
+    },
+    {
+      "id": "153",
+      "name": "Belinda",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Burst Damage",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Awakened Belinda"
+    },
+    {
+      "id": "139",
+      "name": "Brutus",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Brutus"
+    },
+    {
+      "id": "201",
+      "name": "Eironn",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Awakened Eironn"
+    },
+    {
+      "id": "248",
+      "name": "Eluard",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Burst Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Awakened Eluard"
+    },
+    {
+      "id": "214",
+      "name": "Envydiel",
+      "faction": "Hypogean",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Envydiel"
+    },
+    {
+      "id": "221",
+      "name": "Estrilda",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Awakened Estrilda"
+    },
+    {
+      "id": "178",
+      "name": "Eugene",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "AoE",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Awakened Eugene"
+    },
+    {
+      "id": "130",
+      "name": "Ezizh",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Awakened Ezizh"
+    },
+    {
+      "id": "232",
+      "name": "Fawkes",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Awakened Fawkes"
+    },
+    {
+      "id": "177",
+      "name": "Gavus",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Gavus"
+    },
+    {
+      "id": "244",
+      "name": "Hybris",
+      "faction": "Hypogean",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Burst Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Hybris"
+    },
+    {
+      "id": "181",
+      "name": "Lucius",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Awakened Lucius"
+    },
+    {
+      "id": "170",
+      "name": "Lyca",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Lyca"
+    },
+    {
+      "id": "157",
+      "name": "Maetria",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Maetria"
+    },
+    {
+      "id": "238",
+      "name": "Pippa",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Burst Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Awakened Pippa"
+    },
+    {
+      "id": "165",
+      "name": "Safiya",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Buff",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Awakened Safiya"
+    },
+    {
+      "id": "173",
+      "name": "Shemira",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Tank",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Shemira"
+    },
+    {
+      "id": "228",
+      "name": "Skriath",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Skriath"
+    },
+    {
+      "id": "143",
+      "name": "Solise",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Heal",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Solise"
+    },
+    {
+      "id": "124",
+      "name": "Talene",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Buff",
+        "Heal"
+      ],
+      "skins": [],
+      "displayName": "Awakened Talene"
+    },
+    {
+      "id": "134",
+      "name": "Thane",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Burst Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Thane"
+    },
+    {
+      "id": "258",
+      "name": "Theowyn",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Buff",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Awakened Theowyn"
+    },
+    {
+      "id": "205",
+      "name": "Thoran",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Tank",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Awakened Thoran"
+    },
+    {
+      "id": "209",
+      "name": "Zohra",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": true,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Awakened Zohra"
+    },
+    {
+      "id": "49",
+      "name": "Baden",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 4901,
+          "name": "The Star of Rayne"
+        }
+      ],
+      "displayName": "Baden"
+    },
+    {
+      "id": "231",
+      "name": "Begris",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Begris"
+    },
+    {
+      "id": "20",
+      "name": "Belinda",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 2001,
+          "name": "Summer Belle"
+        }
+      ],
+      "displayName": "Belinda"
+    },
+    {
+      "id": "29",
+      "name": "Bloodsnarl",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Bloodsnarl"
+    },
+    {
+      "id": "260",
+      "name": "Brenna",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Brenna"
+    },
+    {
+      "id": "183",
+      "name": "Bronn",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Bronn"
+    },
+    {
+      "id": "9",
+      "name": "Brutus",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Burst Damage"
+      ],
+      "skins": [
+        {
+          "id": 901,
+          "name": "Lone Guardian"
+        },
+        {
+          "id": 902,
+          "name": "Blazefury"
+        },
+        {
+          "id": 903,
+          "name": "Mighty Guardian"
+        }
+      ],
+      "displayName": "Brutus"
+    },
+    {
+      "id": "146",
+      "name": "Canisa & Ruke",
+      "faction": "Hypogean",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Canisa & Ruke"
+    },
+    {
+      "id": "189",
+      "name": "Cassius",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Cassius"
+    },
+    {
+      "id": "66",
+      "name": "Cecilia",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Cecilia"
+    },
+    {
+      "id": "225",
+      "name": "Cha Hae-in",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Cha Hae-in"
+    },
+    {
+      "id": "158",
+      "name": "Crassio",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Assassin"
+      ],
+      "skins": [],
+      "displayName": "Crassio"
+    },
+    {
+      "id": "163",
+      "name": "Daemia",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [
+        {
+          "id": 16301,
+          "name": "Dragon's Howl"
+        },
+        {
+          "id": 16302,
+          "name": "Scorching Solstice"
+        }
+      ],
+      "displayName": "Daemia"
+    },
+    {
+      "id": "90",
+      "name": "Daimon",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 9001,
+          "name": "The Glacial Child"
+        }
+      ],
+      "displayName": "Daimon"
+    },
+    {
+      "id": "109",
+      "name": "Desira",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Desira"
+    },
+    {
+      "id": "192",
+      "name": "Draconis Archer",
+      "faction": "Draconis",
+      "class": "Ranger",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Draconis Archer"
+    },
+    {
+      "id": "191",
+      "name": "Draconis Warrior",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Draconis Warrior"
+    },
+    {
+      "id": "242",
+      "name": "Dracula",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Heal"
+      ],
+      "skins": [
+        {
+          "id": 24201,
+          "name": "Sanguine Feast"
+        }
+      ],
+      "displayName": "Dracula"
+    },
+    {
+      "id": "19",
+      "name": "Dreaf",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Dreaf"
+    },
+    {
+      "id": "77",
+      "name": "Drez",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Assassin"
+      ],
+      "skins": [],
+      "displayName": "Drez"
+    },
+    {
+      "id": "156",
+      "name": "Edwin",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Edwin"
+    },
+    {
+      "id": "48",
+      "name": "Eironn",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Debuff"
+      ],
+      "skins": [
+        {
+          "id": 4801,
+          "name": "Maplefrost Edge"
+        }
+      ],
+      "displayName": "Eironn"
+    },
+    {
+      "id": "30",
+      "name": "Eletha",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Eletha"
+    },
+    {
+      "id": "62",
+      "name": "Elijah & Lailah",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Heal"
+      ],
+      "skins": [
+        {
+          "id": 6201,
+          "name": "Tango D'Anima"
+        }
+      ],
+      "displayName": "Elijah & Lailah"
+    },
+    {
+      "id": "234",
+      "name": "Elthara",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Elthara"
+    },
+    {
+      "id": "105",
+      "name": "Eluard",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Eluard"
+    },
+    {
+      "id": "159",
+      "name": "Emilia",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Emilia"
+    },
+    {
+      "id": "141",
+      "name": "Eorin",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Assassin"
+      ],
+      "skins": [],
+      "displayName": "Eorin"
+    },
+    {
+      "id": "4",
+      "name": "Estrilda",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 401,
+          "name": "Dusk Roamer"
+        }
+      ],
+      "displayName": "Estrilda"
+    },
+    {
+      "id": "92",
+      "name": "Ezio",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Ezio"
+    },
+    {
+      "id": "56",
+      "name": "Ezizh",
+      "faction": "Hypogean",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Ezizh"
+    },
+    {
+      "id": "129",
+      "name": "Fane",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Fane"
+    },
+    {
+      "id": "37",
+      "name": "Fawkes",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Fawkes"
+    },
+    {
+      "id": "41",
+      "name": "Ferael",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Ferael"
+    },
+    {
+      "id": "89",
+      "name": "Flora",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "AoE"
+      ],
+      "skins": [
+        {
+          "id": 8901,
+          "name": "The Sweet Prancer"
+        }
+      ],
+      "displayName": "Flora"
+    },
+    {
+      "id": "125",
+      "name": "Framton",
+      "faction": "Hypogean",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Framton"
+    },
+    {
+      "id": "144",
+      "name": "Geralt",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Geralt"
+    },
+    {
+      "id": "162",
+      "name": "Ginneas",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Ginneas"
+    },
+    {
+      "id": "12",
+      "name": "Golus",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Golus"
+    },
+    {
+      "id": "229",
+      "name": "Gorok",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Gorok"
+    },
+    {
+      "id": "208",
+      "name": "Gorren",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Gorren"
+    },
+    {
+      "id": "57",
+      "name": "Gorvo",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Gorvo"
+    },
+    {
+      "id": "190",
+      "name": "Gourgue",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Gourgue"
+    },
+    {
+      "id": "118",
+      "name": "Granit",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Granit"
+    },
+    {
+      "id": "259",
+      "name": "Greisman",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Greisman"
+    },
+    {
+      "id": "25",
+      "name": "Grezhul",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 2501,
+          "name": "The Loyal Protector"
+        },
+        {
+          "id": 2502,
+          "name": "Hellforged Shackles"
+        }
+      ],
+      "displayName": "Grezhul"
+    },
+    {
+      "id": "186",
+      "name": "Gwyneth",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Gwyneth (Draconis)"
+    },
+    {
+      "id": "60",
+      "name": "Gwyneth",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [
+        {
+          "id": 6001,
+          "name": "The Musical Rose"
+        }
+      ],
+      "displayName": "Gwyneth (Lightbearer)"
+    },
+    {
+      "id": "212",
+      "name": "Haelia",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Haelia"
+    },
+    {
+      "id": "121",
+      "name": "Haelus",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Debuff"
+      ],
+      "skins": [
+        {
+          "id": 12101,
+          "name": "The Puppet Master"
+        }
+      ],
+      "displayName": "Haelus"
+    },
+    {
+      "id": "241",
+      "name": "Harvey",
+      "faction": "Hypogean",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Harvey"
+    },
+    {
+      "id": "50",
+      "name": "Hendrik",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Hendrik"
+    },
+    {
+      "id": "185",
+      "name": "Hildwin",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Hildwin"
+    },
+    {
+      "id": "115",
+      "name": "Hodgkin",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Debuff"
+      ],
+      "skins": [
+        {
+          "id": 11501,
+          "name": "Captain Claw"
+        }
+      ],
+      "displayName": "Hodgkin"
+    },
+    {
+      "id": "1",
+      "name": "Hogan",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Hogan"
+    },
+    {
+      "id": "239",
+      "name": "Icariel",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Icariel"
+    },
+    {
+      "id": "2",
+      "name": "Ira",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Ira"
+    },
+    {
+      "id": "33",
+      "name": "Isabella",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Assassin"
+      ],
+      "skins": [],
+      "displayName": "Isabella"
+    },
+    {
+      "id": "166",
+      "name": "Ivan",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 16601,
+          "name": "Ashen Revenant"
+        }
+      ],
+      "displayName": "Ivan"
+    },
+    {
+      "id": "71",
+      "name": "Izold",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 7101,
+          "name": "Pop Prodigy"
+        }
+      ],
+      "displayName": "Izold"
+    },
+    {
+      "id": "171",
+      "name": "Jerome",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 17101,
+          "name": "Savoir Faire"
+        }
+      ],
+      "displayName": "Jerome"
+    },
+    {
+      "id": "140",
+      "name": "Joan of Arc",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Heal"
+      ],
+      "skins": [],
+      "displayName": "Joan of Arc"
+    },
+    {
+      "id": "101",
+      "name": "JOKER",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "JOKER"
+    },
+    {
+      "id": "247",
+      "name": "Judy & Punch",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 24701,
+          "name": "Miss Marionette"
+        }
+      ],
+      "displayName": "Judy & Punch"
+    },
+    {
+      "id": "226",
+      "name": "Kaelon",
+      "faction": "Draconis",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Kaelon"
+    },
+    {
+      "id": "256",
+      "name": "Kafka Hibino",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Kafka Hibino"
+    },
+    {
+      "id": "138",
+      "name": "Kalene",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Kalene"
+    },
+    {
+      "id": "184",
+      "name": "Kalthin",
+      "faction": "Hypogean",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Kalthin"
+    },
+    {
+      "id": "14",
+      "name": "Kaz",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Tank"
+      ],
+      "skins": [],
+      "displayName": "Kaz"
+    },
+    {
+      "id": "58",
+      "name": "Kelthur",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Kelthur"
+    },
+    {
+      "id": "26",
+      "name": "Khasos",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Khasos"
+    },
+    {
+      "id": "76",
+      "name": "Khazard",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Khazard"
+    },
+    {
+      "id": "257",
+      "name": "Kikoru Shinomiya",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Kikoru Shinomiya"
+    },
+    {
+      "id": "206",
+      "name": "Knox",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Knox"
+    },
+    {
+      "id": "203",
+      "name": "Kregor",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Kregor"
+    },
+    {
+      "id": "103",
+      "name": "Kren",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 10301,
+          "name": "Screaming Notes"
+        }
+      ],
+      "displayName": "Kren"
+    },
+    {
+      "id": "250",
+      "name": "Kyno",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Kyno"
+    },
+    {
+      "id": "174",
+      "name": "Lady Simona",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Lady Simona"
+    },
+    {
+      "id": "218",
+      "name": "Laios",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Laios"
+    },
+    {
+      "id": "199",
+      "name": "Lan",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Lan"
+    },
+    {
+      "id": "175",
+      "name": "Lavatune",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 17501,
+          "name": "Solo Strummer"
+        }
+      ],
+      "displayName": "Lavatune"
+    },
+    {
+      "id": "111",
+      "name": "Leofric",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Leofric"
+    },
+    {
+      "id": "119",
+      "name": "Leonardo",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Leonardo"
+    },
+    {
+      "id": "233",
+      "name": "Lethos",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Lethos"
+    },
+    {
+      "id": "219",
+      "name": "Leviathan",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Leviathan"
+    },
+    {
+      "id": "169",
+      "name": "Liberta",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Heal"
+      ],
+      "skins": [
+        {
+          "id": 16901,
+          "name": "Radiant Blessings"
+        },
+        {
+          "id": 16902,
+          "name": "Radiance in Ruin"
+        }
+      ],
+      "displayName": "Liberta"
+    },
+    {
+      "id": "65",
+      "name": "Lorsan",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Debuff"
+      ],
+      "skins": [
+        {
+          "id": 6501,
+          "name": "Soul Singer"
+        }
+      ],
+      "displayName": "Lorsan"
+    },
+    {
+      "id": "168",
+      "name": "Lucilla",
+      "faction": "Hypogean",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 16801,
+          "name": "Frost Fairy"
+        },
+        {
+          "id": 16802,
+          "name": "Nocturnal Eclipse"
+        }
+      ],
+      "displayName": "Lucilla"
+    },
+    {
+      "id": "44",
+      "name": "Lucius",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 4401,
+          "name": "The Mariner"
+        }
+      ],
+      "displayName": "Lucius"
+    },
+    {
+      "id": "93",
+      "name": "Lucretia",
+      "faction": "Hypogean",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 9301,
+          "name": "The Resplendent Dancer"
+        }
+      ],
+      "displayName": "Lucretia"
+    },
+    {
+      "id": "16",
+      "name": "Lyca",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 1601,
+          "name": "The Glade Keeper"
+        }
+      ],
+      "displayName": "Lyca"
+    },
+    {
+      "id": "215",
+      "name": "Lysander",
+      "faction": "Celestial",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Lysander"
+    },
+    {
+      "id": "180",
+      "name": "Malkrie",
+      "faction": "Celestial",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Malkrie"
+    },
+    {
+      "id": "217",
+      "name": "Marcille",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Marcille"
+    },
+    {
+      "id": "252",
+      "name": "Medusa",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Medusa"
+    },
+    {
+      "id": "59",
+      "name": "Mehira",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 5901,
+          "name": "Summer's Desire"
+        }
+      ],
+      "displayName": "Mehira"
+    },
+    {
+      "id": "197",
+      "name": "Melion",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Melion"
+    },
+    {
+      "id": "128",
+      "name": "Melusina",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Melusina"
+    },
+    {
+      "id": "18",
+      "name": "Merek",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Merek"
+    },
+    {
+      "id": "112",
+      "name": "Merlin",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Merlin"
+    },
+    {
+      "id": "85",
+      "name": "Mezoth",
+      "faction": "Hypogean",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Mezoth"
+    },
+    {
+      "id": "213",
+      "name": "Mira",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Mira"
+    },
+    {
+      "id": "13",
+      "name": "Mirael",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Mirael"
+    },
+    {
+      "id": "245",
+      "name": "Misfortis",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Misfortis"
+    },
+    {
+      "id": "200",
+      "name": "Misha",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Misha"
+    },
+    {
+      "id": "120",
+      "name": "Mishka",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 12001,
+          "name": "Polar Predator"
+        }
+      ],
+      "displayName": "Mishka"
+    },
+    {
+      "id": "108",
+      "name": "Morael",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Morael"
+    },
+    {
+      "id": "116",
+      "name": "Morrow",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Morrow"
+    },
+    {
+      "id": "99",
+      "name": "Mortas",
+      "faction": "Hypogean",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 9901,
+          "name": "Raven Eclipse"
+        }
+      ],
+      "displayName": "Mortas"
+    },
+    {
+      "id": "10",
+      "name": "Morvus",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Morvus"
+    },
+    {
+      "id": "152",
+      "name": "Mulan",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Mulan"
+    },
+    {
+      "id": "75",
+      "name": "Nakoruru",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Assassin"
+      ],
+      "skins": [],
+      "displayName": "Nakoruru"
+    },
+    {
+      "id": "39",
+      "name": "Nara",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Burst Damage"
+      ],
+      "skins": [
+        {
+          "id": 3901,
+          "name": "Mad Hatter"
+        }
+      ],
+      "displayName": "Nara"
+    },
+    {
+      "id": "167",
+      "name": "Naroko",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Naroko"
+    },
+    {
+      "id": "5",
+      "name": "Nemora",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Nemora"
+    },
+    {
+      "id": "147",
+      "name": "Nevanthi",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 14701,
+          "name": "Lazy Afternoon"
+        }
+      ],
+      "displayName": "Nevanthi"
+    },
+    {
+      "id": "8",
+      "name": "Niru",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 801,
+          "name": "Winter Reaper"
+        }
+      ],
+      "displayName": "Niru"
+    },
+    {
+      "id": "36",
+      "name": "Numisu",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Numisu"
+    },
+    {
+      "id": "187",
+      "name": "Nyla",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Nyla"
+    },
+    {
+      "id": "67",
+      "name": "Oden",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Debuff"
+      ],
+      "skins": [
+        {
+          "id": 6701,
+          "name": "Silverscale Splendor"
+        }
+      ],
+      "displayName": "Oden"
+    },
+    {
+      "id": "240",
+      "name": "Odysseus",
+      "faction": "Draconis",
+      "class": "Warrior",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Odysseus"
+    },
+    {
+      "id": "6",
+      "name": "Ogi",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Ogi"
+    },
+    {
+      "id": "133",
+      "name": "Oku",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Oku"
+    },
+    {
+      "id": "155",
+      "name": "Olgath",
+      "faction": "Hypogean",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Olgath"
+    },
+    {
+      "id": "255",
+      "name": "Oren",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Assassin"
+      ],
+      "skins": [],
+      "displayName": "Oren"
+    },
+    {
+      "id": "69",
+      "name": "Orthros",
+      "faction": "Celestial",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Orthros"
+    },
+    {
+      "id": "72",
+      "name": "Oscar",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Oscar"
+    },
+    {
+      "id": "150",
+      "name": "Palmer",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Heal"
+      ],
+      "skins": [
+        {
+          "id": 15001,
+          "name": "Glory of Faith"
+        }
+      ],
+      "displayName": "Palmer"
+    },
+    {
+      "id": "107",
+      "name": "Peggy",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 10701,
+          "name": "Unfettered Travels"
+        }
+      ],
+      "displayName": "Peggy"
+    },
+    {
+      "id": "94",
+      "name": "Pippa",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 9401,
+          "name": "Candlelit Shadow"
+        }
+      ],
+      "displayName": "Pippa"
+    },
+    {
+      "id": "95",
+      "name": "Prince of Persia",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Assassin"
+      ],
+      "skins": [],
+      "displayName": "Prince of Persia"
+    },
+    {
+      "id": "188",
+      "name": "Pulina",
+      "faction": "Draconis",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Pulina"
+    },
+    {
+      "id": "100",
+      "name": "QUEEN",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "QUEEN"
+    },
+    {
+      "id": "34",
+      "name": "Raine",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 3401,
+          "name": "Echo Blossoms"
+        }
+      ],
+      "displayName": "Raine"
+    },
+    {
+      "id": "106",
+      "name": "Raku",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 10601,
+          "name": "Naughty Sailor"
+        }
+      ],
+      "displayName": "Raku"
+    },
+    {
+      "id": "204",
+      "name": "Randle",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Randle"
+    },
+    {
+      "id": "198",
+      "name": "Raoul",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Raoul"
+    },
+    {
+      "id": "160",
+      "name": "Rem",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Rem"
+    },
+    {
+      "id": "104",
+      "name": "Respen",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Respen"
+    },
+    {
+      "id": "68",
+      "name": "Rigby",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Rigby"
+    },
+    {
+      "id": "195",
+      "name": "Rimuru",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Rimuru"
+    },
+    {
+      "id": "172",
+      "name": "Robin Hood",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Robin Hood"
+    },
+    {
+      "id": "61",
+      "name": "Rosaline",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 6101,
+          "name": "Lost Dreams"
+        },
+        {
+          "id": 6102,
+          "name": "Glasswork Dream"
+        }
+      ],
+      "displayName": "Rosaline"
+    },
+    {
+      "id": "52",
+      "name": "Rowan",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Heal"
+      ],
+      "skins": [
+        {
+          "id": 5201,
+          "name": "True Baller"
+        }
+      ],
+      "displayName": "Rowan"
+    },
+    {
+      "id": "51",
+      "name": "Safiya",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 5101,
+          "name": "Spring Glee"
+        }
+      ],
+      "displayName": "Safiya"
+    },
+    {
+      "id": "236",
+      "name": "Saitama",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Saitama"
+    },
+    {
+      "id": "149",
+      "name": "Salaki",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Salaki"
+    },
+    {
+      "id": "54",
+      "name": "Satrana",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "AoE"
+      ],
+      "skins": [
+        {
+          "id": 5401,
+          "name": "Wintry Blaze "
+        }
+      ],
+      "displayName": "Satrana"
+    },
+    {
+      "id": "74",
+      "name": "Saurus",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 7401,
+          "name": "Winter Explorer"
+        }
+      ],
+      "displayName": "Saurus"
+    },
+    {
+      "id": "23",
+      "name": "Saveas",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Saveas"
+    },
+    {
+      "id": "127",
+      "name": "Scarlet",
+      "faction": "Lightbearer",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 12701,
+          "name": "Dancing Waves"
+        }
+      ],
+      "displayName": "Scarlet"
+    },
+    {
+      "id": "46",
+      "name": "Seirus",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Seirus"
+    },
+    {
+      "id": "230",
+      "name": "Selene",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Selene"
+    },
+    {
+      "id": "223",
+      "name": "Serenmira",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Serenmira"
+    },
+    {
+      "id": "243",
+      "name": "Serennia",
+      "faction": "Draconis",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Serennia"
+    },
+    {
+      "id": "246",
+      "name": "Severin",
+      "faction": "Draconis",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Severin"
+    },
+    {
+      "id": "21",
+      "name": "Sezis",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Sezis"
+    },
+    {
+      "id": "210",
+      "name": "Shalltear Bloodfallen",
+      "faction": "Dimensional",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Shalltear Bloodfallen"
+    },
+    {
+      "id": "27",
+      "name": "Shemira",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 2701,
+          "name": "Frozen Enchantress"
+        }
+      ],
+      "displayName": "Shemira"
+    },
+    {
+      "id": "194",
+      "name": "Shuna",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Shuna"
+    },
+    {
+      "id": "63",
+      "name": "Silas",
+      "faction": "Graveborn",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Heal"
+      ],
+      "skins": [],
+      "displayName": "Silas"
+    },
+    {
+      "id": "15",
+      "name": "Silvina",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Silvina"
+    },
+    {
+      "id": "211",
+      "name": "Sion",
+      "faction": "Draconis",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Sion"
+    },
+    {
+      "id": "38",
+      "name": "Skreg",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 3801,
+          "name": "Bake Boss"
+        }
+      ],
+      "displayName": "Skreg"
+    },
+    {
+      "id": "83",
+      "name": "Skriath",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Control"
+      ],
+      "skins": [
+        {
+          "id": 8301,
+          "name": "The Kingpin"
+        }
+      ],
+      "displayName": "Skriath"
+    },
+    {
+      "id": "207",
+      "name": "Skylan",
+      "faction": "Draconis",
+      "class": "Ranger",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Skylan"
+    },
+    {
+      "id": "80",
+      "name": "Solise",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 8001,
+          "name": "Bountiful Bolero"
+        }
+      ],
+      "displayName": "Solise"
+    },
+    {
+      "id": "136",
+      "name": "Sonja",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Tank"
+      ],
+      "skins": [],
+      "displayName": "Sonja"
+    },
+    {
+      "id": "17",
+      "name": "Steixius",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Steixius"
+    },
+    {
+      "id": "224",
+      "name": "Sung Jinwoo",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Sung Jinwoo"
+    },
+    {
+      "id": "73",
+      "name": "Talene",
+      "faction": "Celestial",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Heal"
+      ],
+      "skins": [
+        {
+          "id": 7301,
+          "name": "Phoenix's Vow"
+        }
+      ],
+      "displayName": "Talene"
+    },
+    {
+      "id": "227",
+      "name": "Talimar",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 22701,
+          "name": "Sunlit Angler"
+        }
+      ],
+      "displayName": "Talimar"
+    },
+    {
+      "id": "154",
+      "name": "Tamrus",
+      "faction": "Wilder",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Tamrus"
+    },
+    {
+      "id": "142",
+      "name": "Tarnos",
+      "faction": "Celestial",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Tarnos"
+    },
+    {
+      "id": "28",
+      "name": "Tasi",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [
+        {
+          "id": 2801,
+          "name": "The Spring Bloom"
+        },
+        {
+          "id": 2802,
+          "name": "Nocturnal Embrace"
+        }
+      ],
+      "displayName": "Tasi"
+    },
+    {
+      "id": "235",
+      "name": "Tavriel",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Tavriel"
+    },
+    {
+      "id": "237",
+      "name": "Terrible Tornado",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Terrible Tornado"
+    },
+    {
+      "id": "253",
+      "name": "Thalassa",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "legendary",
+      "isAwakened": false,
+      "roles": [
+        "Heal",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Thalassa"
+    },
+    {
+      "id": "113",
+      "name": "Thali",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Thali"
+    },
+    {
+      "id": "45",
+      "name": "Thane",
+      "faction": "Lightbearer",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Thane"
+    },
+    {
+      "id": "91",
+      "name": "Theowyn",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Theowyn"
+    },
+    {
+      "id": "123",
+      "name": "Thesku",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Thesku"
+    },
+    {
+      "id": "32",
+      "name": "Thoran",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Burst Damage"
+      ],
+      "skins": [
+        {
+          "id": 3201,
+          "name": "Treacherous Tyrant"
+        }
+      ],
+      "displayName": "Thoran"
+    },
+    {
+      "id": "70",
+      "name": "Tidus",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Tidus"
+    },
+    {
+      "id": "114",
+      "name": "Titus",
+      "faction": "Celestial",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Titus"
+    },
+    {
+      "id": "88",
+      "name": "Torne",
+      "faction": "Graveborn",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Torne"
+    },
+    {
+      "id": "122",
+      "name": "Treznor",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Treznor"
+    },
+    {
+      "id": "164",
+      "name": "Trishea",
+      "faction": "Wilder",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Burst Damage"
+      ],
+      "skins": [
+        {
+          "id": 16401,
+          "name": "Eye of Fate"
+        }
+      ],
+      "displayName": "Trishea"
+    },
+    {
+      "id": "249",
+      "name": "Trix",
+      "faction": "Hypogean",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Trix"
+    },
+    {
+      "id": "86",
+      "name": "Ukyo",
+      "faction": "Dimensional",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Ukyo"
+    },
+    {
+      "id": "42",
+      "name": "Ulmus",
+      "faction": "Wilder",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Heal"
+      ],
+      "skins": [],
+      "displayName": "Ulmus"
+    },
+    {
+      "id": "22",
+      "name": "Ulric",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "common",
+      "isAwakened": false,
+      "roles": [
+        "Control",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Ulric"
+    },
+    {
+      "id": "222",
+      "name": "Umbriel",
+      "faction": "Draconis",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Umbriel"
+    },
+    {
+      "id": "254",
+      "name": "Valeri",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Valeri"
+    },
+    {
+      "id": "24",
+      "name": "Vedan",
+      "faction": "Graveborn",
+      "class": "Ranger",
+      "rarity": "rare",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Vedan"
+    },
+    {
+      "id": "151",
+      "name": "Veithael",
+      "faction": "Celestial",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Tank",
+        "Continuous Damage"
+      ],
+      "skins": [
+        {
+          "id": 15101,
+          "name": "Fearless Sword"
+        }
+      ],
+      "displayName": "Veithael"
+    },
+    {
+      "id": "216",
+      "name": "Velufira",
+      "faction": "Draconis",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Buff"
+      ],
+      "skins": [],
+      "displayName": "Velufira"
+    },
+    {
+      "id": "176",
+      "name": "Vika",
+      "faction": "Mauler",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Vika"
+    },
+    {
+      "id": "193",
+      "name": "Villanelle",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Debuff",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Villanelle"
+    },
+    {
+      "id": "35",
+      "name": "Vurk",
+      "faction": "Mauler",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "AoE",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Vurk"
+    },
+    {
+      "id": "135",
+      "name": "Vyloris",
+      "faction": "Hypogean",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Burst Damage",
+        "Debuff"
+      ],
+      "skins": [],
+      "displayName": "Vyloris"
+    },
+    {
+      "id": "110",
+      "name": "Walker",
+      "faction": "Lightbearer",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Walker"
+    },
+    {
+      "id": "43",
+      "name": "Warek",
+      "faction": "Mauler",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Tank"
+      ],
+      "skins": [],
+      "displayName": "Warek"
+    },
+    {
+      "id": "84",
+      "name": "Wu Kong",
+      "faction": "Celestial",
+      "class": "Warrior",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Tank"
+      ],
+      "skins": [
+        {
+          "id": 8401,
+          "name": "Lord of the Mountains"
+        }
+      ],
+      "displayName": "Wu Kong"
+    },
+    {
+      "id": "145",
+      "name": "Yennefer",
+      "faction": "Dimensional",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Buff",
+        "Control"
+      ],
+      "skins": [],
+      "displayName": "Yennefer"
+    },
+    {
+      "id": "96",
+      "name": "Zaphrael",
+      "faction": "Celestial",
+      "class": "Mage",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "AoE"
+      ],
+      "skins": [],
+      "displayName": "Zaphrael"
+    },
+    {
+      "id": "117",
+      "name": "Zikis",
+      "faction": "Hypogean",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Continuous Damage",
+        "Burst Damage"
+      ],
+      "skins": [],
+      "displayName": "Zikis"
+    },
+    {
+      "id": "64",
+      "name": "Zolrath",
+      "faction": "Hypogean",
+      "class": "Ranger",
+      "rarity": "elite",
+      "isAwakened": false,
+      "roles": [
+        "Assassin",
+        "Continuous Damage"
+      ],
+      "skins": [],
+      "displayName": "Zolrath"
+    }
+  ]
+}
