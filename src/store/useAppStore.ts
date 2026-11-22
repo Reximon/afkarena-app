@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { AppData, HeroProgress, Profile, Team } from '@/types'
+import type { AppData, CollectionProgress, HeroProgress, Profile, Team } from '@/types'
 import { createEmptyAppData, createEmptyTeam } from '@/features/persistence/defaults'
 import { createId } from '@/lib/id'
 
@@ -10,6 +10,10 @@ interface AppState extends AppData {
   addHero: (hero: HeroProgress) => void
   updateHero: (heroId: string, patch: Partial<HeroProgress>) => void
   removeHero: (heroId: string) => void
+  assignArtifact: (heroId: string, artifactId: string) => void
+  unassignArtifact: (heroId: string) => void
+  assignCollection: (heroId: string, collection: CollectionProgress) => void
+  unassignCollection: (heroId: string) => void
   setProfile: (patch: Partial<Profile>) => void
   createTeam: (overrides?: Partial<Team>) => string
   updateTeam: (teamId: string, patch: Partial<Team>) => void
@@ -72,6 +76,84 @@ export const useAppStore = create<AppState>()(
               ),
               updatedAt: new Date().toISOString(),
             })),
+          }
+        })
+      },
+
+      assignArtifact: (heroId, artifactId) => {
+        set((state) => {
+          const current = state.heroes[heroId]
+          if (!current) return state
+
+          return {
+            heroes: {
+              ...state.heroes,
+              [heroId]: {
+                ...current,
+                artifact: artifactId,
+                collection: current.collection
+                  ? { ...current.collection, collectionId: undefined }
+                  : undefined,
+                updatedAt: new Date().toISOString(),
+              },
+            },
+          }
+        })
+      },
+
+      unassignArtifact: (heroId) => {
+        set((state) => {
+          const current = state.heroes[heroId]
+          if (!current) return state
+
+          return {
+            heroes: {
+              ...state.heroes,
+              [heroId]: {
+                ...current,
+                artifact: undefined,
+                updatedAt: new Date().toISOString(),
+              },
+            },
+          }
+        })
+      },
+
+      assignCollection: (heroId, collection) => {
+        set((state) => {
+          const current = state.heroes[heroId]
+          if (!current) return state
+
+          return {
+            heroes: {
+              ...state.heroes,
+              [heroId]: {
+                ...current,
+                artifact: undefined,
+                collection,
+                updatedAt: new Date().toISOString(),
+              },
+            },
+          }
+        })
+      },
+
+      unassignCollection: (heroId) => {
+        set((state) => {
+          const current = state.heroes[heroId]
+          if (!current) return state
+
+          return {
+            heroes: {
+              ...state.heroes,
+              [heroId]: {
+                ...current,
+                collection: current.collection
+                  ? { ...current.collection, collectionId: undefined }
+                  : undefined,
+                updatedAt: new Date().toISOString(),
+              },
+            },
           }
         })
       },

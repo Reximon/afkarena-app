@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "sync:heroes": "node scripts/sync-heroes.mjs",
+    "sync:hero-classes": "node scripts/sync-hero-classes.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,9 +1,21 @@
 import catalogJson from '@/data/heroes.json'
-import type { Faction, HeroCatalogEntry, HeroCatalogFile } from '@/types'
+import heroClassesJson from '@/data/hero-classes.json'
+import type {
+  Faction,
+  HeroCatalogEntry,
+  HeroCatalogFile,
+  HeroClass,
+  HeroClassFile,
+} from '@/types'
 
 const catalog = catalogJson as HeroCatalogFile
+const heroClasses = heroClassesJson as HeroClassFile
 
-export const heroCatalog = catalog.heroes
+export const heroCatalog: HeroCatalogEntry[] = catalog.heroes.map((hero) => ({
+  ...hero,
+  type: hero.class,
+  class: heroClasses.classes[hero.id],
+}))
 export const heroCatalogCount = catalog.count
 export const heroCatalogGame = catalog.game
 
@@ -30,4 +42,10 @@ export function getHeroDisplayName(heroId: string): string {
 
 export function getFactionColor(faction: Faction): string {
   return FACTION_COLORS[faction]
+}
+
+export function getHeroClassKey(
+  hero: HeroCatalogEntry,
+): `heroClass.${HeroClass | 'Unknown'}` {
+  return hero.class ? `heroClass.${hero.class}` : 'heroClass.Unknown'
 }

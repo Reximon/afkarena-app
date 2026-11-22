@@ -21,6 +21,12 @@ function createSampleData(): AppData {
         signatureItem: 30,
         furniture: 9,
         engraving: 60,
+        collection: {
+          collectionId: 'temporal-cover',
+          level: 7,
+          skillLevel: 2,
+          mythicStats: 4,
+        },
       }),
       '98': createDefaultHeroProgress('98', {
         artifact: 'duras-call',
@@ -75,6 +81,19 @@ describe('import/export', () => {
     expect(exported.app).toBe('afk-astral-codex')
     expect(exported.game).toBe('afk-arena-classic')
     expect(exported.exportedAt).toEqual(expect.any(String))
+  })
+
+  it('accepts legacy collections without id or skill level', () => {
+    const raw = JSON.parse(serializeExport(createSampleData()))
+    raw.heroes['9'].collection = { level: 3, mythicStats: 2 }
+
+    const parsed = parseImport(JSON.stringify(raw))
+
+    expect(parsed.heroes['9'].collection).toEqual({
+      level: 3,
+      skillLevel: 0,
+      mythicStats: 2,
+    })
   })
 
   it('rejects backups from another game', () => {

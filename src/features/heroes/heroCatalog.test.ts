@@ -14,6 +14,20 @@ describe('hero catalog', () => {
     expect(heroCatalogById.get('98')?.displayName).toBe('Ainz Ooal Gown')
   })
 
+  it('resolves the five real hero classes', () => {
+    expect(heroCatalogById.get('9')?.class).toBe('Tank')
+    expect(heroCatalogById.get('52')?.class).toBe('Support')
+    expect(heroCatalogById.get('98')?.class).toBe('Mage')
+    expect(heroCatalogById.get('182')?.class).toBe('Warrior')
+    expect(heroCatalog.some((hero) => hero.class === 'Ranger')).toBe(true)
+    expect(heroCatalog.every((hero) => Boolean(hero.class))).toBe(true)
+  })
+
+  it('keeps the raw type separate from the real class', () => {
+    expect(heroCatalogById.get('9')?.type).toBe('Warrior')
+    expect(heroCatalogById.get('52')?.type).toBe('Mage')
+  })
+
   it('keeps awakened heroes distinct from their base versions', () => {
     const brutes = heroCatalog.filter((hero) => hero.name === 'Brutus')
 

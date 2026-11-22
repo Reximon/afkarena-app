@@ -11,8 +11,8 @@ const RosterPage = lazy(() =>
 const TeamsPage = lazy(() =>
   import('@/pages/TeamsPage').then((module) => ({ default: module.TeamsPage })),
 )
-const ArtifactsPage = lazy(() =>
-  import('@/pages/ArtifactsPage').then((module) => ({ default: module.ArtifactsPage })),
+const EquipmentPage = lazy(() =>
+  import('@/pages/EquipmentPage').then((module) => ({ default: module.EquipmentPage })),
 )
 const SettingsPage = lazy(() =>
   import('@/pages/SettingsPage').then((module) => ({ default: module.SettingsPage })),
@@ -26,7 +26,8 @@ export default function App() {
           <Route index element={<DashboardPage />} />
           <Route path="roster" element={<RosterPage />} />
           <Route path="teams" element={<TeamsPage />} />
-          <Route path="artifacts" element={<ArtifactsPage />} />
+          <Route path="equipment" element={<EquipmentPage />} />
+          <Route path="artifacts" element={<Navigate to="/equipment" replace />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

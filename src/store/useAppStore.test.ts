@@ -53,4 +53,61 @@ describe('useAppStore', () => {
     expect(teams[1].name).toBe('Campaign copy')
     expect(teams[1].slots).not.toBe(teams[0].slots)
   })
+
+  it('keeps artifacts and collections mutually exclusive', () => {
+    useAppStore.getState().addHero(
+      createDefaultHeroProgress('9', {
+        collection: {
+          collectionId: 'timeline-watch',
+          level: 6,
+          skillLevel: 2,
+          mythicStats: 4,
+        },
+      }),
+    )
+
+    useAppStore.getState().assignArtifact('9', 'duras-call')
+    let hero = useAppStore.getState().heroes['9']
+
+    expect(hero.artifact).toBe('duras-call')
+    expect(hero.collection?.collectionId).toBeUndefined()
+    expect(hero.collection?.level).toBe(6)
+
+    useAppStore.getState().assignCollection('9', {
+      collectionId: 'temporal-cover',
+      level: 8,
+      skillLevel: 1,
+      mythicStats: 2,
+    })
+    hero = useAppStore.getState().heroes['9']
+
+    expect(hero.artifact).toBeUndefined()
+    expect(hero.collection).toEqual({
+      collectionId: 'temporal-cover',
+      level: 8,
+      skillLevel: 1,
+      mythicStats: 2,
+    })
+  })
+
+  it('unassigns a collection without losing its progress', () => {
+    useAppStore.getState().addHero(
+      createDefaultHeroProgress('9', {
+        collection: {
+          collectionId: 'timeline-watch',
+          level: 5,
+          skillLevel: 3,
+          mythicStats: 7,
+        },
+      }),
+    )
+
+    useAppStore.getState().unassignCollection('9')
+    const hero = useAppStore.getState().heroes['9']
+
+    expect(hero.collection?.collectionId).toBeUndefined()
+    expect(hero.collection?.level).toBe(5)
+    expect(hero.collection?.skillLevel).toBe(3)
+    expect(hero.collection?.mythicStats).toBe(7)
+  })
 })

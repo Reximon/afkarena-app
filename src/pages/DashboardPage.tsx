@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { ChevronRight, Download, Gem, Plus, Swords, Users } from 'lucide-react'
+import { ChevronRight, Download, Gem, Plus, Sparkles, Swords, Users } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { StatCard } from '@/components/ui/StatCard'
@@ -126,7 +126,7 @@ export function DashboardPage() {
               <ChevronRight size={16} aria-hidden="true" />
             </Link>
             <Link
-              to="/artifacts"
+              to="/equipment"
               className={buttonStyles({
                 variant: 'secondary',
                 className: 'w-full justify-between',
@@ -134,7 +134,20 @@ export function DashboardPage() {
             >
               <span className="flex items-center gap-2">
                 <Gem size={16} aria-hidden="true" />
-                {t('nav.artifacts')}
+                {t('nav.equipment')}
+              </span>
+              <ChevronRight size={16} aria-hidden="true" />
+            </Link>
+            <Link
+              to="/equipment?tab=collections"
+              className={buttonStyles({
+                variant: 'secondary',
+                className: 'w-full justify-between',
+              })}
+            >
+              <span className="flex items-center gap-2">
+                <Sparkles size={16} aria-hidden="true" />
+                {t('equipment.tabs.collections')}
               </span>
               <ChevronRight size={16} aria-hidden="true" />
             </Link>

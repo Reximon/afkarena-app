@@ -6,7 +6,12 @@ import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { Field, Input, Select, Textarea } from '@/components/ui/Input'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
-import { artifacts, getArtifact } from '@/features/artifacts/artifacts'
+import { artifacts, getArtifact, isArtifactEligible } from '@/features/artifacts/artifacts'
+import {
+  collections,
+  getCollection,
+  isCollectionEligible,
+} from '@/features/collections/collections'
 import {
   applyGearExclusiveChange,
   applyGearResonantChange,
@@ -15,16 +20,29 @@ import {
   isExclusiveTier,
   normalizeGearPiece,
 } from '@/features/gear/gear'
-import { getFactionColor, getHeroCatalogEntry, heroCatalog } from '@/features/heroes/heroCatalog'
+import {
+  getFactionColor,
+  getHeroCatalogEntry,
+  getHeroClassKey,
+  heroCatalog,
+} from '@/features/heroes/heroCatalog'
 import { createDefaultHeroProgress } from '@/features/persistence/defaults'
 import { cn } from '@/lib/cn'
 import { useAppStore } from '@/store/useAppStore'
 import {
   ASCENSIONS,
+  COLLECTION_LEVELS,
+  COLLECTION_MYTHIC_STATS,
+  COLLECTION_SKILL_LEVELS,
   FACTIONS,
   GEAR_SLOTS,
   GEAR_TIERS,
+  HERO_CLASSES,
   type Ascension,
+  type CollectionLevel,
+  type CollectionMythicStats,
+  type CollectionProgress,
+  type CollectionSkillLevel,
   type Faction,
   type GearPiece,
   type GearSlot,
@@ -93,6 +111,44 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
     setDraft((current) => ({ ...current, ...patch }))
   }
 
+  function setArtifact(artifactId: string) {
+    setDraft((current) => ({
+      ...current,
+      artifact: artifactId || undefined,
+      collection:
+        artifactId && current.collection
+          ? { ...current.collection, collectionId: undefined }
+          : current.collection,
+    }))
+  }
+
+  function setCollection(collectionId: string) {
+    setDraft((current) => {
+      if (!collectionId) {
+        return { ...current, collection: undefined }
+      }
+
+      return {
+        ...current,
+        artifact: undefined,
+        collection: {
+          collectionId,
+          level: current.collection?.level ?? 0,
+          skillLevel: current.collection?.skillLevel ?? 0,
+          mythicStats: current.collection?.mythicStats ?? 0,
+        },
+      }
+    })
+  }
+
+  function updateCollectionProgress(patch: Partial<CollectionProgress>) {
+    setDraft((current) =>
+      current.collection
+        ? { ...current, collection: { ...current.collection, ...patch } }
+        : current,
+    )
+  }
+
   function updateGear(slot: GearSlot, patch: Partial<GearPiece>) {
     setDraft((current) => {
       const piece = current.gear[slot] ?? { slot, tier: 'none' as GearTier, stars: 0 as const }
@@ -152,6 +208,41 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
     })
   }
 
+  const duraArtifacts = artifacts.filter((artifact) => artifact.kind === 'dura')
+  const classArtifactGroups = HERO_CLASSES.map((heroClass) => ({
+    heroClass,
+    items: artifacts.filter(
+      (artifact) => artifact.kind === 'class' && artifact.class === heroClass,
+    ),
+  })).filter((group) => group.items.length > 0)
+  const collectionGroups = HERO_CLASSES.map((heroClass) => ({
+    heroClass,
+    items: collections.filter((collection) => collection.class === heroClass),
+  })).filter((group) => group.items.length > 0)
+  const currentArtifact = getArtifact(draft.artifact)
+  const currentCollection = getCollection(draft.collection?.collectionId)
+  const artifactIneligible = Boolean(
+    currentArtifact && selectedEntry && !isArtifactEligible(selectedEntry.class, currentArtifact),
+  )
+  const collectionIneligible = Boolean(
+    currentCollection &&
+      selectedEntry &&
+      !isCollectionEligible(selectedEntry.class, currentCollection),
+  )
+  const hasEquipmentConflict = Boolean(draft.artifact && draft.collection?.collectionId)
+
+  function canEquipArtifact(artifactId: string) {
+    const artifact = getArtifact(artifactId)
+    return Boolean(!selectedEntry || (artifact && isArtifactEligible(selectedEntry.class, artifact)))
+  }
+
+  function canEquipCollection(collectionId: string) {
+    const collection = getCollection(collectionId)
+    return Boolean(
+      !selectedEntry || (collection && isCollectionEligible(selectedEntry.class, collection)),
+    )
+  }
+
   function handleSave() {
     if (!selectedId || !getHeroCatalogEntry(selectedId)) {
       setError(t('roster.selectHero'))
@@ -166,9 +257,15 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
       }
     }
 
+    const collection =
+      draft.collection && draft.artifact
+        ? { ...draft.collection, collectionId: undefined }
+        : draft.collection
+
     const payload: HeroProgress = {
       ...draft,
       gear,
+      collection,
       heroId: selectedId,
       linkedHeroId:
         selectedEntry?.faction === 'Dimensional' ? draft.linkedHeroId || undefined : undefined,
@@ -301,7 +398,7 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                   {selectedEntry.displayName}
                 </h3>
                 <p className="mt-1 font-mono text-[10px] tracking-wide text-muted uppercase">
-                  {t(`faction.${selectedEntry.faction}`)} · {t(`heroClass.${selectedEntry.class}`)}
+                  {t(`faction.${selectedEntry.faction}`)} · {t(getHeroClassKey(selectedEntry))}
                 </p>
                 <p className="mt-1 text-xs text-muted">{selectedEntry.roles.join(' · ')}</p>
               </div>
@@ -527,70 +624,151 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
             </div>
           </section>
 
-          <div className="grid gap-4 sm:grid-cols-[1.2fr_0.8fr_0.8fr]">
-            <Field label={t('hero.artifact')}>
+          {hasEquipmentConflict ? (
+            <p className="rounded-xl border border-rose/30 bg-rose/5 px-3 py-2 text-xs leading-relaxed text-rose">
+              {t('hero.equipmentConflict')}
+            </p>
+          ) : null}
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field
+              label={t('hero.artifact')}
+              hint={
+                artifactIneligible
+                  ? t('artifacts.classRequired', {
+                      class: currentArtifact?.class
+                        ? t(`heroClass.${currentArtifact.class}`)
+                        : '',
+                    })
+                  : undefined
+              }
+            >
               <Select
                 value={draft.artifact ?? ''}
-                onChange={(event) => patchDraft({ artifact: event.target.value || undefined })}
+                onChange={(event) => setArtifact(event.target.value)}
               >
                 <option value="">{t('common.none')}</option>
                 <optgroup label={t('artifacts.duraGroup')}>
-                  {artifacts.map((artifact) => (
+                  {duraArtifacts.map((artifact) => (
                     <option key={artifact.id} value={artifact.id}>
                       {artifact.name}
                     </option>
                   ))}
                 </optgroup>
-                {draft.artifact && !getArtifact(draft.artifact) ? (
+                {classArtifactGroups.map((group) => (
+                  <optgroup key={group.heroClass} label={t(`heroClass.${group.heroClass}`)}>
+                    {group.items.map((artifact) => (
+                      <option
+                        key={artifact.id}
+                        value={artifact.id}
+                        disabled={!canEquipArtifact(artifact.id)}
+                      >
+                        {artifact.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+                {draft.artifact && !currentArtifact ? (
                   <option value={draft.artifact}>{draft.artifact}</option>
                 ) : null}
               </Select>
             </Field>
 
-            <Field label={t('hero.collection')}>
+            <Field
+              label={t('hero.collection')}
+              hint={
+                collectionIneligible
+                  ? t('collections.classRequired', {
+                      class: currentCollection?.class
+                        ? t(`heroClass.${currentCollection.class}`)
+                        : '',
+                    })
+                  : draft.collection && !draft.collection.collectionId
+                    ? t('hero.collectionSaved')
+                    : undefined
+              }
+            >
               <Select
-                value={draft.collection?.level ?? 0}
-                onChange={(event) =>
-                  patchDraft({
-                    collection: {
-                      level: Number(event.target.value) as NonNullable<
-                        HeroProgress['collection']
-                      >['level'],
-                      mythicStats: draft.collection?.mythicStats ?? 0,
-                    },
-                  })
-                }
+                value={draft.collection?.collectionId ?? ''}
+                onChange={(event) => setCollection(event.target.value)}
               >
-                {[0, 1, 2, 3].map((value) => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
+                <option value="">{t('common.none')}</option>
+                {collectionGroups.map((group) => (
+                  <optgroup key={group.heroClass} label={t(`heroClass.${group.heroClass}`)}>
+                    {group.items.map((collection) => (
+                      <option
+                        key={collection.id}
+                        value={collection.id}
+                        disabled={!canEquipCollection(collection.id)}
+                      >
+                        {collection.name}
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
-              </Select>
-            </Field>
-
-            <Field label={t('hero.mythicStats')}>
-              <Select
-                value={draft.collection?.mythicStats ?? 0}
-                onChange={(event) =>
-                  patchDraft({
-                    collection: {
-                      level: draft.collection?.level ?? 0,
-                      mythicStats: Number(event.target.value) as NonNullable<
-                        HeroProgress['collection']
-                      >['mythicStats'],
-                    },
-                  })
-                }
-              >
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((value) => (
-                  <option key={value} value={value}>
-                    {value}
+                {draft.collection?.collectionId && !currentCollection ? (
+                  <option value={draft.collection.collectionId}>
+                    {draft.collection.collectionId}
                   </option>
-                ))}
+                ) : null}
               </Select>
             </Field>
           </div>
+
+          {draft.collection?.collectionId ? (
+            <div className="grid gap-4 sm:grid-cols-3">
+              <Field label={t('hero.collectionLevel')}>
+                <Select
+                  value={draft.collection.level}
+                  onChange={(event) =>
+                    updateCollectionProgress({
+                      level: Number(event.target.value) as CollectionLevel,
+                    })
+                  }
+                >
+                  {COLLECTION_LEVELS.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+
+              <Field label={t('hero.collectionSkill')}>
+                <Select
+                  value={draft.collection.skillLevel}
+                  onChange={(event) =>
+                    updateCollectionProgress({
+                      skillLevel: Number(event.target.value) as CollectionSkillLevel,
+                    })
+                  }
+                >
+                  {COLLECTION_SKILL_LEVELS.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+
+              <Field label={t('hero.mythicStats')}>
+                <Select
+                  value={draft.collection.mythicStats}
+                  onChange={(event) =>
+                    updateCollectionProgress({
+                      mythicStats: Number(event.target.value) as CollectionMythicStats,
+                    })
+                  }
+                >
+                  {COLLECTION_MYTHIC_STATS.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+            </div>
+          ) : null}
 
           <Field label={t('hero.notes')}>
             <Textarea

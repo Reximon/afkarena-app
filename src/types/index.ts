@@ -11,7 +11,11 @@ export const FACTIONS = [
 
 export type Faction = (typeof FACTIONS)[number]
 
-export const HERO_CLASSES = ['Warrior', 'Ranger', 'Mage'] as const
+export const HERO_TYPES = ['Warrior', 'Ranger', 'Mage'] as const
+
+export type HeroType = (typeof HERO_TYPES)[number]
+
+export const HERO_CLASSES = ['Warrior', 'Tank', 'Ranger', 'Mage', 'Support'] as const
 
 export type HeroClass = (typeof HERO_CLASSES)[number]
 
@@ -77,23 +81,42 @@ export interface HeroSkin {
   name: string
 }
 
-export interface HeroCatalogEntry {
+export interface HeroCatalogSourceEntry {
   id: string
   name: string
   displayName: string
   faction: Faction
-  class: HeroClass
+  class: HeroType
   rarity: HeroRarity
   isAwakened: boolean
   roles: HeroRole[]
   skins: HeroSkin[]
 }
 
+export interface HeroCatalogEntry extends Omit<HeroCatalogSourceEntry, 'class'> {
+  type: HeroType
+  class?: HeroClass
+}
+
 export interface HeroCatalogFile {
   game: 'afk-arena-classic'
   source: string
   count: number
-  heroes: HeroCatalogEntry[]
+  heroes: HeroCatalogSourceEntry[]
+}
+
+export interface HeroClassFile {
+  game: 'afk-arena-classic'
+  source: string
+  fallbackSource: string
+  count: number
+  classes: Record<string, HeroClass>
+  unmatched: Array<{
+    id: string
+    name: string
+    faction: Faction
+    type: HeroType
+  }>
 }
 
 export interface GearPiece {
@@ -105,9 +128,23 @@ export interface GearPiece {
   exclusive?: boolean
 }
 
+export const COLLECTION_LEVELS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const
+
+export type CollectionLevel = (typeof COLLECTION_LEVELS)[number]
+
+export const COLLECTION_SKILL_LEVELS = [0, 1, 2, 3] as const
+
+export type CollectionSkillLevel = (typeof COLLECTION_SKILL_LEVELS)[number]
+
+export const COLLECTION_MYTHIC_STATS = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const
+
+export type CollectionMythicStats = (typeof COLLECTION_MYTHIC_STATS)[number]
+
 export interface CollectionProgress {
-  level: 0 | 1 | 2 | 3
-  mythicStats: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+  collectionId?: string
+  level: CollectionLevel
+  skillLevel: CollectionSkillLevel
+  mythicStats: CollectionMythicStats
 }
 
 export interface HeroProgress {

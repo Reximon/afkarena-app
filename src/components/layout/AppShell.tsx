@@ -9,17 +9,22 @@ const navItems = [
   { to: '/', labelKey: 'nav.dashboard', icon: LayoutDashboard, end: true },
   { to: '/roster', labelKey: 'nav.roster', icon: Users, end: false },
   { to: '/teams', labelKey: 'nav.teams', icon: Swords, end: false },
-  { to: '/artifacts', labelKey: 'nav.artifacts', icon: Gem, end: false },
+  { to: '/equipment', labelKey: 'nav.equipment', icon: Gem, end: false },
   { to: '/settings', labelKey: 'nav.settings', icon: Settings, end: false },
 ] as const
 
-type PageTitleKey = 'nav.dashboard' | 'nav.roster' | 'nav.teams' | 'nav.artifacts' | 'nav.settings'
+type PageTitleKey =
+  | 'nav.dashboard'
+  | 'nav.roster'
+  | 'nav.teams'
+  | 'nav.equipment'
+  | 'nav.settings'
 
 const pageTitleKeys: Record<string, PageTitleKey> = {
   '/': 'nav.dashboard',
   '/roster': 'nav.roster',
   '/teams': 'nav.teams',
-  '/artifacts': 'nav.artifacts',
+  '/equipment': 'nav.equipment',
   '/settings': 'nav.settings',
 }
 

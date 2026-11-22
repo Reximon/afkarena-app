@@ -18,7 +18,11 @@ import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { Field, Input, Select, Textarea } from '@/components/ui/Input'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
-import { getFactionColor, getHeroCatalogEntry } from '@/features/heroes/heroCatalog'
+import {
+  getFactionColor,
+  getHeroCatalogEntry,
+  getHeroClassKey,
+} from '@/features/heroes/heroCatalog'
 import { createEmptyTeam } from '@/features/persistence/defaults'
 import { assignHeroToSlot, resolveDropTarget } from '@/features/teams/teamSlots'
 import { cn } from '@/lib/cn'
@@ -87,7 +91,7 @@ function RosterHero({ hero, entry, used }: RosterHeroProps) {
           style={{ backgroundColor: getFactionColor(entry.faction) }}
           aria-hidden="true"
         />
-        {t(`heroClass.${entry.class}`)}
+        {t(getHeroClassKey(entry))}
       </span>
       <GripVertical
         size={10}
