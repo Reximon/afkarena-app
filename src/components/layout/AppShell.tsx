@@ -102,7 +102,7 @@ export function AppShell() {
 
       <footer className="border-t border-line py-4">
         <p className="text-center font-mono text-[9px] tracking-[0.16em] text-muted/70 uppercase">
-          {t('app.name')} · v1.2.0 · {t('app.game')}
+          {t('app.name')} · v1.3.0 · {t('app.game')}
         </p>
       </footer>
     </div>
