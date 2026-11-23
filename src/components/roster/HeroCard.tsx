@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Eye, Pencil, Trash2 } from 'lucide-react'
+import { Pencil, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
 import {
@@ -25,7 +25,7 @@ export function HeroCard({ hero, entry, onView, onEdit, onRemove }: HeroCardProp
   const hasFoil = hasFoilEffect(hero)
 
   return (
-    <article className="codex-panel-soft group overflow-hidden">
+    <article className="card-lift codex-panel-soft group overflow-hidden">
       <div className="relative bg-night/35 p-2">
         <button
           type="button"
@@ -78,17 +78,9 @@ export function HeroCard({ hero, entry, onView, onEdit, onRemove }: HeroCardProp
           <div className="flex shrink-0 gap-1">
             <button
               type="button"
-              onClick={() => onView(entry.id)}
-              aria-label={t('roster.viewHero', { name: entry.displayName })}
-              className="rounded-lg p-1.5 text-muted transition-colors hover:bg-arcane/10 hover:text-arcane"
-            >
-              <Eye size={14} aria-hidden="true" />
-            </button>
-            <button
-              type="button"
               onClick={() => onEdit(entry.id)}
               aria-label={`${t('common.edit')} ${entry.displayName}`}
-              className="rounded-lg p-1.5 text-muted transition-colors hover:bg-dusk hover:text-parch"
+              className="icon-action rounded-lg p-1.5 text-muted hover:bg-dusk hover:text-parch"
             >
               <Pencil size={14} aria-hidden="true" />
             </button>
@@ -96,7 +88,7 @@ export function HeroCard({ hero, entry, onView, onEdit, onRemove }: HeroCardProp
               type="button"
               onClick={() => onRemove(entry.id)}
               aria-label={`${t('common.delete')} ${entry.displayName}`}
-              className="rounded-lg p-1.5 text-muted transition-colors hover:bg-ember/15 hover:text-ember"
+              className="icon-action rounded-lg p-1.5 text-muted hover:bg-ember/15 hover:text-ember"
             >
               <Trash2 size={14} aria-hidden="true" />
             </button>

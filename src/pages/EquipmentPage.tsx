@@ -59,7 +59,7 @@ export function EquipmentPage() {
               aria-selected={isActive}
               onClick={() => setTab(tab.id)}
               className={cn(
-                'inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition-colors',
+                'inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition-[color,background-color,border-color,transform] duration-150 active:scale-[0.97]',
                 isActive
                   ? 'border-gild/20 bg-gild/10 text-gild'
                   : 'border-transparent text-muted hover:bg-dusk/60 hover:text-parch',

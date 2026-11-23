@@ -48,7 +48,7 @@ export function Dialog({
             </div>
             <DialogPrimitive.Close
               type="button"
-              className="rounded-lg p-2 text-muted transition-colors hover:bg-dusk hover:text-parch"
+              className="icon-action rounded-lg p-2 text-muted hover:bg-dusk hover:text-parch"
             >
               <X size={18} aria-hidden="true" />
               <span className="sr-only">{t('common.close')}</span>

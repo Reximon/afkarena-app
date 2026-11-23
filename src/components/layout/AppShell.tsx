@@ -69,10 +69,10 @@ export function AppShell() {
                   end={item.end}
                   className={({ isActive }) =>
                     cn(
-                      'group relative -mb-px flex h-16 shrink-0 items-center gap-2 border-b-2 px-3 text-sm transition-colors',
+                      'nav-link group flex h-16 shrink-0 items-center gap-2 px-3 text-sm transition-colors',
                       isActive
-                        ? 'border-gild text-gild [text-shadow:0_0_14px_rgba(224,185,94,0.45)]'
-                        : 'border-transparent text-muted hover:text-parch',
+                        ? 'text-gild [text-shadow:0_0_14px_rgba(224,185,94,0.45)]'
+                        : 'text-muted hover:text-parch',
                     )
                   }
                 >

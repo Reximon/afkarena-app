@@ -29,7 +29,7 @@ export function LanguageToggle() {
             aria-pressed={isActive}
             onClick={() => setLanguage(option.value)}
             className={cn(
-              'rounded-full px-3 py-1 font-mono text-[11px] tracking-[0.18em] transition-colors',
+              'rounded-full px-3 py-1 font-mono text-[11px] tracking-[0.18em] transition-[color,background-color,transform] duration-150 active:scale-95',
               isActive ? 'bg-gild text-night' : 'text-muted hover:bg-dusk/70 hover:text-parch',
             )}
           >

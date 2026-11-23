@@ -145,7 +145,7 @@ function TeamSlotCard({
             type="button"
             onClick={() => onAssign(slot.position, '')}
             aria-label={t('teams.removeHero')}
-            className="rounded-md p-1 text-muted transition-colors hover:bg-ember/15 hover:text-ember"
+            className="icon-action rounded-md p-1 text-muted hover:bg-ember/15 hover:text-ember"
           >
             <X size={12} aria-hidden="true" />
           </button>

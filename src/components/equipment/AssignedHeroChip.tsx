@@ -26,7 +26,7 @@ export function AssignedHeroChip({ hero, entry, onRemove, removeLabel }: Assigne
         type="button"
         onClick={onRemove}
         aria-label={removeLabel}
-        className="rounded-full p-0.5 text-muted transition-colors hover:bg-ember/15 hover:text-ember"
+        className="icon-action rounded-full p-0.5 text-muted hover:bg-ember/15 hover:text-ember"
       >
         <X size={12} aria-hidden="true" />
       </button>

@@ -33,6 +33,8 @@ export const en = {
     none: 'None',
     all: 'All',
     loading: 'Loading...',
+    increase: 'Increase',
+    decrease: 'Decrease',
   },
   dashboard: {
     title: 'Dashboard',
@@ -237,6 +239,13 @@ export const en = {
     noNotes: 'No notes yet.',
     noEquipment: 'No artifact or collection equipped.',
     updatedAt: 'Updated {{date}}',
+  },
+  heroScreen: {
+    autoSaved: 'Progress saved',
+    tapToCycleTier: 'Tap to cycle the gear tier',
+    starLabel: 'Star {{n}}',
+    ascensionHint: 'Arrows step through ascensions; stars jump to Ascended tiers.',
+    backToCatalog: 'Back to catalog',
   },
   faction: {
     Lightbearer: 'Lightbearer',

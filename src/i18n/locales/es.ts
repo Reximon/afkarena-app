@@ -35,6 +35,8 @@ export const es: TranslationSchema = {
     none: 'Ninguno',
     all: 'Todos',
     loading: 'Cargando...',
+    increase: 'Aumentar',
+    decrease: 'Disminuir',
   },
   dashboard: {
     title: 'Panel',
@@ -241,6 +243,14 @@ export const es: TranslationSchema = {
     noNotes: 'Sin notas todavía.',
     noEquipment: 'Sin artefacto ni collection equipados.',
     updatedAt: 'Actualizado {{date}}',
+  },
+  heroScreen: {
+    autoSaved: 'Progreso guardado',
+    tapToCycleTier: 'Toca para cambiar el tier del gear',
+    starLabel: 'Estrella {{n}}',
+    ascensionHint:
+      'Las flechas recorren las ascensiones; las estrellas saltan a los niveles Ascended.',
+    backToCatalog: 'Volver al catálogo',
   },
   faction: {
     Lightbearer: 'Lightbearer',

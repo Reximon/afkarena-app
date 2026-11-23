@@ -5,7 +5,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    'bg-gild text-night shadow-[0_0_28px_rgba(224,185,94,0.18)] hover:bg-[#ecc978] active:bg-[#c9a44e]',
+    'bg-gild text-night shadow-[0_0_28px_rgba(224,185,94,0.18)] hover:bg-[#ecc978] hover:shadow-[0_0_36px_rgba(224,185,94,0.3)] active:bg-[#c9a44e]',
   secondary: 'border border-line bg-dusk/60 text-parch hover:bg-dusk',
   ghost: 'text-muted hover:bg-dusk/60 hover:text-parch',
   danger: 'border border-ember/40 bg-ember/10 text-ember hover:bg-ember/20',
@@ -29,7 +29,7 @@ export function buttonStyles({
   className,
 }: ButtonStyleOptions = {}) {
   return cn(
-    'inline-flex items-center justify-center font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45',
+    'inline-flex items-center justify-center font-semibold transition-[color,background-color,border-color,box-shadow,transform] duration-150 enabled:hover:-translate-y-0.5 enabled:active:translate-y-0 enabled:active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45',
     variants[variant],
     sizes[size],
     className,

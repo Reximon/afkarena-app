@@ -2,8 +2,7 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Plus, Search, SlidersHorizontal, Users } from 'lucide-react'
 import { HeroCard } from '@/components/roster/HeroCard'
-import { HeroDetailPanel } from '@/components/roster/HeroDetailPanel'
-import { HeroFormDialog } from '@/components/roster/HeroFormDialog'
+import { HeroDetailScreen } from '@/components/roster/HeroDetailScreen'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
@@ -38,7 +37,6 @@ export function RosterPage() {
   const [ascension, setAscension] = useState<AscensionFilter>('all')
   const [role, setRole] = useState<RoleFilter>('all')
   const [dialog, setDialog] = useState<{ heroId: string | null } | null>(null)
-  const [detailHeroId, setDetailHeroId] = useState<string | null>(null)
   const [removeTarget, setRemoveTarget] = useState<string | null>(null)
 
   const ownedHeroes = useMemo(
@@ -79,8 +77,6 @@ export function RosterPage() {
     role !== 'all'
 
   const removeEntry = removeTarget ? getHeroCatalogEntry(removeTarget) : undefined
-  const detailHero = detailHeroId ? heroes[detailHeroId] : undefined
-  const detailEntry = detailHeroId ? getHeroCatalogEntry(detailHeroId) : undefined
 
   function clearFilters() {
     setSearch('')
@@ -218,7 +214,7 @@ export function RosterPage() {
               key={hero.heroId}
               hero={hero}
               entry={entry}
-              onView={setDetailHeroId}
+              onView={(heroId) => setDialog({ heroId })}
               onEdit={(heroId) => setDialog({ heroId })}
               onRemove={setRemoveTarget}
             />
@@ -226,20 +222,9 @@ export function RosterPage() {
         </div>
       )}
 
-      {detailHeroId && detailHero && detailEntry ? (
-        <HeroDetailPanel
-          hero={detailHero}
-          entry={detailEntry}
-          onClose={() => setDetailHeroId(null)}
-          onEdit={() => {
-            const heroId = detailHeroId
-            setDetailHeroId(null)
-            setDialog({ heroId })
-          }}
-        />
+      {dialog ? (
+        <HeroDetailScreen heroId={dialog.heroId} onClose={() => setDialog(null)} />
       ) : null}
-
-      {dialog ? <HeroFormDialog heroId={dialog.heroId} onClose={() => setDialog(null)} /> : null}
 
       <ConfirmDialog
         open={Boolean(removeTarget)}
@@ -250,7 +235,6 @@ export function RosterPage() {
         body={t('roster.removeBody', { name: removeEntry?.displayName ?? '' })}
         onConfirm={() => {
           if (removeTarget) {
-            if (removeTarget === detailHeroId) setDetailHeroId(null)
             removeHero(removeTarget)
           }
         }}

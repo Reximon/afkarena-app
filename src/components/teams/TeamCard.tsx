@@ -29,7 +29,7 @@ export function TeamCard({ team, heroes, onEdit, onDuplicate, onDelete }: TeamCa
             type="button"
             onClick={() => onEdit(team.id)}
             aria-label={`${t('teams.edit')}: ${team.name}`}
-            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-dusk hover:text-parch"
+            className="icon-action rounded-lg p-1.5 text-muted hover:bg-dusk hover:text-parch"
           >
             <Pencil size={15} aria-hidden="true" />
           </button>
@@ -37,7 +37,7 @@ export function TeamCard({ team, heroes, onEdit, onDuplicate, onDelete }: TeamCa
             type="button"
             onClick={() => onDuplicate(team.id)}
             aria-label={`${t('teams.duplicate')}: ${team.name}`}
-            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-dusk hover:text-parch"
+            className="icon-action rounded-lg p-1.5 text-muted hover:bg-dusk hover:text-parch"
           >
             <Copy size={15} aria-hidden="true" />
           </button>
@@ -45,7 +45,7 @@ export function TeamCard({ team, heroes, onEdit, onDuplicate, onDelete }: TeamCa
             type="button"
             onClick={() => onDelete(team.id)}
             aria-label={`${t('teams.delete')}: ${team.name}`}
-            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-ember/15 hover:text-ember"
+            className="icon-action rounded-lg p-1.5 text-muted hover:bg-ember/15 hover:text-ember"
           >
             <Trash2 size={15} aria-hidden="true" />
           </button>
