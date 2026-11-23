@@ -6,6 +6,8 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { Input } from '@/components/ui/Input'
+import { getArtifact } from '@/features/artifacts/artifacts'
+import { getCollection } from '@/features/collections/collections'
 import {
   applyGearExclusiveChange,
   applyGearResonantChange,
@@ -23,17 +25,22 @@ import { cn } from '@/lib/cn'
 import { useAppStore } from '@/store/useAppStore'
 import {
   GEAR_SLOTS,
+  type CollectionProgress,
   type GearPiece,
   type GearSlot,
   type GearTier,
   type HeroProgress,
 } from '@/types'
+import { ArtifactDrawer } from './hero-detail/ArtifactDrawer'
 import { AscensionStars } from './hero-detail/AscensionStars'
-import { EquipmentPanel } from './hero-detail/EquipmentPanel'
-import { GearSlotControl } from './hero-detail/GearSlotControl'
+import { CollectionDrawer } from './hero-detail/CollectionDrawer'
+import { GearPickerDrawer } from './hero-detail/GearPickerDrawer'
+import { GearSlot as GearSlotTile } from './hero-detail/GearSlot'
 import { HeroPortraitStage } from './hero-detail/HeroPortraitStage'
 import { InvestmentPanel } from './hero-detail/InvestmentPanel'
 import { NotesField } from './hero-detail/NotesField'
+
+type ScreenDrawer = 'artifact' | 'collection'
 
 interface HeroDetailScreenProps {
   heroId: string | null
@@ -49,6 +56,8 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
   const [createdId, setCreatedId] = useState<string | null>(null)
   const [draft, setDraft] = useState<HeroProgress | null>(null)
   const [search, setSearch] = useState('')
+  const [pickerSlot, setPickerSlot] = useState<GearSlot | null>(null)
+  const [drawer, setDrawer] = useState<ScreenDrawer | null>(null)
 
   const activeId = heroId ?? createdId
   const liveHero = activeId ? heroes[activeId] : undefined
@@ -120,17 +129,61 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
 
   function renderSlot(slot: GearSlot) {
     return (
-      <GearSlotControl
-        slot={slot}
-        piece={progress?.gear[slot]}
+      <GearSlotTile
+        descriptor={{ kind: 'gear', slot, piece: progress?.gear[slot] }}
         heroFaction={entry?.faction}
-        onTierChange={(tier) => setGearTier(slot, tier)}
-        onStarsChange={(stars) => updateGear(slot, { stars })}
-        onExclusiveChange={(exclusive) => setGearExclusive(slot, exclusive)}
-        onResonantChange={(resonant) => setGearResonant(slot, resonant)}
-        onFactionChange={(faction) => updateGear(slot, { faction })}
+        heroType={entry?.type}
+        onSelect={() => openGearPicker(slot)}
       />
     )
+  }
+
+  function openGearPicker(slot: GearSlot) {
+    setDrawer(null)
+    setPickerSlot(slot)
+  }
+
+  function openDrawer(next: ScreenDrawer) {
+    setPickerSlot(null)
+    setDrawer(next)
+  }
+
+  function closeDrawer() {
+    setDrawer(null)
+    setPickerSlot(null)
+  }
+
+  function setArtifact(artifactId: string) {
+    if (!progress) return
+    commit({
+      artifact: artifactId || undefined,
+      collection:
+        artifactId && progress.collection
+          ? { ...progress.collection, collectionId: undefined }
+          : progress.collection,
+    })
+  }
+
+  function setCollection(collectionId: string) {
+    if (!collectionId) {
+      commit({ collection: undefined })
+      return
+    }
+
+    commit({
+      artifact: undefined,
+      collection: {
+        collectionId,
+        level: progress?.collection?.level ?? 0,
+        skillLevel: progress?.collection?.skillLevel ?? 0,
+        mythicStats: progress?.collection?.mythicStats ?? 0,
+      },
+    })
+  }
+
+  function updateCollection(patch: Partial<CollectionProgress>) {
+    if (!progress?.collection) return
+    commit({ collection: { ...progress.collection, ...patch } })
   }
 
   function handleAdd() {
@@ -158,6 +211,45 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
     setCreatedId(draft.heroId)
     setDraft(null)
   }
+
+  const artifactDef = getArtifact(progress?.artifact)
+  const collectionDef = getCollection(progress?.collection?.collectionId)
+
+  const overlay =
+    pickerSlot && progress && entry ? (
+      <GearPickerDrawer
+        slot={pickerSlot}
+        piece={progress.gear[pickerSlot]}
+        heroFaction={entry.faction}
+        heroType={entry.type}
+        signatureItem={progress.signatureItem}
+        onSelectSlot={setPickerSlot}
+        onClose={closeDrawer}
+        onTierChange={(tier) => setGearTier(pickerSlot, tier)}
+        onStarsChange={(stars) => updateGear(pickerSlot, { stars })}
+        onResonantChange={(resonant) => setGearResonant(pickerSlot, resonant)}
+        onExclusiveChange={(exclusive) => setGearExclusive(pickerSlot, exclusive)}
+        onFactionChange={(faction) => updateGear(pickerSlot, { faction })}
+        onSignatureChange={(signatureItem) => commit({ signatureItem })}
+      />
+    ) : drawer === 'artifact' && progress && entry ? (
+      <ArtifactDrawer
+        artifactId={progress.artifact}
+        heroName={entry.displayName}
+        heroClass={entry.class}
+        onChange={setArtifact}
+        onClose={closeDrawer}
+      />
+    ) : drawer === 'collection' && progress && entry ? (
+      <CollectionDrawer
+        collection={progress.collection}
+        heroName={entry.displayName}
+        heroClass={entry.class}
+        onSelect={setCollection}
+        onChange={updateCollection}
+        onClose={closeDrawer}
+      />
+    ) : null
 
   const footer = liveHero ? (
     <>
@@ -199,6 +291,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
       }
       className="h-dvh max-h-none w-full max-w-5xl rounded-none border-0 sm:h-[min(92dvh,56rem)] sm:w-[calc(100vw-2rem)] sm:rounded-2xl sm:border"
       footer={footer}
+      overlay={overlay}
     >
       {progress && entry ? (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
@@ -209,12 +302,24 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
               <>
                 {renderSlot('weapon')}
                 {renderSlot('helmet')}
+                <GearSlotTile
+                  descriptor={{ kind: 'artifact', artifact: artifactDef }}
+                  onSelect={() => openDrawer('artifact')}
+                />
               </>
             }
             rightSlots={
               <>
                 {renderSlot('chest')}
                 {renderSlot('boots')}
+                <GearSlotTile
+                  descriptor={{
+                    kind: 'collection',
+                    collection: collectionDef,
+                    progress: progress.collection,
+                  }}
+                  onSelect={() => openDrawer('collection')}
+                />
               </>
             }
             ascensionControl={
@@ -227,11 +332,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
 
           <div className="space-y-5">
             <InvestmentPanel entry={entry} progress={progress} commit={commit} />
-            <EquipmentPanel entry={entry} progress={progress} commit={commit} />
-            <NotesField
-              value={progress.notes ?? ''}
-              onChange={(notes) => commit({ notes })}
-            />
+            <NotesField value={progress.notes ?? ''} onChange={(notes) => commit({ notes })} />
           </div>
         </div>
       ) : (

@@ -24,13 +24,17 @@ describe('HeroDetailScreen', () => {
     await user.click(screen.getByRole('button', { name: 'In crystal' }))
     expect(useAppStore.getState().heroes['182'].inCrystal).toBe(true)
 
+    await user.click(screen.getByRole('button', { name: 'Target hero' }))
+    expect(useAppStore.getState().heroes['182'].priority).toBe(true)
+
     await user.click(screen.getByRole('button', { name: 'Increase Signature Item' }))
     expect(useAppStore.getState().heroes['182'].signatureItem).toBe(10)
 
     await user.click(screen.getByRole('button', { name: 'Increase Ascension' }))
     expect(useAppStore.getState().heroes['182'].ascension).toBe('elite+')
 
-    await user.click(screen.getByRole('button', { name: 'Weapon Tier: None' }))
+    await user.click(screen.getByRole('button', { name: 'Weapon · Empty' }))
+    await user.click(screen.getByRole('button', { name: 'Mythic' }))
     expect(useAppStore.getState().heroes['182'].gear.weapon?.tier).toBe('mythic')
   })
 

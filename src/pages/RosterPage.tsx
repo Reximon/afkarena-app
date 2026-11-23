@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Plus, Search, SlidersHorizontal, Users } from 'lucide-react'
 import { HeroCard } from '@/components/roster/HeroCard'
+import { HeroDetailDialog } from '@/components/roster/HeroDetailDialog'
 import { HeroDetailScreen } from '@/components/roster/HeroDetailScreen'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
@@ -37,6 +38,7 @@ export function RosterPage() {
   const [ascension, setAscension] = useState<AscensionFilter>('all')
   const [role, setRole] = useState<RoleFilter>('all')
   const [dialog, setDialog] = useState<{ heroId: string | null } | null>(null)
+  const [detailHeroId, setDetailHeroId] = useState<string | null>(null)
   const [removeTarget, setRemoveTarget] = useState<string | null>(null)
 
   const ownedHeroes = useMemo(
@@ -214,13 +216,17 @@ export function RosterPage() {
               key={hero.heroId}
               hero={hero}
               entry={entry}
-              onView={(heroId) => setDialog({ heroId })}
+              onView={setDetailHeroId}
               onEdit={(heroId) => setDialog({ heroId })}
               onRemove={setRemoveTarget}
             />
           ))}
         </div>
       )}
+
+      {detailHeroId ? (
+        <HeroDetailDialog heroId={detailHeroId} onClose={() => setDetailHeroId(null)} />
+      ) : null}
 
       {dialog ? (
         <HeroDetailScreen heroId={dialog.heroId} onClose={() => setDialog(null)} />

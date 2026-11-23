@@ -11,6 +11,7 @@ interface DialogProps {
   description?: string
   children: ReactNode
   footer?: ReactNode
+  overlay?: ReactNode
   className?: string
 }
 
@@ -21,6 +22,7 @@ export function Dialog({
   description,
   children,
   footer,
+  overlay,
   className,
 }: DialogProps) {
   const { t } = useTranslation()
@@ -62,6 +64,8 @@ export function Dialog({
               {footer}
             </div>
           ) : null}
+
+          {overlay}
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
