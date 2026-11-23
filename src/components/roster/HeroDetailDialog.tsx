@@ -2,6 +2,7 @@ import { useState } from 'react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import {
   Gem,
+  Pencil,
   ShieldPlus,
   Sparkles,
   StickyNote,
@@ -12,6 +13,7 @@ import {
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
+import { Badge } from '@/components/ui/Badge'
 import { Stars } from '@/components/ui/Stars'
 import { getArtifact } from '@/features/artifacts/artifacts'
 import { getCollection } from '@/features/collections/collections'
@@ -41,12 +43,13 @@ import { ArtifactDrawer } from './hero-detail/ArtifactDrawer'
 import { AscensionDrawer } from './hero-detail/AscensionDrawer'
 import { CollectionDrawer } from './hero-detail/CollectionDrawer'
 import { EngraveDrawer } from './hero-detail/EngraveDrawer'
+import { FurnitureDrawer } from './hero-detail/FurnitureDrawer'
 import { GearPickerDrawer } from './hero-detail/GearPickerDrawer'
 import { GearSlot } from './hero-detail/GearSlot'
 
 const ASCENDED_INDEX = ASCENSIONS.indexOf('ascended')
 
-type DialogDrawer = 'ascension' | 'artifact' | 'collection' | 'engrave'
+type DialogDrawer = 'ascension' | 'artifact' | 'collection' | 'engrave' | 'furniture'
 
 interface HeroDetailDialogProps {
   heroId: string
@@ -263,6 +266,29 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                   <Target size={13} aria-hidden="true" />
                   {t('hero.target')}
                 </button>
+                <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5">
+                  <Badge variant="outline">
+                    {t('hero.level')} {progress.level}
+                  </Badge>
+                  <Badge variant="cyan">
+                    {t('hero.signatureItem')} {progress.signatureItem}
+                  </Badge>
+                  <button
+                    type="button"
+                    onClick={() => openDrawer('furniture')}
+                    aria-label={`${t('common.edit')} ${t('hero.furniture')}`}
+                    title={`${t('common.edit')} ${t('hero.furniture')}`}
+                    className="rounded-full focus-visible:ring-2 focus-visible:ring-gild/50 focus-visible:outline-none"
+                  >
+                    <Badge variant="rose" className="transition-colors hover:border-gild/50">
+                      {t('hero.furniture')} {progress.furniture}
+                      <Pencil size={9} aria-hidden="true" />
+                    </Badge>
+                  </button>
+                  <Badge variant="muted">
+                    {t('hero.engraving')} {progress.engraving}
+                  </Badge>
+                </div>
               </div>
 
               <div className="mt-5 grid w-full grid-cols-[minmax(0,3.75rem)_minmax(0,1fr)_minmax(0,3.75rem)] items-center gap-2 sm:mt-7 sm:grid-cols-[6.5rem_minmax(0,1fr)_6.5rem] sm:gap-5">
@@ -384,6 +410,14 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
             <EngraveDrawer
               engraving={progress.engraving}
               onChange={(engraving) => updateHero(heroId, { engraving })}
+              onClose={closeDrawer}
+            />
+          ) : null}
+
+          {drawer === 'furniture' ? (
+            <FurnitureDrawer
+              furniture={progress.furniture}
+              onChange={(furniture) => updateHero(heroId, { furniture })}
               onClose={closeDrawer}
             />
           ) : null}
