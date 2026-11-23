@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Gem, Minus, Plus } from 'lucide-react'
+import { Gem, Minus, Plus, Target } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Field, Input, Select } from '@/components/ui/Input'
 import { heroCatalog } from '@/features/heroes/heroCatalog'
@@ -104,20 +104,38 @@ export function InvestmentPanel({ entry, progress, commit }: InvestmentPanelProp
         />
       </div>
 
-      <button
-        type="button"
-        aria-pressed={progress.inCrystal}
-        onClick={() => commit({ inCrystal: !progress.inCrystal })}
-        className={cn(
-          'flex w-full items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
-          progress.inCrystal
-            ? 'border-arcane/50 bg-arcane/15 text-arcane'
-            : 'border-line bg-night/30 text-muted hover:border-arcane/40 hover:text-parch',
-        )}
-      >
-        <Gem size={15} aria-hidden="true" />
-        {t('hero.inCrystal')}
-      </button>
+      <div className="grid gap-2 sm:grid-cols-2">
+        <button
+          type="button"
+          aria-pressed={progress.inCrystal}
+          onClick={() => commit({ inCrystal: !progress.inCrystal })}
+          className={cn(
+            'flex w-full items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
+            progress.inCrystal
+              ? 'border-arcane/50 bg-arcane/15 text-arcane'
+              : 'border-line bg-night/30 text-muted hover:border-arcane/40 hover:text-parch',
+          )}
+        >
+          <Gem size={15} aria-hidden="true" />
+          {t('hero.inCrystal')}
+        </button>
+
+        <button
+          type="button"
+          aria-pressed={Boolean(progress.priority)}
+          title={t('hero.targetHint')}
+          onClick={() => commit({ priority: !progress.priority })}
+          className={cn(
+            'flex w-full items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
+            progress.priority
+              ? 'border-gild/50 bg-gild/10 text-gild'
+              : 'border-line bg-night/30 text-muted hover:border-gild/40 hover:text-parch',
+          )}
+        >
+          <Target size={15} aria-hidden="true" />
+          {t('hero.target')}
+        </button>
+      </div>
 
       {entry.faction === 'Dimensional' ? (
         <Field label={t('hero.linkedHero')} hint={t('hero.linkedHeroHint')}>

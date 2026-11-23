@@ -7,7 +7,7 @@ import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { Field, Input } from '@/components/ui/Input'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
 import { PageHeader } from '@/components/ui/PageHeader'
-import { createExportData, parseImport, serializeExport } from '@/features/persistence/importExport'
+import { parseImport, serializeExport } from '@/features/persistence/importExport'
 import { downloadTextFile } from '@/lib/download'
 import { useAppStore } from '@/store/useAppStore'
 
@@ -24,17 +24,9 @@ export function SettingsPage() {
   const [resetOpen, setResetOpen] = useState(false)
 
   function handleExport() {
-    const state = useAppStore.getState()
-    const data = createExportData({
-      schemaVersion: state.schemaVersion,
-      profile: state.profile,
-      heroes: state.heroes,
-      teams: state.teams,
-    })
-
     downloadTextFile(
-      `astral-codex-${new Date().toISOString().slice(0, 10)}.json`,
-      serializeExport(data),
+      `resonating-hall-${new Date().toISOString().slice(0, 10)}.json`,
+      serializeExport(useAppStore.getState()),
     )
     setFeedback({ tone: 'success', message: t('settings.exportSuccess') })
   }

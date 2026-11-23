@@ -14,6 +14,7 @@ export function TeamsPage() {
   const { t } = useTranslation()
   const teams = useAppStore((state) => state.teams)
   const heroes = useAppStore((state) => state.heroes)
+  const pets = useAppStore((state) => state.pets)
   const duplicateTeam = useAppStore((state) => state.duplicateTeam)
   const removeTeam = useAppStore((state) => state.removeTeam)
   const [dialog, setDialog] = useState<{ teamId: string | null } | null>(null)
@@ -57,6 +58,7 @@ export function TeamsPage() {
               key={team.id}
               team={team}
               heroes={heroes}
+              pets={pets}
               onEdit={(teamId) => setDialog({ teamId })}
               onDuplicate={duplicateTeam}
               onDelete={setDeleteTarget}

@@ -76,6 +76,23 @@ export const TEAM_MODES = [
 
 export type TeamMode = (typeof TEAM_MODES)[number]
 
+export const PET_TIERS = ['rare', 'elite', 'fabled'] as const
+
+export type PetTier = (typeof PET_TIERS)[number]
+
+export const PET_TRAINING_LEVELS = [0, 1, 2, 3] as const
+
+export type PetTrainingLevel = (typeof PET_TRAINING_LEVELS)[number]
+
+export interface PetProgress {
+  petId: string
+  strength: number
+  intelligence: number
+  agility: number
+  training: PetTrainingLevel
+  updatedAt: string
+}
+
 export interface HeroSkin {
   id: number
   name: string
@@ -152,6 +169,7 @@ export interface HeroProgress {
   ascension: Ascension
   level: number
   inCrystal: boolean
+  priority?: boolean
   signatureItem: number
   furniture: 0 | 3 | 9 | 36
   engraving: 0 | 30 | 60 | 80
@@ -167,6 +185,7 @@ export interface Profile {
   playerName?: string
   server?: string
   crystalLevel: number
+  petResonanceLevel?: number
 }
 
 export interface TeamSlot {
@@ -180,6 +199,7 @@ export interface Team {
   name: string
   mode: TeamMode
   slots: TeamSlot[]
+  petId?: string
   notes?: string
   createdAt: string
   updatedAt: string
@@ -189,5 +209,6 @@ export interface AppData {
   schemaVersion: 1
   profile: Profile
   heroes: Record<string, HeroProgress>
+  pets: Record<string, PetProgress>
   teams: Team[]
 }

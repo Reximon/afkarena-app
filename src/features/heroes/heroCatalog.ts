@@ -14,6 +14,7 @@ export const heroCatalogCount = catalog.count
 export const heroCatalogGame = catalog.game
 
 export const heroCatalogById = new Map(heroCatalog.map((hero) => [hero.id, hero]))
+export const heroCatalogByName = new Map(heroCatalog.map((hero) => [hero.displayName, hero]))
 
 export const FACTION_COLORS: Record<Faction, string> = {
   Lightbearer: '#7FB2F0',
@@ -32,6 +33,10 @@ export function getHeroCatalogEntry(heroId: string): HeroCatalogEntry | undefine
 
 export function getHeroDisplayName(heroId: string): string {
   return heroCatalogById.get(heroId)?.displayName ?? heroId
+}
+
+export function getHeroCatalogEntryByName(displayName: string): HeroCatalogEntry | undefined {
+  return heroCatalogByName.get(displayName)
 }
 
 export function getFactionColor(faction: Faction): string {

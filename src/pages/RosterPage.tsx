@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Plus, Search, SlidersHorizontal, Users } from 'lucide-react'
+import { Plus, Search, SlidersHorizontal, Target, Users } from 'lucide-react'
 import { HeroCard } from '@/components/roster/HeroCard'
 import { HeroDetailDialog } from '@/components/roster/HeroDetailDialog'
 import { HeroDetailScreen } from '@/components/roster/HeroDetailScreen'
@@ -11,6 +11,7 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { Input, Select } from '@/components/ui/Input'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { getHeroCatalogEntry } from '@/features/heroes/heroCatalog'
+import { cn } from '@/lib/cn'
 import { useAppStore } from '@/store/useAppStore'
 import {
   ASCENSIONS,
@@ -32,11 +33,13 @@ export function RosterPage() {
   const { t } = useTranslation()
   const heroes = useAppStore((state) => state.heroes)
   const removeHero = useAppStore((state) => state.removeHero)
+  const updateHero = useAppStore((state) => state.updateHero)
   const [search, setSearch] = useState('')
   const [faction, setFaction] = useState<FactionFilter>('all')
   const [heroClass, setHeroClass] = useState<ClassFilter>('all')
   const [ascension, setAscension] = useState<AscensionFilter>('all')
   const [role, setRole] = useState<RoleFilter>('all')
+  const [onlyTargets, setOnlyTargets] = useState(false)
   const [dialog, setDialog] = useState<{ heroId: string | null } | null>(null)
   const [detailHeroId, setDetailHeroId] = useState<string | null>(null)
   const [removeTarget, setRemoveTarget] = useState<string | null>(null)
@@ -67,16 +70,18 @@ export function RosterPage() {
       if (heroClass !== 'all' && entry.class !== heroClass) return false
       if (ascension !== 'all' && hero.ascension !== ascension) return false
       if (role !== 'all' && !entry.roles.includes(role)) return false
+      if (onlyTargets && !hero.priority) return false
       return true
     })
-  }, [ascension, faction, heroClass, ownedHeroes, role, search])
+  }, [ascension, faction, heroClass, onlyTargets, ownedHeroes, role, search])
 
   const hasFilters =
     search.trim().length > 0 ||
     faction !== 'all' ||
     heroClass !== 'all' ||
     ascension !== 'all' ||
-    role !== 'all'
+    role !== 'all' ||
+    onlyTargets
 
   const removeEntry = removeTarget ? getHeroCatalogEntry(removeTarget) : undefined
 
@@ -86,6 +91,12 @@ export function RosterPage() {
     setHeroClass('all')
     setAscension('all')
     setRole('all')
+    setOnlyTargets(false)
+  }
+
+  function toggleTarget(heroId: string) {
+    const hero = heroes[heroId]
+    if (hero) updateHero(heroId, { priority: !hero.priority })
   }
 
   return (
@@ -127,6 +138,20 @@ export function RosterPage() {
             <span className="font-mono text-[10px] tracking-[0.16em] text-muted uppercase">
               {t('roster.filters')}
             </span>
+            <button
+              type="button"
+              aria-pressed={onlyTargets}
+              onClick={() => setOnlyTargets((value) => !value)}
+              className={cn(
+                'inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-[10px] tracking-[0.12em] uppercase transition-colors',
+                onlyTargets
+                  ? 'border-gild/50 bg-gild/10 text-gild'
+                  : 'border-line bg-night/40 text-muted hover:border-gild/40 hover:text-parch',
+              )}
+            >
+              <Target size={13} aria-hidden="true" />
+              {t('roster.onlyTargets')}
+            </button>
             {hasFilters ? (
               <Button variant="ghost" size="sm" onClick={clearFilters}>
                 {t('roster.clearFilters')}
@@ -218,6 +243,7 @@ export function RosterPage() {
               entry={entry}
               onView={setDetailHeroId}
               onEdit={(heroId) => setDialog({ heroId })}
+              onToggleTarget={toggleTarget}
               onRemove={setRemoveTarget}
             />
           ))}
@@ -228,9 +254,7 @@ export function RosterPage() {
         <HeroDetailDialog heroId={detailHeroId} onClose={() => setDetailHeroId(null)} />
       ) : null}
 
-      {dialog ? (
-        <HeroDetailScreen heroId={dialog.heroId} onClose={() => setDialog(null)} />
-      ) : null}
+      {dialog ? <HeroDetailScreen heroId={dialog.heroId} onClose={() => setDialog(null)} /> : null}
 
       <ConfirmDialog
         open={Boolean(removeTarget)}

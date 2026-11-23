@@ -20,7 +20,8 @@ export const ASCENSION_CDN: Record<Ascension, string> = {
   ascended5: 'a5',
 }
 
-export function normalizeSignatureItem(value: number): 0 | 10 | 20 | 30 {
+export function normalizeSignatureItem(value: number): 0 | 10 | 20 | 30 | 40 {
+  if (value >= 40) return 40
   if (value >= 30) return 30
   if (value >= 20) return 20
   if (value >= 10) return 10

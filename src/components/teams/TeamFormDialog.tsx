@@ -13,6 +13,7 @@ import {
   type DragStartEvent,
 } from '@dnd-kit/core'
 import { GripVertical, Plus, Search, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
@@ -24,10 +25,12 @@ import {
   getHeroClassKey,
 } from '@/features/heroes/heroCatalog'
 import { createEmptyTeam } from '@/features/persistence/defaults'
+import { pets } from '@/features/pets/pets'
 import { assignHeroToSlot, resolveDropTarget } from '@/features/teams/teamSlots'
 import { cn } from '@/lib/cn'
 import { useAppStore } from '@/store/useAppStore'
 import {
+  PET_TIERS,
   TEAM_MODES,
   type HeroCatalogEntry,
   type HeroProgress,
@@ -260,6 +263,7 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
   const { t } = useTranslation()
   const teams = useAppStore((state) => state.teams)
   const heroes = useAppStore((state) => state.heroes)
+  const ownedPets = useAppStore((state) => state.pets)
   const createTeam = useAppStore((state) => state.createTeam)
   const updateTeam = useAppStore((state) => state.updateTeam)
   const editingTeam = teamId ? teams.find((team) => team.id === teamId) : undefined
@@ -284,6 +288,17 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
         })
         .sort((a, b) => a.entry.displayName.localeCompare(b.entry.displayName)),
     [heroes],
+  )
+
+  const ownedPetDefs = useMemo(
+    () =>
+      pets
+        .filter((pet) => Boolean(ownedPets[pet.id]))
+        .sort(
+          (a, b) =>
+            PET_TIERS.indexOf(a.tier) - PET_TIERS.indexOf(b.tier) || a.name.localeCompare(b.name),
+        ),
+    [ownedPets],
   )
 
   const panelHeroes = useMemo(() => {
@@ -342,6 +357,7 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
       mode: draft.mode,
       slots: draft.slots,
       notes: draft.notes ?? '',
+      petId: draft.petId || undefined,
     }
 
     if (editingTeam) {
@@ -476,6 +492,39 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
               />
             </section>
           </div>
+
+          <Field label={t('teams.pet')} className="sm:max-w-xs">
+            <Select
+              value={draft.petId ?? ''}
+              onChange={(event) =>
+                setDraft((current) => ({ ...current, petId: event.target.value || undefined }))
+              }
+            >
+              <option value="">{t('teams.noPet')}</option>
+              {PET_TIERS.map((tier) => {
+                const tierPets = ownedPetDefs.filter((pet) => pet.tier === tier)
+                if (tierPets.length === 0) return null
+
+                return (
+                  <optgroup key={tier} label={t(`petTier.${tier}`)}>
+                    {tierPets.map((pet) => (
+                      <option key={pet.id} value={pet.id}>
+                        {pet.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                )
+              })}
+            </Select>
+          </Field>
+
+          {ownedPetDefs.length === 0 ? (
+            <p className="text-xs text-muted">
+              <Link to="/pets" className="text-gild hover:underline">
+                {t('teams.noPetsHint')}
+              </Link>
+            </p>
+          ) : null}
 
           <Field label={t('teams.notes')}>
             <Textarea

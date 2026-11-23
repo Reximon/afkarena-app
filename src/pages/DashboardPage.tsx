@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { ChevronRight, Download, Gem, Plus, Sparkles, Swords, Users } from 'lucide-react'
+import { ChevronRight, Download, Gem, PawPrint, Plus, Sparkles, Swords, Users } from 'lucide-react'
+import { TargetHeroesPanel } from '@/components/dashboard/TargetHeroesPanel'
 import { Badge } from '@/components/ui/Badge'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { StatCard } from '@/components/ui/StatCard'
@@ -10,6 +11,7 @@ import {
   getHeroCatalogEntry,
   heroCatalogCount,
 } from '@/features/heroes/heroCatalog'
+import { petCatalogCount } from '@/features/pets/pets'
 import { FACTIONS } from '@/types'
 import { useAppStore } from '@/store/useAppStore'
 
@@ -17,9 +19,11 @@ export function DashboardPage() {
   const { t } = useTranslation()
   const heroes = useAppStore((state) => state.heroes)
   const teams = useAppStore((state) => state.teams)
+  const pets = useAppStore((state) => state.pets)
   const profile = useAppStore((state) => state.profile)
 
   const ownedHeroes = Object.keys(heroes).length
+  const ownedPets = Object.keys(pets).length
   const factionCounts = Object.values(heroes).reduce<Record<string, number>>((counts, hero) => {
     const catalogEntry = getHeroCatalogEntry(hero.heroId)
     if (catalogEntry) {
@@ -48,7 +52,7 @@ export function DashboardPage() {
         }
       />
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           label={t('dashboard.ownedHeroes')}
           value={ownedHeroes}
@@ -64,6 +68,13 @@ export function DashboardPage() {
           accent="cyan"
         />
         <StatCard
+          label={t('dashboard.ownedPets')}
+          value={ownedPets}
+          hint={t('pets.catalogCount', { count: petCatalogCount })}
+          icon={PawPrint}
+          accent="cyan"
+        />
+        <StatCard
           label={t('dashboard.crystalLevel')}
           value={profile.crystalLevel}
           hint={t('settings.crystalLevel')}
@@ -71,6 +82,8 @@ export function DashboardPage() {
           accent="rose"
         />
       </section>
+
+      <TargetHeroesPanel />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="codex-panel p-6">
@@ -151,6 +164,19 @@ export function DashboardPage() {
               </span>
               <ChevronRight size={16} aria-hidden="true" />
             </Link>
+            <Link
+              to="/pets"
+              className={buttonStyles({
+                variant: 'secondary',
+                className: 'w-full justify-between',
+              })}
+            >
+              <span className="flex items-center gap-2">
+                <PawPrint size={16} aria-hidden="true" />
+                {t('nav.pets')}
+              </span>
+              <ChevronRight size={16} aria-hidden="true" />
+            </Link>
             <button
               type="button"
               disabled
@@ -169,7 +195,9 @@ export function DashboardPage() {
       <section className="codex-panel star-chart flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="max-w-2xl">
           <Badge variant="cyan">{t('common.phaseTwo')}</Badge>
-          <h2 className="mt-3 font-display text-2xl text-parch">{t('dashboard.foundationTitle')}</h2>
+          <h2 className="mt-3 font-display text-2xl text-parch">
+            {t('dashboard.foundationTitle')}
+          </h2>
           <p className="mt-2 text-sm leading-relaxed text-muted">{t('dashboard.foundationBody')}</p>
         </div>
         <div className="shrink-0 rounded-xl border border-line bg-night/35 px-4 py-3 text-center">

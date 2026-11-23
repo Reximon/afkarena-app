@@ -1,4 +1,4 @@
-import type { AppData, HeroProgress, Team, TeamSlot } from '@/types'
+import type { AppData, HeroProgress, PetProgress, Team, TeamSlot } from '@/types'
 import { createId } from '@/lib/id'
 
 export function createTeamSlots(): TeamSlot[] {
@@ -35,6 +35,7 @@ export function createDefaultHeroProgress(
     ascension: 'elite',
     level: 1,
     inCrystal: false,
+    priority: false,
     signatureItem: 0,
     furniture: 0,
     engraving: 0,
@@ -45,13 +46,30 @@ export function createDefaultHeroProgress(
   }
 }
 
+export function createDefaultPetProgress(
+  petId: string,
+  overrides: Partial<PetProgress> = {},
+): PetProgress {
+  return {
+    petId,
+    strength: 0,
+    intelligence: 0,
+    agility: 0,
+    training: 0,
+    updatedAt: new Date().toISOString(),
+    ...overrides,
+  }
+}
+
 export function createEmptyAppData(): AppData {
   return {
     schemaVersion: 1,
     profile: {
       crystalLevel: 0,
+      petResonanceLevel: 0,
     },
     heroes: {},
+    pets: {},
     teams: [],
   }
 }

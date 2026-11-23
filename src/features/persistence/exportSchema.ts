@@ -61,6 +61,7 @@ export const heroProgressSchema = z.object({
   ascension: ascensionSchema,
   level: z.number().int().min(0).max(1000),
   inCrystal: z.boolean(),
+  priority: z.boolean().optional(),
   signatureItem: z.number().int().min(0).max(40),
   furniture: z.union([z.literal(0), z.literal(3), z.literal(9), z.literal(36)]),
   engraving: z.union([z.literal(0), z.literal(30), z.literal(60), z.literal(80)]),
@@ -72,10 +73,20 @@ export const heroProgressSchema = z.object({
   updatedAt: z.string().min(1),
 })
 
+export const petProgressSchema = z.object({
+  petId: z.string().min(1),
+  strength: z.number().int().min(0).max(18),
+  intelligence: z.number().int().min(0).max(18),
+  agility: z.number().int().min(0).max(18),
+  training: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]).default(0),
+  updatedAt: z.string().min(1),
+})
+
 export const profileSchema = z.object({
   playerName: z.string().optional(),
   server: z.string().optional(),
   crystalLevel: z.number().int().min(0).max(1000),
+  petResonanceLevel: z.number().int().min(0).max(54).optional(),
 })
 
 export const teamSlotSchema = z.object({
@@ -89,6 +100,7 @@ export const teamSchema = z.object({
   name: z.string().min(1),
   mode: teamModeSchema,
   slots: z.array(teamSlotSchema).length(5),
+  petId: z.string().min(1).optional(),
   notes: z.string().optional(),
   createdAt: z.string().min(1),
   updatedAt: z.string().min(1),
@@ -98,10 +110,45 @@ export const appDataSchema = z.object({
   schemaVersion: z.literal(1),
   profile: profileSchema,
   heroes: z.record(z.string(), heroProgressSchema),
+  pets: z.record(z.string(), petProgressSchema).optional(),
   teams: z.array(teamSchema),
 })
 
-export const exportDataSchema = appDataSchema.extend({
+export const legacyExportDataSchema = appDataSchema.extend({
+  app: z.literal('afk-astral-codex'),
+  game: z.literal('afk-arena-classic'),
+  exportedAt: z.string().min(1),
+})
+
+export const readableHeroProgressSchema = heroProgressSchema
+  .omit({ heroId: true, linkedHeroId: true })
+  .extend({ linkedHero: z.string().min(1).optional() })
+
+export const readablePetProgressSchema = petProgressSchema.omit({ petId: true })
+
+export const readableTeamSlotSchema = z.object({
+  position: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)]),
+  row: z.enum(['front', 'back']),
+  hero: z.string().min(1).optional(),
+})
+
+export const readableTeamSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  mode: teamModeSchema,
+  slots: z.array(readableTeamSlotSchema).length(5),
+  pet: z.string().min(1).optional(),
+  notes: z.string().optional(),
+  createdAt: z.string().min(1),
+  updatedAt: z.string().min(1),
+})
+
+export const exportDataSchema = z.object({
+  schemaVersion: z.literal(1),
+  profile: profileSchema,
+  heroes: z.record(z.string(), readableHeroProgressSchema),
+  pets: z.record(z.string(), readablePetProgressSchema).optional(),
+  teams: z.array(readableTeamSchema),
   app: z.literal('afk-astral-codex'),
   game: z.literal('afk-arena-classic'),
   exportedAt: z.string().min(1),

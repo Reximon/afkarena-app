@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Gem, LayoutDashboard, Settings, Swords, Users } from 'lucide-react'
+import { Gem, LayoutDashboard, PawPrint, Settings, Swords, Users } from 'lucide-react'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
 import { cn } from '@/lib/cn'
 
@@ -9,21 +9,19 @@ const navItems = [
   { to: '/', labelKey: 'nav.dashboard', icon: LayoutDashboard, end: true },
   { to: '/roster', labelKey: 'nav.roster', icon: Users, end: false },
   { to: '/teams', labelKey: 'nav.teams', icon: Swords, end: false },
+  { to: '/pets', labelKey: 'nav.pets', icon: PawPrint, end: false },
   { to: '/equipment', labelKey: 'nav.equipment', icon: Gem, end: false },
   { to: '/settings', labelKey: 'nav.settings', icon: Settings, end: false },
 ] as const
 
 type PageTitleKey =
-  | 'nav.dashboard'
-  | 'nav.roster'
-  | 'nav.teams'
-  | 'nav.equipment'
-  | 'nav.settings'
+  'nav.dashboard' | 'nav.roster' | 'nav.teams' | 'nav.pets' | 'nav.equipment' | 'nav.settings'
 
 const pageTitleKeys: Record<string, PageTitleKey> = {
   '/': 'nav.dashboard',
   '/roster': 'nav.roster',
   '/teams': 'nav.teams',
+  '/pets': 'nav.pets',
   '/equipment': 'nav.equipment',
   '/settings': 'nav.settings',
 }
@@ -104,7 +102,7 @@ export function AppShell() {
 
       <footer className="border-t border-line py-4">
         <p className="text-center font-mono text-[9px] tracking-[0.16em] text-muted/70 uppercase">
-          {t('app.name')} · v0.1.0 · {t('app.game')}
+          {t('app.name')} · v1.2.0 · {t('app.game')}
         </p>
       </footer>
     </div>

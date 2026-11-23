@@ -1,7 +1,12 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { AppData, CollectionProgress, HeroProgress, Profile, Team } from '@/types'
-import { createEmptyAppData, createEmptyTeam } from '@/features/persistence/defaults'
+import type { AppData, CollectionProgress, HeroProgress, PetProgress, Profile, Team } from '@/types'
+import {
+  createDefaultPetProgress,
+  createEmptyAppData,
+  createEmptyTeam,
+} from '@/features/persistence/defaults'
+import { clampPetBuffs, PET_MAX_RESONANCE } from '@/features/pets/pets'
 import { createId } from '@/lib/id'
 
 export const DATA_STORAGE_KEY = 'afk-astral-codex:data'
@@ -14,6 +19,10 @@ interface AppState extends AppData {
   unassignArtifact: (heroId: string) => void
   assignCollection: (heroId: string, collection: CollectionProgress) => void
   unassignCollection: (heroId: string) => void
+  addPet: (petId: string, overrides?: Partial<PetProgress>) => void
+  updatePet: (petId: string, patch: Partial<PetProgress>) => void
+  removePet: (petId: string) => void
+  setPetResonance: (level: number) => void
   setProfile: (patch: Partial<Profile>) => void
   createTeam: (overrides?: Partial<Team>) => string
   updateTeam: (teamId: string, patch: Partial<Team>) => void
@@ -158,6 +167,62 @@ export const useAppStore = create<AppState>()(
         })
       },
 
+      addPet: (petId, overrides) => {
+        const pet = createDefaultPetProgress(petId, overrides)
+
+        set((state) => ({
+          pets: {
+            ...state.pets,
+            [petId]: { ...pet, petId, updatedAt: new Date().toISOString() },
+          },
+        }))
+      },
+
+      updatePet: (petId, patch) => {
+        set((state) => {
+          const current = state.pets[petId]
+          if (!current) return state
+
+          return {
+            pets: {
+              ...state.pets,
+              [petId]: clampPetBuffs(petId, {
+                ...current,
+                ...patch,
+                petId,
+                updatedAt: new Date().toISOString(),
+              }),
+            },
+          }
+        })
+      },
+
+      removePet: (petId) => {
+        set((state) => {
+          const pets = { ...state.pets }
+          delete pets[petId]
+          const now = new Date().toISOString()
+
+          return {
+            pets,
+            teams: state.teams.map((team) =>
+              team.petId === petId ? { ...team, petId: undefined, updatedAt: now } : team,
+            ),
+          }
+        })
+      },
+
+      setPetResonance: (level) => {
+        const next = Math.max(
+          0,
+          Math.min(PET_MAX_RESONANCE, Number.isFinite(level) ? Math.floor(level) : 0),
+        )
+
+        set((state) => ({
+          profile: { ...state.profile, petResonanceLevel: next },
+        }))
+      },
+
       setProfile: (patch) => {
         set((state) => ({
           profile: {
@@ -217,6 +282,7 @@ export const useAppStore = create<AppState>()(
           schemaVersion: data.schemaVersion,
           profile: data.profile,
           heroes: data.heroes,
+          pets: data.pets,
           teams: data.teams,
         })
       },
@@ -232,6 +298,7 @@ export const useAppStore = create<AppState>()(
         schemaVersion: state.schemaVersion,
         profile: state.profile,
         heroes: state.heroes,
+        pets: state.pets,
         teams: state.teams,
       }),
     },

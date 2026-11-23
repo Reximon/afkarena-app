@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Pencil, Trash2 } from 'lucide-react'
+import { Pencil, Target, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
 import {
@@ -16,10 +16,11 @@ interface HeroCardProps {
   entry: HeroCatalogEntry
   onView: (heroId: string) => void
   onEdit: (heroId: string) => void
+  onToggleTarget: (heroId: string) => void
   onRemove: (heroId: string) => void
 }
 
-export function HeroCard({ hero, entry, onView, onEdit, onRemove }: HeroCardProps) {
+export function HeroCard({ hero, entry, onView, onEdit, onToggleTarget, onRemove }: HeroCardProps) {
   const { t } = useTranslation()
   const linkedEntry = hero.linkedHeroId ? getHeroCatalogEntry(hero.linkedHeroId) : undefined
   const hasFoil = hasFoilEffect(hero)
@@ -55,10 +56,16 @@ export function HeroCard({ hero, entry, onView, onEdit, onRemove }: HeroCardProp
           style={{ backgroundColor: getFactionColor(entry.faction) }}
           aria-hidden="true"
         />
-        {hero.inCrystal ? (
-          <Badge variant="cyan" className="absolute top-1.5 right-1.5">
-            {t('hero.inCrystal')}
-          </Badge>
+        {hero.priority || hero.inCrystal ? (
+          <span className="absolute top-1.5 right-1.5 flex flex-col items-end gap-1">
+            {hero.priority ? (
+              <Badge variant="gold" className="flex items-center gap-1">
+                <Target size={10} aria-hidden="true" />
+                {t('roster.targetBadge')}
+              </Badge>
+            ) : null}
+            {hero.inCrystal ? <Badge variant="cyan">{t('hero.inCrystal')}</Badge> : null}
+          </span>
         ) : null}
       </div>
 
@@ -76,6 +83,29 @@ export function HeroCard({ hero, entry, onView, onEdit, onRemove }: HeroCardProp
             ) : null}
           </div>
           <div className="flex shrink-0 gap-1">
+            <button
+              type="button"
+              onClick={() => onToggleTarget(entry.id)}
+              aria-pressed={Boolean(hero.priority)}
+              aria-label={
+                hero.priority
+                  ? t('roster.unmarkTarget', { name: entry.displayName })
+                  : t('roster.markTarget', { name: entry.displayName })
+              }
+              title={
+                hero.priority
+                  ? t('roster.unmarkTarget', { name: entry.displayName })
+                  : t('roster.markTarget', { name: entry.displayName })
+              }
+              className={cn(
+                'icon-action rounded-lg p-1.5',
+                hero.priority
+                  ? 'text-gild hover:bg-gild/15'
+                  : 'text-muted hover:bg-gild/10 hover:text-gild',
+              )}
+            >
+              <Target size={14} aria-hidden="true" />
+            </button>
             <button
               type="button"
               onClick={() => onEdit(entry.id)}

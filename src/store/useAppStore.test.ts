@@ -90,6 +90,78 @@ describe('useAppStore', () => {
     })
   })
 
+  it('toggles the target flag without touching other progress', () => {
+    useAppStore.getState().addHero(createDefaultHeroProgress('9', { level: 240 }))
+    expect(useAppStore.getState().heroes['9'].priority).toBe(false)
+
+    useAppStore.getState().updateHero('9', { priority: true })
+    let hero = useAppStore.getState().heroes['9']
+    expect(hero.priority).toBe(true)
+    expect(hero.level).toBe(240)
+
+    useAppStore.getState().updateHero('9', { priority: false })
+    hero = useAppStore.getState().heroes['9']
+    expect(hero.priority).toBe(false)
+  })
+
+  it('adds, updates and clamps a pet', () => {
+    useAppStore.getState().addPet('6030')
+    expect(useAppStore.getState().pets['6030']).toMatchObject({
+      petId: '6030',
+      strength: 0,
+      intelligence: 0,
+      agility: 0,
+      training: 0,
+    })
+
+    useAppStore.getState().updatePet('6030', { strength: 20, training: 2 })
+    const pet = useAppStore.getState().pets['6030']
+
+    expect(pet.strength).toBe(18)
+    expect(pet.training).toBe(2)
+  })
+
+  it('stores the beast resonance without touching pet buffs', () => {
+    useAppStore.getState().addPet('6004', { strength: 2, intelligence: 2, agility: 1 })
+
+    useAppStore.getState().setPetResonance(7)
+    expect(useAppStore.getState().profile.petResonanceLevel).toBe(7)
+    expect(useAppStore.getState().pets['6004']).toMatchObject({
+      strength: 2,
+      intelligence: 2,
+      agility: 1,
+    })
+
+    useAppStore.getState().setPetResonance(200)
+    expect(useAppStore.getState().profile.petResonanceLevel).toBe(54)
+
+    useAppStore.getState().setPetResonance(-4)
+    expect(useAppStore.getState().profile.petResonanceLevel).toBe(0)
+    expect(useAppStore.getState().pets['6004'].strength).toBe(2)
+  })
+
+  it('removes a pet and clears only the teams using it', () => {
+    useAppStore.getState().addPet('6004')
+    useAppStore.getState().addPet('6005')
+    const withPolar = useAppStore.getState().createTeam({ name: 'Campaign', petId: '6004' })
+    const withOther = useAppStore.getState().createTeam({ name: 'Arena', petId: '6005' })
+
+    useAppStore.getState().removePet('6004')
+
+    const teams = useAppStore.getState().teams
+    expect(useAppStore.getState().pets['6004']).toBeUndefined()
+    expect(teams.find((team) => team.id === withPolar)?.petId).toBeUndefined()
+    expect(teams.find((team) => team.id === withOther)?.petId).toBe('6005')
+  })
+
+  it('duplicates a team with its assigned pet', () => {
+    const teamId = useAppStore.getState().createTeam({ name: 'Campaign', petId: '6004' })
+    const copyId = useAppStore.getState().duplicateTeam(teamId)
+    const copy = useAppStore.getState().teams.find((team) => team.id === copyId)
+
+    expect(copy?.petId).toBe('6004')
+  })
+
   it('unassigns a collection without losing its progress', () => {
     useAppStore.getState().addHero(
       createDefaultHeroProgress('9', {

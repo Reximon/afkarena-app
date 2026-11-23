@@ -1,6 +1,6 @@
 export const en = {
   app: {
-    name: 'Astral Codex',
+    name: 'The Resonating Hall',
     subtitle: 'AFK Arena Classic tracker',
     game: 'AFK Arena Classic',
     disclaimer:
@@ -10,6 +10,7 @@ export const en = {
     dashboard: 'Dashboard',
     roster: 'Roster',
     teams: 'Teams',
+    pets: 'Pets',
     equipment: 'Equipment',
     artifacts: 'Artifacts',
     settings: 'Settings',
@@ -41,6 +42,7 @@ export const en = {
     subtitle: 'Your roster, your investments, your next composition.',
     ownedHeroes: 'Owned heroes',
     savedTeams: 'Saved teams',
+    ownedPets: 'Owned pets',
     crystalLevel: 'Resonating Crystal',
     factionBreakdown: 'Faction breakdown',
     quickActions: 'Quick actions',
@@ -57,7 +59,7 @@ export const en = {
     targetPickerEmpty: 'No owned heroes yet.',
     targetRemove: 'Remove {{name}} from targets',
     targetGear: 'Gear {{count}}/4',
-    emptyTitle: 'Your codex is empty',
+    emptyTitle: 'Your hall is empty',
     emptyBody: 'Add your first hero to start tracking ascension, gear and investments.',
     foundationTitle: 'Roster ready',
     foundationBody:
@@ -94,6 +96,10 @@ export const en = {
     notesPlaceholder: 'Optional notes...',
     resultsCount: '{{count}} heroes',
     viewHero: 'View {{name}}',
+    targetBadge: 'Target',
+    onlyTargets: 'Targets only',
+    markTarget: 'Mark {{name}} as target',
+    unmarkTarget: 'Unmark {{name}} as target',
   },
   teams: {
     title: 'Teams',
@@ -115,6 +121,9 @@ export const en = {
     mode: 'Mode',
     notes: 'Notes',
     notesPlaceholder: 'Optional notes...',
+    pet: 'Pet',
+    noPet: 'No pet',
+    noPetsHint: 'Add pets from the Pets page to assign one to a team.',
     emptySlot: 'Empty slot',
     noHeroes: 'Add heroes to your roster before building a team.',
     heroUsed: 'Already in this team',
@@ -190,6 +199,39 @@ export const en = {
     level: 'Level',
     skillLevel: 'Skill',
   },
+  pets: {
+    title: 'Pets',
+    subtitle:
+      'Beasts that fight alongside your team. Track their Attribute Buffs, level and training.',
+    ownedCount: '{{owned}} / {{total}} owned',
+    sectionCount: '{{owned}} / {{total}}',
+    catalogCount: '{{count}} in the catalog',
+    add: 'Add pet',
+    addName: 'Add {{name}}',
+    editName: 'Edit {{name}}',
+    removeName: 'Remove {{name}}',
+    removeTitle: 'Remove pet',
+    removeBody: 'Remove {{name}} from your pets? Teams using it will have no pet assigned.',
+    editBody: 'Adjust the three Attribute Buffs and training. Changes save automatically.',
+    level: 'Lv {{level}} / {{max}}',
+    strength: 'Strength buff',
+    intelligence: 'Intelligence buff',
+    agility: 'Agility buff',
+    training: 'Training',
+    trainingValue: 'Training {{level}}',
+    trainingRare: 'Rare pets have no training.',
+    trainingHint: 'Training 1, 2 and 3 unlock at pet levels 3, 9 and 15.',
+    resonance: 'Beast resonance',
+    resonanceHint:
+      'Pets below this level show how many levels they still need. Level them up yourself.',
+    resonanceCaps: 'Tier caps: Rare 18, Elite 36, Fabled 54.',
+    resonancePending: '{{count}} levels to resonance',
+  },
+  petTier: {
+    rare: 'Rare',
+    elite: 'Elite',
+    fabled: 'Fabled',
+  },
   settings: {
     title: 'Settings',
     subtitle: 'Profile, language and local data controls.',
@@ -200,7 +242,7 @@ export const en = {
     language: 'Interface language',
     data: 'Data',
     dataHint:
-      'Backups include your profile, roster and saved teams. Everything stays in this browser.',
+      'Backups include your profile, roster, pets and saved teams. Everything stays in this browser.',
     exportBackup: 'Export backup',
     importBackup: 'Import backup',
     reset: 'Reset data',
@@ -329,7 +371,7 @@ export const en = {
   },
   errors: {
     generic: 'Something went wrong. Try again.',
-    invalidImport: 'That file is not a valid Astral Codex backup.',
+    invalidImport: 'That file is not a valid The Resonating Hall backup.',
   },
 }
 

@@ -45,7 +45,7 @@ describe('framedHeroIconUrl', () => {
         engraving: 80,
       }),
     ).toBe(
-      'https://cdn.jsdelivr.net/gh/afk-mine/cdn@main/framed_unit_icon/178_a2_si30_f36_e80_2x.webp',
+      'https://cdn.jsdelivr.net/gh/afk-mine/cdn@main/framed_unit_icon/178_a2_si40_f36_e80_2x.webp',
     )
   })
 })
@@ -56,7 +56,7 @@ describe('investment normalization', () => {
     expect(normalizeSignatureItem(10)).toBe(10)
     expect(normalizeSignatureItem(20)).toBe(20)
     expect(normalizeSignatureItem(30)).toBe(30)
-    expect(normalizeSignatureItem(40)).toBe(30)
+    expect(normalizeSignatureItem(40)).toBe(40)
   })
 
   it('normalizes furniture and engraving', () => {
