@@ -16,7 +16,7 @@ function SlotView({ slot, hero }: { slot: TeamSlot; hero: HeroProgress | undefin
 
   if (hero && entry) {
     return (
-      <div className="rounded-xl border border-line bg-void/30 p-1.5">
+      <div className="rounded-xl border border-line bg-night/30 p-1.5">
         <FramedHeroIcon
           heroId={entry.id}
           ascension={hero.ascension}
@@ -26,7 +26,7 @@ function SlotView({ slot, hero }: { slot: TeamSlot; hero: HeroProgress | undefin
           alt={entry.displayName}
           className="w-full"
         />
-        <p className="mt-1 truncate text-center text-[11px] font-semibold text-bone">
+        <p className="mt-1 truncate text-center text-[11px] font-semibold text-parch">
           {entry.displayName}
         </p>
       </div>
@@ -34,7 +34,7 @@ function SlotView({ slot, hero }: { slot: TeamSlot; hero: HeroProgress | undefin
   }
 
   return (
-    <div className="flex min-h-20 flex-col items-center justify-center rounded-xl border border-dashed border-line bg-void/20 p-2 text-center">
+    <div className="flex min-h-20 flex-col items-center justify-center rounded-xl border border-dashed border-line bg-night/20 p-2 text-center">
       <span className="font-mono text-[9px] tracking-[0.16em] text-muted uppercase">
         {slot.position}
       </span>
@@ -53,7 +53,7 @@ export function TeamFormation({ slots, heroes, className }: TeamFormationProps) 
   return (
     <div className={cn('space-y-4', className)}>
       <div>
-        <p className="mb-1.5 font-mono text-[9px] tracking-[0.18em] text-gold uppercase">
+        <p className="mb-1.5 font-mono text-[9px] tracking-[0.18em] text-gild uppercase">
           {t('teams.front')}
         </p>
         <div className="grid grid-cols-2 gap-2">
@@ -67,7 +67,7 @@ export function TeamFormation({ slots, heroes, className }: TeamFormationProps) 
         </div>
       </div>
       <div>
-        <p className="mb-1.5 font-mono text-[9px] tracking-[0.18em] text-cyan uppercase">
+        <p className="mb-1.5 font-mono text-[9px] tracking-[0.18em] text-arcane uppercase">
           {t('teams.back')}
         </p>
         <div className="grid grid-cols-3 gap-2">

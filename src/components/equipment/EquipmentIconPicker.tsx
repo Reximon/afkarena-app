@@ -35,7 +35,7 @@ export function EquipmentIconPicker({
   const legacy = value && !selected ? { id: value, name: value } : undefined
 
   return (
-    <div className="rounded-xl border border-line bg-void/30 p-2.5">
+    <div className="rounded-xl border border-line bg-night/30 p-2.5">
       <button
         type="button"
         aria-label={noneLabel}
@@ -44,15 +44,15 @@ export function EquipmentIconPicker({
         className={cn(
           'flex h-9 w-full items-center justify-between gap-2 rounded-lg border px-2.5 text-xs transition-colors',
           value
-            ? 'border-line bg-void/40 text-muted hover:border-gold/30 hover:text-bone'
-            : 'border-gold/60 bg-gold/10 text-bone',
+            ? 'border-line bg-night/40 text-muted hover:border-gild/30 hover:text-parch'
+            : 'border-gild/60 bg-gild/10 text-parch',
         )}
       >
         <span className="flex items-center gap-1.5">
           <Ban size={14} aria-hidden="true" />
           {noneLabel}
         </span>
-        {value ? null : <Check size={14} className="text-gold" aria-hidden="true" />}
+        {value ? null : <Check size={14} className="text-gild" aria-hidden="true" />}
       </button>
 
       <div className="mt-2.5 max-h-56 space-y-2.5 overflow-y-auto pr-1">
@@ -64,14 +64,14 @@ export function EquipmentIconPicker({
               aria-pressed
               title={legacy.name}
               onClick={() => onChange(legacy.id)}
-              className="relative grid size-11 place-items-center overflow-hidden rounded-lg border border-gold/70 bg-void/40 ring-1 ring-gold/30"
+              className="relative grid size-11 place-items-center overflow-hidden rounded-lg border border-gild/70 bg-night/40 ring-1 ring-gild/30"
             >
               <EquipmentImage icon={Icon} className="size-full object-contain p-0.5" />
               <Check
                 size={10}
                 strokeWidth={3}
                 aria-hidden="true"
-                className="absolute right-0.5 bottom-0.5 rounded-full bg-gold p-0.5 text-ink"
+                className="absolute right-0.5 bottom-0.5 rounded-full bg-gild p-0.5 text-panel"
               />
             </button>
           </div>
@@ -100,10 +100,10 @@ export function EquipmentIconPicker({
                     }
                     onClick={() => onChange(item.id)}
                     className={cn(
-                      'relative grid size-11 place-items-center overflow-hidden rounded-lg border bg-void/40 ring-1 transition-all',
+                      'relative grid size-11 place-items-center overflow-hidden rounded-lg border bg-night/40 ring-1 transition-all',
                       isSelected
-                        ? 'border-gold/70 ring-gold/30'
-                        : 'border-line ring-transparent hover:border-gold/40',
+                        ? 'border-gild/70 ring-gild/30'
+                        : 'border-line ring-transparent hover:border-gild/40',
                       item.disabled && 'cursor-not-allowed opacity-35 grayscale',
                     )}
                   >
@@ -117,7 +117,7 @@ export function EquipmentIconPicker({
                         size={10}
                         strokeWidth={3}
                         aria-hidden="true"
-                        className="absolute right-0.5 bottom-0.5 rounded-full bg-gold p-0.5 text-ink"
+                        className="absolute right-0.5 bottom-0.5 rounded-full bg-gild p-0.5 text-panel"
                       />
                     ) : null}
                   </button>
@@ -128,7 +128,7 @@ export function EquipmentIconPicker({
         ))}
       </div>
 
-      <p className={cn('mt-2 truncate text-xs', selected || legacy ? 'text-cyan' : 'text-muted')}>
+      <p className={cn('mt-2 truncate text-xs', selected || legacy ? 'text-arcane' : 'text-muted')}>
         {selected?.name ?? legacy?.name ?? noneLabel}
       </p>
     </div>

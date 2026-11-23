@@ -15,7 +15,7 @@ export function LanguageToggle() {
 
   return (
     <div
-      className="flex items-center gap-1 rounded-full border border-line bg-ink/70 p-1"
+      className="flex items-center gap-1 rounded-full border border-line bg-panel/70 p-1"
       role="group"
       aria-label={t('common.language')}
     >
@@ -30,7 +30,7 @@ export function LanguageToggle() {
             onClick={() => setLanguage(option.value)}
             className={cn(
               'rounded-full px-3 py-1 font-mono text-[11px] tracking-[0.18em] transition-colors',
-              isActive ? 'bg-gold text-void' : 'text-muted hover:bg-violet/70 hover:text-bone',
+              isActive ? 'bg-gild text-night' : 'text-muted hover:bg-dusk/70 hover:text-parch',
             )}
           >
             {option.label}

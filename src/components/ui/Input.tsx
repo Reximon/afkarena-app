@@ -7,7 +7,7 @@ import type {
 import { cn } from '@/lib/cn'
 
 const fieldStyles =
-  'w-full rounded-xl border border-line bg-void/50 px-3 text-sm text-bone placeholder:text-muted/60 transition-colors focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/15 disabled:opacity-60'
+  'w-full rounded-xl border border-line bg-night/50 px-3 text-sm text-parch placeholder:text-muted/60 transition-colors focus:border-gild/50 focus:outline-none focus:ring-2 focus:ring-gild/15 disabled:opacity-60'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>
 

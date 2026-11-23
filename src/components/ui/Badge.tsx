@@ -4,11 +4,11 @@ import { cn } from '@/lib/cn'
 type BadgeVariant = 'gold' | 'cyan' | 'rose' | 'muted' | 'outline'
 
 const variants: Record<BadgeVariant, string> = {
-  gold: 'border-gold/30 bg-gold/10 text-gold',
-  cyan: 'border-cyan/30 bg-cyan/10 text-cyan',
-  rose: 'border-rose/30 bg-rose/10 text-rose',
+  gold: 'border-gild/30 bg-gild/10 text-gild',
+  cyan: 'border-arcane/30 bg-arcane/10 text-arcane',
+  rose: 'border-ember/30 bg-ember/10 text-ember',
   muted: 'border-line bg-white/5 text-muted',
-  outline: 'border-line bg-transparent text-bone',
+  outline: 'border-line bg-transparent text-parch',
 }
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {

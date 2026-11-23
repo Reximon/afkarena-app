@@ -11,7 +11,7 @@ interface AssignedHeroChipProps {
 
 export function AssignedHeroChip({ hero, entry, onRemove, removeLabel }: AssignedHeroChipProps) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-void/30 py-0.5 pr-1 pl-0.5 text-xs text-bone">
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-night/30 py-0.5 pr-1 pl-0.5 text-xs text-parch">
       <FramedHeroIcon
         heroId={entry.id}
         ascension={hero.ascension}
@@ -26,7 +26,7 @@ export function AssignedHeroChip({ hero, entry, onRemove, removeLabel }: Assigne
         type="button"
         onClick={onRemove}
         aria-label={removeLabel}
-        className="rounded-full p-0.5 text-muted transition-colors hover:bg-rose/15 hover:text-rose"
+        className="rounded-full p-0.5 text-muted transition-colors hover:bg-ember/15 hover:text-ember"
       >
         <X size={12} aria-hidden="true" />
       </button>

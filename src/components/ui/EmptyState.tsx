@@ -18,10 +18,10 @@ export function EmptyState({ icon: Icon, title, body, action, className }: Empty
         className,
       )}
     >
-      <span className="mb-5 rounded-2xl border border-gold/25 bg-gold/10 p-4 text-gold">
+      <span className="mb-5 rounded-2xl border border-gild/25 bg-gild/10 p-4 text-gild">
         <Icon size={28} strokeWidth={1.5} aria-hidden="true" />
       </span>
-      <h2 className="font-display text-2xl text-bone">{title}</h2>
+      <h2 className="font-display text-2xl text-parch">{title}</h2>
       <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">{body}</p>
       {action ? <div className="mt-6">{action}</div> : null}
     </div>

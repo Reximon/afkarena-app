@@ -103,7 +103,7 @@ export function CollectionsTab() {
         <div className="mt-4 space-y-2">
           {assigned.length > 0 ? (
             assigned.map(({ hero, entry }) => (
-              <div key={hero.heroId} className="rounded-xl border border-line bg-void/25 p-2.5">
+              <div key={hero.heroId} className="rounded-xl border border-line bg-night/25 p-2.5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <AssignedHeroChip
                     hero={hero}
@@ -222,11 +222,11 @@ export function CollectionsTab() {
       {ownedHeroes.length === 0 ? (
         <div className="codex-panel star-chart flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <span className="grid size-11 shrink-0 place-items-center rounded-2xl border border-gold/25 bg-gold/10 text-gold">
+            <span className="grid size-11 shrink-0 place-items-center rounded-2xl border border-gild/25 bg-gild/10 text-gild">
               <Gem size={20} strokeWidth={1.6} aria-hidden="true" />
             </span>
             <div>
-              <h2 className="font-display text-xl text-bone">{t('collections.noHeroesTitle')}</h2>
+              <h2 className="font-display text-xl text-parch">{t('collections.noHeroesTitle')}</h2>
               <p className="mt-1 text-sm text-muted">{t('collections.noHeroesBody')}</p>
             </div>
           </div>
@@ -239,7 +239,7 @@ export function CollectionsTab() {
       {classGroups.map((group) => (
         <section key={group.heroClass} className="space-y-4">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="font-display text-2xl text-bone">{t(`heroClass.${group.heroClass}`)}</h2>
+            <h2 className="font-display text-2xl text-parch">{t(`heroClass.${group.heroClass}`)}</h2>
             <Badge variant="cyan">
               {t('collections.collectionCount', { count: group.items.length })}
             </Badge>

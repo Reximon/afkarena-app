@@ -28,16 +28,16 @@ export function Dialog({
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="dialog-overlay fixed inset-0 z-50 bg-void/80 backdrop-blur-sm" />
+        <DialogPrimitive.Overlay className="dialog-overlay fixed inset-0 z-50 bg-night/80 backdrop-blur-sm" />
         <DialogPrimitive.Content
           className={cn(
-            'dialog-content fixed top-1/2 left-1/2 z-50 flex max-h-[90vh] w-[calc(100vw-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border border-line bg-ink shadow-[0_24px_80px_rgba(0,0,0,0.55)]',
+            'dialog-content fixed top-1/2 left-1/2 z-50 flex max-h-[90vh] w-[calc(100vw-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border border-line bg-panel shadow-[0_24px_80px_rgba(0,0,0,0.55)]',
             className,
           )}
         >
           <div className="flex items-start justify-between gap-4 border-b border-line px-5 py-4">
             <div className="min-w-0">
-              <DialogPrimitive.Title className="font-display text-2xl leading-tight text-bone">
+              <DialogPrimitive.Title className="font-display text-2xl leading-tight text-parch">
                 {title}
               </DialogPrimitive.Title>
               {description ? (
@@ -48,7 +48,7 @@ export function Dialog({
             </div>
             <DialogPrimitive.Close
               type="button"
-              className="rounded-lg p-2 text-muted transition-colors hover:bg-violet hover:text-bone"
+              className="rounded-lg p-2 text-muted transition-colors hover:bg-dusk hover:text-parch"
             >
               <X size={18} aria-hidden="true" />
               <span className="sr-only">{t('common.close')}</span>

@@ -5,10 +5,10 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    'bg-gold text-void shadow-[0_0_28px_rgba(231,200,115,0.16)] hover:bg-[#f0d98f] active:bg-[#d8b95f]',
-  secondary: 'border border-line bg-violet/60 text-bone hover:bg-violet',
-  ghost: 'text-muted hover:bg-violet/60 hover:text-bone',
-  danger: 'border border-rose/40 bg-rose/10 text-rose hover:bg-rose/20',
+    'bg-gild text-night shadow-[0_0_28px_rgba(224,185,94,0.18)] hover:bg-[#ecc978] active:bg-[#c9a44e]',
+  secondary: 'border border-line bg-dusk/60 text-parch hover:bg-dusk',
+  ghost: 'text-muted hover:bg-dusk/60 hover:text-parch',
+  danger: 'border border-ember/40 bg-ember/10 text-ember hover:bg-ember/20',
 }
 
 const sizes: Record<ButtonSize, string> = {

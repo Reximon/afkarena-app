@@ -68,8 +68,8 @@ function RosterHero({ hero, entry, used }: RosterHeroProps) {
       style={{ touchAction: 'none' }}
       title={t('teams.dragHero', { name: entry.displayName })}
       className={cn(
-        'group relative flex flex-col items-center rounded-xl border border-line bg-void/30 p-1.5 text-center transition-colors hover:border-gold/30 hover:bg-violet/40',
-        used && 'border-cyan/25 bg-cyan/5',
+        'group relative flex flex-col items-center rounded-xl border border-line bg-night/30 p-1.5 text-center transition-colors hover:border-gild/30 hover:bg-dusk/40',
+        used && 'border-arcane/25 bg-arcane/5',
         isDragging && 'opacity-40',
       )}
     >
@@ -82,7 +82,7 @@ function RosterHero({ hero, entry, used }: RosterHeroProps) {
         alt={entry.displayName}
         className="w-full"
       />
-      <span className="mt-1 w-full truncate text-[11px] font-semibold text-bone">
+      <span className="mt-1 w-full truncate text-[11px] font-semibold text-parch">
         {entry.displayName}
       </span>
       <span className="mt-0.5 flex w-full items-center justify-center gap-1 font-mono text-[8px] tracking-wide text-muted uppercase">
@@ -131,9 +131,9 @@ function TeamSlotCard({
     <div
       ref={setNodeRef}
       className={cn(
-        'rounded-xl border border-line bg-void/25 p-2 transition-colors',
-        isDragging && 'border-dashed border-cyan/25',
-        isOver && 'border-gold/60 bg-gold/10',
+        'rounded-xl border border-line bg-night/25 p-2 transition-colors',
+        isDragging && 'border-dashed border-arcane/25',
+        isOver && 'border-gild/60 bg-gild/10',
       )}
     >
       <div className="flex items-center justify-between">
@@ -145,7 +145,7 @@ function TeamSlotCard({
             type="button"
             onClick={() => onAssign(slot.position, '')}
             aria-label={t('teams.removeHero')}
-            className="rounded-md p-1 text-muted transition-colors hover:bg-rose/15 hover:text-rose"
+            className="rounded-md p-1 text-muted transition-colors hover:bg-ember/15 hover:text-ember"
           >
             <X size={12} aria-hidden="true" />
           </button>
@@ -214,14 +214,14 @@ function FormationRow({
         ref={setNodeRef}
         className={cn(
           'mb-2 flex items-center justify-between gap-2 rounded-lg border border-transparent px-1 py-1 transition-colors',
-          isDragging && 'border-dashed border-cyan/25',
-          isOver && 'border-cyan/40 bg-cyan/5',
+          isDragging && 'border-dashed border-arcane/25',
+          isOver && 'border-arcane/40 bg-arcane/5',
         )}
       >
         <p
           className={cn(
             'font-mono text-[10px] tracking-[0.18em] uppercase',
-            row === 'front' ? 'text-gold' : 'text-cyan',
+            row === 'front' ? 'text-gild' : 'text-arcane',
           )}
         >
           {t(`teams.${row}`)}
@@ -406,7 +406,7 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
           </div>
 
           {ownedHeroes.length === 0 ? (
-            <p className="rounded-xl border border-rose/30 bg-rose/5 px-3 py-2 text-sm text-rose">
+            <p className="rounded-xl border border-ember/30 bg-ember/5 px-3 py-2 text-sm text-ember">
               {t('teams.noHeroes')}
             </p>
           ) : null}
@@ -415,7 +415,7 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
             <section className="codex-panel-soft flex min-h-0 flex-col p-3">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <h3 className="font-display text-lg text-bone">{t('teams.rosterPanel')}</h3>
+                  <h3 className="font-display text-lg text-parch">{t('teams.rosterPanel')}</h3>
                   <p className="mt-0.5 text-[11px] text-muted">{t('teams.dragHint')}</p>
                 </div>
                 <Badge variant="outline">
@@ -487,13 +487,13 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
             />
           </Field>
 
-          {error ? <p className="text-sm text-rose">{error}</p> : null}
+          {error ? <p className="text-sm text-ember">{error}</p> : null}
         </div>
 
         {createPortal(
           <DragOverlay>
             {activeHero && activeEntry ? (
-              <div className="w-24 rounded-xl border border-gold/50 bg-ink p-1.5 shadow-glow">
+              <div className="w-24 rounded-xl border border-gild/50 bg-panel p-1.5 shadow-glow">
                 <FramedHeroIcon
                   heroId={activeEntry.id}
                   ascension={activeHero.ascension}
@@ -503,7 +503,7 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
                   alt={activeEntry.displayName}
                   className="w-full"
                 />
-                <p className="mt-1 truncate text-center text-[11px] font-semibold text-bone">
+                <p className="mt-1 truncate text-center text-[11px] font-semibold text-parch">
                   {activeEntry.displayName}
                 </p>
               </div>

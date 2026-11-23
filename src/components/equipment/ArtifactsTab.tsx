@@ -161,11 +161,11 @@ export function ArtifactsTab() {
       {ownedHeroes.length === 0 ? (
         <div className="codex-panel star-chart flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <span className="grid size-11 shrink-0 place-items-center rounded-2xl border border-gold/25 bg-gold/10 text-gold">
+            <span className="grid size-11 shrink-0 place-items-center rounded-2xl border border-gild/25 bg-gild/10 text-gild">
               <Gem size={20} strokeWidth={1.6} aria-hidden="true" />
             </span>
             <div>
-              <h2 className="font-display text-xl text-bone">{t('artifacts.noHeroesTitle')}</h2>
+              <h2 className="font-display text-xl text-parch">{t('artifacts.noHeroesTitle')}</h2>
               <p className="mt-1 text-sm text-muted">{t('artifacts.noHeroesBody')}</p>
             </div>
           </div>
@@ -177,7 +177,7 @@ export function ArtifactsTab() {
 
       <section className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
-          <h2 className="font-display text-2xl text-bone">{t('artifacts.duraGroup')}</h2>
+          <h2 className="font-display text-2xl text-parch">{t('artifacts.duraGroup')}</h2>
           <Badge variant="gold">
             {t('artifacts.artifactCount', { count: duraArtifacts.length })}
           </Badge>
@@ -189,7 +189,7 @@ export function ArtifactsTab() {
 
       <section className="space-y-6">
         <div className="flex flex-wrap items-center gap-3">
-          <h2 className="font-display text-2xl text-bone">{t('artifacts.classArtifacts')}</h2>
+          <h2 className="font-display text-2xl text-parch">{t('artifacts.classArtifacts')}</h2>
           <Badge variant="cyan">
             {t('artifacts.artifactCount', {
               count: classGroups.reduce((total, group) => total + group.items.length, 0),

@@ -29,7 +29,7 @@ function DetailStat({ label, children }: { label: string; children: ReactNode })
   return (
     <div>
       <dt className="font-mono text-[9px] tracking-[0.12em] text-muted uppercase">{label}</dt>
-      <dd className="mt-0.5 text-sm text-bone">{children}</dd>
+      <dd className="mt-0.5 text-sm text-parch">{children}</dd>
     </div>
   )
 }
@@ -47,7 +47,7 @@ function GearDetail({
   const display = getGearFactionDisplay(piece, heroFaction)
 
   return (
-    <div className="rounded-xl border border-line bg-void/30 p-2.5">
+    <div className="rounded-xl border border-line bg-night/30 p-2.5">
       <div className="flex items-center justify-between gap-2">
         <span className="font-mono text-[9px] tracking-[0.14em] text-muted uppercase">
           {t(`gearSlot.${slot}`)}
@@ -59,7 +59,7 @@ function GearDetail({
 
       {piece ? (
         <>
-          <p className="mt-1.5 font-mono text-xs text-gold">
+          <p className="mt-1.5 font-mono text-xs text-gild">
             {'★'.repeat(piece.stars)}
             {'☆'.repeat(5 - piece.stars)}
           </p>
@@ -118,7 +118,7 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
       }
     >
       <div className="space-y-5">
-        <section className="flex gap-4 rounded-2xl border border-line bg-void/30 p-3">
+        <section className="flex gap-4 rounded-2xl border border-line bg-night/30 p-3">
           <FramedHeroIcon
             heroId={entry.id}
             ascension={hero.ascension}
@@ -169,9 +169,9 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
           <SectionTitle>{t('equipment.title')}</SectionTitle>
           <div className="mt-2 space-y-2">
             {artifact ? (
-              <div className="rounded-xl border border-gold/20 bg-gold/5 p-3">
+              <div className="rounded-xl border border-gild/20 bg-gild/5 p-3">
                 <div className="flex items-start gap-3">
-                  <span className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-xl border border-gold/25 bg-void/40">
+                  <span className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-xl border border-gild/25 bg-night/40">
                     <EquipmentImage
                       src={artifact.image}
                       icon={Gem}
@@ -179,7 +179,7 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
                     />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="font-display text-lg leading-tight text-bone">{artifact.name}</p>
+                    <p className="font-display text-lg leading-tight text-parch">{artifact.name}</p>
                     <p className="mt-0.5 font-mono text-[9px] tracking-[0.12em] text-muted uppercase">
                       {artifact.source}
                     </p>
@@ -191,9 +191,9 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
             ) : null}
 
             {collection && hero.collection ? (
-              <div className="rounded-xl border border-cyan/20 bg-cyan/5 p-3">
+              <div className="rounded-xl border border-arcane/20 bg-arcane/5 p-3">
                 <div className="flex items-start gap-3">
-                  <span className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-xl border border-cyan/25 bg-void/40">
+                  <span className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-xl border border-arcane/25 bg-night/40">
                     <EquipmentImage
                       src={collection.image}
                       icon={Gem}
@@ -201,10 +201,10 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
                     />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="font-display text-lg leading-tight text-bone">
+                    <p className="font-display text-lg leading-tight text-parch">
                       {collection.name}
                     </p>
-                    <p className="mt-0.5 text-xs text-cyan">{collection.skillName}</p>
+                    <p className="mt-0.5 text-xs text-arcane">{collection.skillName}</p>
                   </div>
                   <Badge variant="cyan">{t('hero.collection')}</Badge>
                 </div>
@@ -226,7 +226,7 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
             ) : null}
 
             {!artifact && hasSavedCollection && hero.collection ? (
-              <div className="rounded-xl border border-line bg-void/25 p-3">
+              <div className="rounded-xl border border-line bg-night/25 p-3">
                 <p className="text-xs text-muted">{t('hero.collectionSaved')}</p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   <Badge variant="outline">
@@ -243,7 +243,7 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
             ) : null}
 
             {!artifact && !collection && !hasSavedCollection ? (
-              <p className="rounded-xl border border-dashed border-line bg-void/20 px-3 py-4 text-center text-xs text-muted">
+              <p className="rounded-xl border border-dashed border-line bg-night/20 px-3 py-4 text-center text-xs text-muted">
                 {t('hero.noEquipment')}
               </p>
             ) : null}
@@ -253,8 +253,8 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
         {linkedEntry ? (
           <section>
             <SectionTitle>{t('hero.linkedHero')}</SectionTitle>
-            <div className="mt-2 rounded-xl border border-line bg-void/30 p-3">
-              <p className="text-sm text-bone">{linkedEntry.displayName}</p>
+            <div className="mt-2 rounded-xl border border-line bg-night/30 p-3">
+              <p className="text-sm text-parch">{linkedEntry.displayName}</p>
               <p className="mt-0.5 text-[11px] text-muted">
                 {t(`faction.${linkedEntry.faction}`)} · {t(getHeroClassKey(linkedEntry))}
               </p>
@@ -265,7 +265,7 @@ export function HeroDetailPanel({ hero, entry, onClose, onEdit }: HeroDetailPane
         <section>
           <SectionTitle>{t('hero.notes')}</SectionTitle>
           {hero.notes ? (
-            <p className="mt-2 whitespace-pre-wrap rounded-xl border border-line bg-void/30 p-3 text-sm leading-relaxed text-bone/90">
+            <p className="mt-2 whitespace-pre-wrap rounded-xl border border-line bg-night/30 p-3 text-sm leading-relaxed text-parch/90">
               {hero.notes}
             </p>
           ) : (

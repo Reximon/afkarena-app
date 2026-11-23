@@ -19,7 +19,7 @@ export function TeamCard({ team, heroes, onEdit, onDuplicate, onDelete }: TeamCa
     <article className="codex-panel p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="truncate font-display text-2xl leading-tight text-bone">{team.name}</h2>
+          <h2 className="truncate font-display text-2xl leading-tight text-parch">{team.name}</h2>
           <Badge variant="cyan" className="mt-1.5">
             {t(`teamMode.${team.mode}`)}
           </Badge>
@@ -29,7 +29,7 @@ export function TeamCard({ team, heroes, onEdit, onDuplicate, onDelete }: TeamCa
             type="button"
             onClick={() => onEdit(team.id)}
             aria-label={`${t('teams.edit')}: ${team.name}`}
-            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-violet hover:text-bone"
+            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-dusk hover:text-parch"
           >
             <Pencil size={15} aria-hidden="true" />
           </button>
@@ -37,7 +37,7 @@ export function TeamCard({ team, heroes, onEdit, onDuplicate, onDelete }: TeamCa
             type="button"
             onClick={() => onDuplicate(team.id)}
             aria-label={`${t('teams.duplicate')}: ${team.name}`}
-            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-violet hover:text-bone"
+            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-dusk hover:text-parch"
           >
             <Copy size={15} aria-hidden="true" />
           </button>
@@ -45,7 +45,7 @@ export function TeamCard({ team, heroes, onEdit, onDuplicate, onDelete }: TeamCa
             type="button"
             onClick={() => onDelete(team.id)}
             aria-label={`${t('teams.delete')}: ${team.name}`}
-            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-rose/15 hover:text-rose"
+            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-ember/15 hover:text-ember"
           >
             <Trash2 size={15} aria-hidden="true" />
           </button>

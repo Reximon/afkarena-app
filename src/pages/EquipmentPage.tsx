@@ -46,7 +46,7 @@ export function EquipmentPage() {
       <div
         role="tablist"
         aria-label={t('equipment.title')}
-        className="flex w-fit max-w-full gap-1 overflow-x-auto rounded-2xl border border-line bg-void/30 p-1"
+        className="flex w-fit max-w-full gap-1 overflow-x-auto rounded-2xl border border-line bg-night/30 p-1"
       >
         {tabs.map((tab) => {
           const isActive = tab.id === activeTab
@@ -61,8 +61,8 @@ export function EquipmentPage() {
               className={cn(
                 'inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition-colors',
                 isActive
-                  ? 'border-gold/20 bg-gold/10 text-gold'
-                  : 'border-transparent text-muted hover:bg-violet/60 hover:text-bone',
+                  ? 'border-gild/20 bg-gild/10 text-gild'
+                  : 'border-transparent text-muted hover:bg-dusk/60 hover:text-parch',
               )}
             >
               <span className="font-medium">{tab.label}</span>

@@ -27,17 +27,17 @@ export function EquipmentCard({
   return (
     <article className="codex-panel flex flex-col p-5">
       <div className="flex items-start gap-3">
-        <span className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-gold/25 bg-void/40 ring-1 ring-gold/10 ring-offset-2 ring-offset-ink">
+        <span className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-gild/25 bg-night/40 ring-1 ring-gild/10 ring-offset-2 ring-offset-panel">
           <EquipmentImage
             src={image}
             icon={Icon}
             className="size-full object-contain p-0.5"
-            iconClassName="text-gold"
+            iconClassName="text-gild"
           />
         </span>
         <div className="min-w-0 flex-1">
-          <h2 className="font-display text-xl leading-tight text-bone">{name}</h2>
-          {subtitle ? <p className="mt-1 text-sm leading-snug text-cyan">{subtitle}</p> : null}
+          <h2 className="font-display text-xl leading-tight text-parch">{name}</h2>
+          {subtitle ? <p className="mt-1 text-sm leading-snug text-arcane">{subtitle}</p> : null}
           {meta ? (
             <p className="mt-1 font-mono text-[9px] tracking-[0.14em] text-muted uppercase">
               {meta}

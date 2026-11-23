@@ -32,7 +32,7 @@ export function EquipmentImage({
         size={20}
         strokeWidth={1.6}
         aria-hidden="true"
-        className={cn('text-gold', iconClassName)}
+        className={cn('text-gild', iconClassName)}
       />
     )
   }

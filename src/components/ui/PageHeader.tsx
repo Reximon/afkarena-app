@@ -16,11 +16,11 @@ export function PageHeader({ eyebrow, title, subtitle, actions, className }: Pag
     >
       <div className="max-w-2xl">
         {eyebrow ? (
-          <p className="mb-2 font-mono text-[11px] tracking-[0.24em] text-gold uppercase">
+          <p className="mb-2 font-mono text-[11px] tracking-[0.24em] text-gild uppercase">
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="text-balance font-display text-4xl leading-[1.05] text-bone sm:text-5xl">
+        <h1 className="text-balance font-display text-4xl leading-[1.05] text-parch sm:text-5xl">
           {title}
         </h1>
         {subtitle ? (

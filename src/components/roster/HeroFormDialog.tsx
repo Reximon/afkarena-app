@@ -354,8 +354,8 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                   className={cn(
                     'relative overflow-hidden rounded-xl border p-2 text-left transition-colors',
                     selected
-                      ? 'border-gold/60 bg-gold/10'
-                      : 'border-line bg-void/30 hover:border-gold/30 hover:bg-violet/40',
+                      ? 'border-gild/60 bg-gild/10'
+                      : 'border-line bg-night/30 hover:border-gild/30 hover:bg-dusk/40',
                     owned && 'cursor-not-allowed opacity-45',
                   )}
                 >
@@ -368,14 +368,14 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                     alt={hero.displayName}
                     className="w-full"
                   />
-                  <p className="mt-1.5 truncate text-xs font-semibold text-bone">
+                  <p className="mt-1.5 truncate text-xs font-semibold text-parch">
                     {hero.displayName}
                   </p>
                   <p className="truncate font-mono text-[9px] tracking-wide text-muted">
                     {t(`faction.${hero.faction}`)}
                   </p>
                   <span
-                    className="absolute top-3 left-3 size-2 rounded-full ring-2 ring-void/70"
+                    className="absolute top-3 left-3 size-2 rounded-full ring-2 ring-night/70"
                     style={{ backgroundColor: getFactionColor(hero.faction) }}
                     aria-hidden="true"
                   />
@@ -394,8 +394,8 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
           ) : null}
 
           {selectedId && !heroId ? (
-            <div className="flex items-center gap-2 rounded-xl border border-gold/25 bg-gold/5 px-3 py-2 text-sm text-bone">
-              <Sparkles size={15} className="text-gold" aria-hidden="true" />
+            <div className="flex items-center gap-2 rounded-xl border border-gild/25 bg-gild/5 px-3 py-2 text-sm text-parch">
+              <Sparkles size={15} className="text-gild" aria-hidden="true" />
               {selectedEntry?.displayName}
             </div>
           ) : null}
@@ -405,7 +405,7 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
       {selectedId ? (
         <div className={cn('space-y-5', !heroId && 'mt-5 border-t border-line pt-5')}>
           {selectedEntry ? (
-            <div className="flex items-center gap-4 rounded-xl border border-line bg-void/30 p-3">
+            <div className="flex items-center gap-4 rounded-xl border border-line bg-night/30 p-3">
               <FramedHeroIcon
                 heroId={selectedEntry.id}
                 ascension={draft.ascension}
@@ -416,7 +416,7 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                 className="w-20 shrink-0"
               />
               <div className="min-w-0">
-                <h3 className="truncate font-display text-2xl text-bone">
+                <h3 className="truncate font-display text-2xl text-parch">
                   {selectedEntry.displayName}
                 </h3>
                 <p className="mt-1 font-mono text-[10px] tracking-wide text-muted uppercase">
@@ -500,12 +500,12 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
               </Select>
             </Field>
 
-            <label className="flex items-center gap-2.5 self-end rounded-xl border border-line bg-void/30 px-3 py-2.5 text-sm text-bone">
+            <label className="flex items-center gap-2.5 self-end rounded-xl border border-line bg-night/30 px-3 py-2.5 text-sm text-parch">
               <input
                 type="checkbox"
                 checked={draft.inCrystal}
                 onChange={(event) => patchDraft({ inCrystal: event.target.checked })}
-                className="size-4 accent-gold"
+                className="size-4 accent-gild"
               />
               {t('hero.inCrystal')}
             </label>
@@ -549,10 +549,10 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                 return (
                   <div
                     key={slot}
-                    className="space-y-2 rounded-xl border border-line bg-void/25 p-2.5"
+                    className="space-y-2 rounded-xl border border-line bg-night/25 p-2.5"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="px-1 text-sm text-bone">{t(`gearSlot.${slot}`)}</span>
+                      <span className="px-1 text-sm text-parch">{t(`gearSlot.${slot}`)}</span>
                       <div className="flex flex-wrap items-center gap-3">
                         <label
                           className="flex items-center gap-1.5 text-[11px] text-muted"
@@ -563,7 +563,7 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                             checked={resonantChecked}
                             disabled={!piece}
                             onChange={(event) => setGearResonant(slot, event.target.checked)}
-                            className="size-3.5 accent-cyan"
+                            className="size-3.5 accent-arcane"
                           />
                           {t('hero.resonant')}
                         </label>
@@ -576,7 +576,7 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                             checked={exclusiveChecked}
                             disabled={!piece}
                             onChange={(event) => setGearExclusive(slot, event.target.checked)}
-                            className="size-3.5 accent-gold"
+                            className="size-3.5 accent-gild"
                           />
                           {t('hero.exclusive')}
                         </label>
@@ -631,11 +631,11 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                           ))}
                         </Select>
                       ) : factionDisplay.kind === 'same' ? (
-                        <div className="flex h-10 items-center rounded-xl border border-cyan/30 bg-cyan/5 px-3 text-xs text-cyan">
+                        <div className="flex h-10 items-center rounded-xl border border-arcane/30 bg-arcane/5 px-3 text-xs text-arcane">
                           {t('hero.sameFaction')}: {t(`faction.${factionDisplay.faction}`)}
                         </div>
                       ) : (
-                        <div className="flex h-10 items-center rounded-xl border border-line bg-void/30 px-3 text-xs text-muted">
+                        <div className="flex h-10 items-center rounded-xl border border-line bg-night/30 px-3 text-xs text-muted">
                           {t('hero.noFaction')}
                         </div>
                       )}
@@ -647,7 +647,7 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
           </section>
 
           {hasEquipmentConflict ? (
-            <p className="rounded-xl border border-rose/30 bg-rose/5 px-3 py-2 text-xs leading-relaxed text-rose">
+            <p className="rounded-xl border border-ember/30 bg-ember/5 px-3 py-2 text-xs leading-relaxed text-ember">
               {t('hero.equipmentConflict')}
             </p>
           ) : null}
@@ -761,7 +761,7 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
             />
           </Field>
 
-          {error ? <p className="text-sm text-rose">{error}</p> : null}
+          {error ? <p className="text-sm text-ember">{error}</p> : null}
         </div>
       ) : null}
     </Dialog>
