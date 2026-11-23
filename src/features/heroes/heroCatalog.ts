@@ -1,12 +1,6 @@
 import catalogJson from '@/data/heroes.json'
 import heroClassesJson from '@/data/hero-classes.json'
-import type {
-  Faction,
-  HeroCatalogEntry,
-  HeroCatalogFile,
-  HeroClass,
-  HeroClassFile,
-} from '@/types'
+import type { Faction, HeroCatalogEntry, HeroCatalogFile, HeroClass, HeroClassFile } from '@/types'
 
 const catalog = catalogJson as HeroCatalogFile
 const heroClasses = heroClassesJson as HeroClassFile
@@ -44,8 +38,6 @@ export function getFactionColor(faction: Faction): string {
   return FACTION_COLORS[faction]
 }
 
-export function getHeroClassKey(
-  hero: HeroCatalogEntry,
-): `heroClass.${HeroClass | 'Unknown'}` {
+export function getHeroClassKey(hero: HeroCatalogEntry): `heroClass.${HeroClass | 'Unknown'}` {
   return hero.class ? `heroClass.${hero.class}` : 'heroClass.Unknown'
 }

@@ -4,6 +4,7 @@ import {
   artifacts,
   getArtifact,
   getArtifactName,
+  getEligibleArtifacts,
   isArtifactEligible,
 } from './artifacts'
 
@@ -27,6 +28,15 @@ describe('artifact catalog', () => {
     expect(artifacts).toHaveLength(22)
   })
 
+  it('provides a unique image for every artifact', () => {
+    expect(
+      artifacts.every((artifact) => artifact.image.startsWith('/images/afk-arena/game/artifact/')),
+    ).toBe(true)
+    expect(new Set(artifacts.map((artifact) => artifact.image)).size).toBe(artifacts.length)
+    expect(getArtifact('duras-grace')?.image).toBe('/images/afk-arena/game/artifact/1.webp')
+    expect(getArtifact('tidebearer')?.image).toBe('/images/afk-arena/game/artifact/501.webp')
+  })
+
   it('restricts class artifacts to matching hero classes', () => {
     const tidebearer = getArtifact('tidebearer')
     const chaosBringer = getArtifact('chaos-bringer')
@@ -37,5 +47,16 @@ describe('artifact catalog', () => {
     expect(chaosBringer && isArtifactEligible('Warrior', chaosBringer)).toBe(true)
     expect(chaosBringer && isArtifactEligible(undefined, chaosBringer)).toBe(false)
     expect(durasCall && isArtifactEligible('Mage', durasCall)).toBe(true)
+  })
+
+  it('filters picker options down to the hero class', () => {
+    expect(getEligibleArtifacts(undefined)).toHaveLength(22)
+
+    const warrior = getEligibleArtifacts('Warrior')
+    expect(warrior).toHaveLength(10)
+    expect(warrior.filter((artifact) => artifact.kind === 'dura')).toHaveLength(7)
+    expect(
+      warrior.every((artifact) => artifact.kind === 'dura' || artifact.class === 'Warrior'),
+    ).toBe(true)
   })
 })

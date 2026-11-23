@@ -214,6 +214,7 @@ function FormationRow({
         ref={setNodeRef}
         className={cn(
           'mb-2 flex items-center justify-between gap-2 rounded-lg border border-transparent px-1 py-1 transition-colors',
+          isDragging && 'border-dashed border-cyan/25',
           isOver && 'border-cyan/40 bg-cyan/5',
         )}
       >

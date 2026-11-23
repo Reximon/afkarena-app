@@ -72,9 +72,7 @@ export function EquipmentPage() {
         })}
       </div>
 
-      <div role="tabpanel">
-        {activeTab === 'artifacts' ? <ArtifactsTab /> : <CollectionsTab />}
-      </div>
+      <div role="tabpanel">{activeTab === 'artifacts' ? <ArtifactsTab /> : <CollectionsTab />}</div>
     </div>
   )
 }

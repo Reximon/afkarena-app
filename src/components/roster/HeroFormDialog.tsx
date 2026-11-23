@@ -1,15 +1,23 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Search, Sparkles } from 'lucide-react'
+import { Gem, Search, Sparkles } from 'lucide-react'
+import {
+  EquipmentIconPicker,
+  type EquipmentIconGroup,
+} from '@/components/equipment/EquipmentIconPicker'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { Field, Input, Select, Textarea } from '@/components/ui/Input'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
-import { artifacts, getArtifact, isArtifactEligible } from '@/features/artifacts/artifacts'
 import {
-  collections,
+  getArtifact,
+  getEligibleArtifacts,
+  isArtifactEligible,
+} from '@/features/artifacts/artifacts'
+import {
   getCollection,
+  getEligibleCollections,
   isCollectionEligible,
 } from '@/features/collections/collections'
 import {
@@ -208,17 +216,6 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
     })
   }
 
-  const duraArtifacts = artifacts.filter((artifact) => artifact.kind === 'dura')
-  const classArtifactGroups = HERO_CLASSES.map((heroClass) => ({
-    heroClass,
-    items: artifacts.filter(
-      (artifact) => artifact.kind === 'class' && artifact.class === heroClass,
-    ),
-  })).filter((group) => group.items.length > 0)
-  const collectionGroups = HERO_CLASSES.map((heroClass) => ({
-    heroClass,
-    items: collections.filter((collection) => collection.class === heroClass),
-  })).filter((group) => group.items.length > 0)
   const currentArtifact = getArtifact(draft.artifact)
   const currentCollection = getCollection(draft.collection?.collectionId)
   const artifactIneligible = Boolean(
@@ -226,22 +223,47 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
   )
   const collectionIneligible = Boolean(
     currentCollection &&
-      selectedEntry &&
-      !isCollectionEligible(selectedEntry.class, currentCollection),
+    selectedEntry &&
+    !isCollectionEligible(selectedEntry.class, currentCollection),
   )
   const hasEquipmentConflict = Boolean(draft.artifact && draft.collection?.collectionId)
 
-  function canEquipArtifact(artifactId: string) {
-    const artifact = getArtifact(artifactId)
-    return Boolean(!selectedEntry || (artifact && isArtifactEligible(selectedEntry.class, artifact)))
-  }
+  const eligibleArtifacts = getEligibleArtifacts(selectedEntry?.class)
+  const eligibleCollections = getEligibleCollections(selectedEntry?.class)
 
-  function canEquipCollection(collectionId: string) {
-    const collection = getCollection(collectionId)
-    return Boolean(
-      !selectedEntry || (collection && isCollectionEligible(selectedEntry.class, collection)),
-    )
-  }
+  const artifactPickerGroups: EquipmentIconGroup[] = [
+    {
+      label: t('artifacts.duraGroup'),
+      items: eligibleArtifacts
+        .filter((artifact) => artifact.kind === 'dura')
+        .map((artifact) => ({
+          id: artifact.id,
+          name: artifact.name,
+          image: artifact.image,
+        })),
+    },
+    ...HERO_CLASSES.map((heroClass) => ({
+      label: t(`heroClass.${heroClass}`),
+      items: eligibleArtifacts
+        .filter((artifact) => artifact.kind === 'class' && artifact.class === heroClass)
+        .map((artifact) => ({
+          id: artifact.id,
+          name: artifact.name,
+          image: artifact.image,
+        })),
+    })).filter((group) => group.items.length > 0),
+  ]
+
+  const collectionPickerGroups: EquipmentIconGroup[] = HERO_CLASSES.map((heroClass) => ({
+    label: t(`heroClass.${heroClass}`),
+    items: eligibleCollections
+      .filter((collection) => collection.class === heroClass)
+      .map((collection) => ({
+        id: collection.id,
+        name: collection.name,
+        image: collection.image,
+      })),
+  })).filter((group) => group.items.length > 0)
 
   function handleSave() {
     if (!selectedId || !getHeroCatalogEntry(selectedId)) {
@@ -632,49 +654,27 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <Field
+              as="div"
               label={t('hero.artifact')}
               hint={
                 artifactIneligible
                   ? t('artifacts.classRequired', {
-                      class: currentArtifact?.class
-                        ? t(`heroClass.${currentArtifact.class}`)
-                        : '',
+                      class: currentArtifact?.class ? t(`heroClass.${currentArtifact.class}`) : '',
                     })
                   : undefined
               }
             >
-              <Select
-                value={draft.artifact ?? ''}
-                onChange={(event) => setArtifact(event.target.value)}
-              >
-                <option value="">{t('common.none')}</option>
-                <optgroup label={t('artifacts.duraGroup')}>
-                  {duraArtifacts.map((artifact) => (
-                    <option key={artifact.id} value={artifact.id}>
-                      {artifact.name}
-                    </option>
-                  ))}
-                </optgroup>
-                {classArtifactGroups.map((group) => (
-                  <optgroup key={group.heroClass} label={t(`heroClass.${group.heroClass}`)}>
-                    {group.items.map((artifact) => (
-                      <option
-                        key={artifact.id}
-                        value={artifact.id}
-                        disabled={!canEquipArtifact(artifact.id)}
-                      >
-                        {artifact.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-                {draft.artifact && !currentArtifact ? (
-                  <option value={draft.artifact}>{draft.artifact}</option>
-                ) : null}
-              </Select>
+              <EquipmentIconPicker
+                value={draft.artifact}
+                onChange={setArtifact}
+                noneLabel={t('common.none')}
+                groups={artifactPickerGroups}
+                icon={Gem}
+              />
             </Field>
 
             <Field
+              as="div"
               label={t('hero.collection')}
               hint={
                 collectionIneligible
@@ -688,30 +688,13 @@ export function HeroFormDialog({ heroId, onClose }: HeroFormDialogProps) {
                     : undefined
               }
             >
-              <Select
-                value={draft.collection?.collectionId ?? ''}
-                onChange={(event) => setCollection(event.target.value)}
-              >
-                <option value="">{t('common.none')}</option>
-                {collectionGroups.map((group) => (
-                  <optgroup key={group.heroClass} label={t(`heroClass.${group.heroClass}`)}>
-                    {group.items.map((collection) => (
-                      <option
-                        key={collection.id}
-                        value={collection.id}
-                        disabled={!canEquipCollection(collection.id)}
-                      >
-                        {collection.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-                {draft.collection?.collectionId && !currentCollection ? (
-                  <option value={draft.collection.collectionId}>
-                    {draft.collection.collectionId}
-                  </option>
-                ) : null}
-              </Select>
+              <EquipmentIconPicker
+                value={draft.collection?.collectionId}
+                onChange={setCollection}
+                noneLabel={t('common.none')}
+                groups={collectionPickerGroups}
+                icon={Gem}
+              />
             </Field>
           </div>
 

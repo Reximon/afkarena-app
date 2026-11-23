@@ -1,15 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import {
-  Gem,
-  HeartPulse,
-  Shield,
-  Sparkles,
-  Sword,
-  Target,
-  type LucideIcon,
-} from 'lucide-react'
+import { Gem, HeartPulse, Shield, Sparkles, Sword, Target, type LucideIcon } from 'lucide-react'
 import { AssignedHeroChip } from '@/components/equipment/AssignedHeroChip'
 import { EquipmentCard } from '@/components/equipment/EquipmentCard'
 import { Badge } from '@/components/ui/Badge'
@@ -104,16 +96,14 @@ export function CollectionsTab() {
         subtitle={collection.skillName}
         meta={t(`heroClass.${collection.class}`)}
         effect={collection.effect}
+        image={collection.image}
         icon={Icon}
         count={assigned.length}
       >
         <div className="mt-4 space-y-2">
           {assigned.length > 0 ? (
             assigned.map(({ hero, entry }) => (
-              <div
-                key={hero.heroId}
-                className="rounded-xl border border-line bg-void/25 p-2.5"
-              >
+              <div key={hero.heroId} className="rounded-xl border border-line bg-void/25 p-2.5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <AssignedHeroChip
                     hero={hero}
@@ -122,8 +112,8 @@ export function CollectionsTab() {
                     removeLabel={t('collections.removeAssignment', { name: entry.displayName })}
                   />
                   <span className="font-mono text-[10px] tracking-[0.12em] text-muted uppercase">
-                    Lv {hero.collection?.level ?? 0} · Skill {hero.collection?.skillLevel ?? 0} · Mythic{' '}
-                    {hero.collection?.mythicStats ?? 0}
+                    Lv {hero.collection?.level ?? 0} · Skill {hero.collection?.skillLevel ?? 0} ·
+                    Mythic {hero.collection?.mythicStats ?? 0}
                   </span>
                 </div>
                 <div className="mt-2 grid gap-2 sm:grid-cols-3">
@@ -249,9 +239,7 @@ export function CollectionsTab() {
       {classGroups.map((group) => (
         <section key={group.heroClass} className="space-y-4">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="font-display text-2xl text-bone">
-              {t(`heroClass.${group.heroClass}`)}
-            </h2>
+            <h2 className="font-display text-2xl text-bone">{t(`heroClass.${group.heroClass}`)}</h2>
             <Badge variant="cyan">
               {t('collections.collectionCount', { count: group.items.length })}
             </Badge>

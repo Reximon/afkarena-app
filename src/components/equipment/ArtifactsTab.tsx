@@ -80,9 +80,7 @@ export function ArtifactsTab() {
   function renderArtifact(artifact: (typeof artifacts)[number]) {
     const Icon = ARTIFACT_ICONS[artifact.id] ?? Gem
     const assigned = ownedHeroes.filter(({ hero }) => hero.artifact === artifact.id)
-    const compatible = ownedHeroes.some(({ entry }) =>
-      isArtifactEligible(entry.class, artifact),
-    )
+    const compatible = ownedHeroes.some(({ entry }) => isArtifactEligible(entry.class, artifact))
     const available = ownedHeroes.filter(
       ({ hero, entry }) =>
         hero.artifact !== artifact.id && isArtifactEligible(entry.class, artifact),
@@ -110,6 +108,7 @@ export function ArtifactsTab() {
         }
         meta={artifact.source}
         effect={artifact.effect}
+        image={artifact.image}
         icon={Icon}
         count={assigned.length}
       >
@@ -179,7 +178,9 @@ export function ArtifactsTab() {
       <section className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
           <h2 className="font-display text-2xl text-bone">{t('artifacts.duraGroup')}</h2>
-          <Badge variant="gold">{t('artifacts.artifactCount', { count: duraArtifacts.length })}</Badge>
+          <Badge variant="gold">
+            {t('artifacts.artifactCount', { count: duraArtifacts.length })}
+          </Badge>
         </div>
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {duraArtifacts.map(renderArtifact)}
@@ -190,7 +191,9 @@ export function ArtifactsTab() {
         <div className="flex flex-wrap items-center gap-3">
           <h2 className="font-display text-2xl text-bone">{t('artifacts.classArtifacts')}</h2>
           <Badge variant="cyan">
-            {t('artifacts.artifactCount', { count: classGroups.reduce((total, group) => total + group.items.length, 0) })}
+            {t('artifacts.artifactCount', {
+              count: classGroups.reduce((total, group) => total + group.items.length, 0),
+            })}
           </Badge>
         </div>
         {classGroups.map((group) => (
