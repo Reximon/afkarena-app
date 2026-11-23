@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
+import { EquipmentImage } from '@/components/equipment/EquipmentImage'
 import { Badge } from '@/components/ui/Badge'
 
 interface EquipmentCardProps {
@@ -7,6 +8,7 @@ interface EquipmentCardProps {
   subtitle?: string
   meta?: string
   effect?: string
+  image?: string
   icon: LucideIcon
   count: number
   children: ReactNode
@@ -17,6 +19,7 @@ export function EquipmentCard({
   subtitle,
   meta,
   effect,
+  image,
   icon: Icon,
   count,
   children,
@@ -24,14 +27,17 @@ export function EquipmentCard({
   return (
     <article className="codex-panel flex flex-col p-5">
       <div className="flex items-start gap-3">
-        <span className="grid size-11 shrink-0 place-items-center rounded-2xl border border-gold/25 bg-gold/10 text-gold ring-1 ring-gold/10 ring-offset-2 ring-offset-ink">
-          <Icon size={20} strokeWidth={1.6} aria-hidden="true" />
+        <span className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-gold/25 bg-void/40 ring-1 ring-gold/10 ring-offset-2 ring-offset-ink">
+          <EquipmentImage
+            src={image}
+            icon={Icon}
+            className="size-full object-contain p-0.5"
+            iconClassName="text-gold"
+          />
         </span>
         <div className="min-w-0 flex-1">
           <h2 className="font-display text-xl leading-tight text-bone">{name}</h2>
-          {subtitle ? (
-            <p className="mt-1 text-sm leading-snug text-cyan">{subtitle}</p>
-          ) : null}
+          {subtitle ? <p className="mt-1 text-sm leading-snug text-cyan">{subtitle}</p> : null}
           {meta ? (
             <p className="mt-1 font-mono text-[9px] tracking-[0.14em] text-muted uppercase">
               {meta}

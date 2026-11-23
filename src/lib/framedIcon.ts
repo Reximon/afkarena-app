@@ -41,6 +41,13 @@ export function normalizeEngraving(value: number): 0 | 30 | 60 | 80 {
   return 0
 }
 
+export function hasFoilEffect({
+  furniture,
+  engraving,
+}: Pick<HeroProgress, 'furniture' | 'engraving'>): boolean {
+  return normalizeFurniture(furniture) >= 9 && normalizeEngraving(engraving) >= 60
+}
+
 interface FramedIconInput {
   heroId: string
   ascension: Ascension

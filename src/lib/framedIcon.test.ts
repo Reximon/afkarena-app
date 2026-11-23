@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   framedHeroIconUrl,
+  hasFoilEffect,
   heroIconUrl,
   normalizeEngraving,
   normalizeFurniture,
@@ -75,5 +76,14 @@ describe('heroIconUrl', () => {
     expect(heroIconUrl('9')).toBe(
       'https://cdn.jsdelivr.net/gh/afk-mine/cdn@main/unit_icon_by_id/9.webp',
     )
+  })
+})
+
+describe('hasFoilEffect', () => {
+  it('unlocks at 60 engraving and 9 furniture', () => {
+    expect(hasFoilEffect({ engraving: 60, furniture: 9 })).toBe(true)
+    expect(hasFoilEffect({ engraving: 80, furniture: 36 })).toBe(true)
+    expect(hasFoilEffect({ engraving: 60, furniture: 3 })).toBe(false)
+    expect(hasFoilEffect({ engraving: 30, furniture: 9 })).toBe(false)
   })
 })

@@ -36,14 +36,17 @@ interface FieldProps {
   hint?: string
   children: ReactNode
   className?: string
+  as?: 'label' | 'div'
 }
 
-export function Field({ label, hint, children, className }: FieldProps) {
+export function Field({ label, hint, children, className, as: Component = 'label' }: FieldProps) {
+  const groupProps = Component === 'div' ? { role: 'group', 'aria-label': label } : {}
+
   return (
-    <label className={cn('block', className)}>
+    <Component className={cn('block', className)} {...groupProps}>
       <span className="font-mono text-[10px] tracking-[0.16em] text-muted uppercase">{label}</span>
       <div className="mt-1.5">{children}</div>
       {hint ? <span className="mt-1 block text-[11px] text-muted">{hint}</span> : null}
-    </label>
+    </Component>
   )
 }

@@ -81,6 +81,7 @@ export const en = {
     stars: 'Stars',
     notesPlaceholder: 'Optional notes...',
     resultsCount: '{{count}} heroes',
+    viewHero: 'View {{name}}',
   },
   teams: {
     title: 'Teams',
@@ -217,7 +218,8 @@ export const en = {
     collectionLevel: 'Collection level',
     collectionSkill: 'Collection skill',
     collectionSaved: 'Collection progress saved. Select a collection to re-equip it.',
-    equipmentConflict: 'Artifact and Collection are both equipped. Choosing one will clear the other.',
+    equipmentConflict:
+      'Artifact and Collection are both equipped. Choosing one will clear the other.',
     mythicStats: 'Mythic stats',
     resonant: 'Resonant',
     exclusive: 'Exclusive',
@@ -231,6 +233,10 @@ export const en = {
     role: 'Role',
     rarity: 'Rarity',
     skins: 'Skins',
+    roles: 'Roles',
+    noNotes: 'No notes yet.',
+    noEquipment: 'No artifact or collection equipped.',
+    updatedAt: 'Updated {{date}}',
   },
   faction: {
     Lightbearer: 'Lightbearer',

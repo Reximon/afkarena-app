@@ -83,6 +83,7 @@ export const es: TranslationSchema = {
     stars: 'Estrellas',
     notesPlaceholder: 'Notas opcionales...',
     resultsCount: '{{count}} héroes',
+    viewHero: 'Ver {{name}}',
   },
   teams: {
     title: 'Equipos',
@@ -218,7 +219,8 @@ export const es: TranslationSchema = {
     collection: 'Collection',
     collectionLevel: 'Nivel de collection',
     collectionSkill: 'Skill de collection',
-    collectionSaved: 'Progreso de collection guardado. Selecciona una collection para volver a equiparla.',
+    collectionSaved:
+      'Progreso de collection guardado. Selecciona una collection para volver a equiparla.',
     equipmentConflict:
       'Hay un artefacto y una collection equipados. Al elegir uno se quitará el otro.',
     mythicStats: 'Stats míticos',
@@ -235,6 +237,10 @@ export const es: TranslationSchema = {
     role: 'Role',
     rarity: 'Rarity',
     skins: 'Skins',
+    roles: 'Roles',
+    noNotes: 'Sin notas todavía.',
+    noEquipment: 'Sin artefacto ni collection equipados.',
+    updatedAt: 'Actualizado {{date}}',
   },
   faction: {
     Lightbearer: 'Lightbearer',

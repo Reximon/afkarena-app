@@ -1,33 +1,55 @@
 import { useTranslation } from 'react-i18next'
-import { Pencil, Trash2 } from 'lucide-react'
+import { Eye, Pencil, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
-import { getFactionColor, getHeroCatalogEntry, getHeroClassKey } from '@/features/heroes/heroCatalog'
+import {
+  getFactionColor,
+  getHeroCatalogEntry,
+  getHeroClassKey,
+} from '@/features/heroes/heroCatalog'
 import type { HeroCatalogEntry, HeroProgress } from '@/types'
+import { cn } from '@/lib/cn'
+import { hasFoilEffect } from '@/lib/framedIcon'
 
 interface HeroCardProps {
   hero: HeroProgress
   entry: HeroCatalogEntry
+  onView: (heroId: string) => void
   onEdit: (heroId: string) => void
   onRemove: (heroId: string) => void
 }
 
-export function HeroCard({ hero, entry, onEdit, onRemove }: HeroCardProps) {
+export function HeroCard({ hero, entry, onView, onEdit, onRemove }: HeroCardProps) {
   const { t } = useTranslation()
   const linkedEntry = hero.linkedHeroId ? getHeroCatalogEntry(hero.linkedHeroId) : undefined
+  const hasFoil = hasFoilEffect(hero)
 
   return (
     <article className="codex-panel-soft group overflow-hidden">
       <div className="relative bg-void/35 p-2">
-        <FramedHeroIcon
-          heroId={entry.id}
-          ascension={hero.ascension}
-          signatureItem={hero.signatureItem}
-          furniture={hero.furniture}
-          engraving={hero.engraving}
-          alt={entry.displayName}
-          className="w-full transition-transform duration-300 group-hover:scale-[1.03]"
-        />
+        <button
+          type="button"
+          onClick={() => onView(entry.id)}
+          aria-label={t('roster.viewHero', { name: entry.displayName })}
+          className="block w-full"
+        >
+          <span
+            className={cn(
+              'block w-full transition-transform duration-300 group-hover:scale-[1.03]',
+              hasFoil && 'hero-foil',
+            )}
+          >
+            <FramedHeroIcon
+              heroId={entry.id}
+              ascension={hero.ascension}
+              signatureItem={hero.signatureItem}
+              furniture={hero.furniture}
+              engraving={hero.engraving}
+              alt={entry.displayName}
+              className="w-full"
+            />
+          </span>
+        </button>
         <span
           className="absolute top-2 left-2 size-2.5 rounded-full ring-2 ring-void/70"
           style={{ backgroundColor: getFactionColor(entry.faction) }}
@@ -54,6 +76,14 @@ export function HeroCard({ hero, entry, onEdit, onRemove }: HeroCardProps) {
             ) : null}
           </div>
           <div className="flex shrink-0 gap-1">
+            <button
+              type="button"
+              onClick={() => onView(entry.id)}
+              aria-label={t('roster.viewHero', { name: entry.displayName })}
+              className="rounded-lg p-1.5 text-muted transition-colors hover:bg-cyan/10 hover:text-cyan"
+            >
+              <Eye size={14} aria-hidden="true" />
+            </button>
             <button
               type="button"
               onClick={() => onEdit(entry.id)}
