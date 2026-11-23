@@ -65,6 +65,24 @@ describe('HeroDetailDialog', () => {
     expect(screen.getByText('Linked to Adrian & Elyse')).toBeInTheDocument()
   })
 
+  it('locks ascension while a Dimensional is linked', () => {
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { ascension: 'ascended' }))
+    useAppStore.getState().addHero(createDefaultHeroProgress('98', { linkedHeroId: '182' }))
+
+    render(<HeroDetailDialog heroId="98" onClose={vi.fn()} />)
+
+    expect(screen.getByRole('button', { name: /^Ascension/ })).toBeDisabled()
+    expect(screen.getByText('Ascension follows the linked hero.')).toBeInTheDocument()
+  })
+
+  it('keeps ascension editable while a Dimensional is unlinked', () => {
+    useAppStore.getState().addHero(createDefaultHeroProgress('98'))
+
+    render(<HeroDetailDialog heroId="98" onClose={vi.fn()} />)
+
+    expect(screen.getByRole('button', { name: /^Ascension/ })).toBeEnabled()
+  })
+
   it('offers only owned heroes when linking and can clear the link', async () => {
     const user = userEvent.setup()
     useAppStore.getState().addHero(createDefaultHeroProgress('98', { linkedHeroId: '182' }))

@@ -82,6 +82,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
       ? getHeroCatalogEntry(progress.linkedHeroId)
       : undefined
   const starCount = Math.max(0, ASCENSIONS.indexOf(progress.ascension) - ASCENDED_INDEX)
+  const ascensionLocked = entry.faction === 'Dimensional' && Boolean(progress.linkedHeroId)
   const artifact = getArtifact(progress.artifact)
   const collection = getCollection(progress.collection?.collectionId)
   const hasGear = GEAR_SLOTS.some((slot) => Boolean(progress.gear[slot]))
@@ -225,8 +226,15 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                 <button
                   type="button"
                   onClick={() => openDrawer('ascension')}
+                  disabled={ascensionLocked}
+                  title={ascensionLocked ? t('hero.ascensionLinked') : undefined}
                   aria-label={`${t('hero.ascension')} · ${t(`ascension.${progress.ascension}`)}`}
-                  className="flex flex-col items-center gap-1 rounded-2xl px-4 py-1.5 transition-colors hover:bg-gild/5 focus-visible:bg-gild/5 focus-visible:outline-none"
+                  className={cn(
+                    'flex flex-col items-center gap-1 rounded-2xl px-4 py-1.5 transition-colors',
+                    ascensionLocked
+                      ? 'cursor-default'
+                      : 'hover:bg-gild/5 focus-visible:bg-gild/5 focus-visible:outline-none',
+                  )}
                 >
                   <p className="font-display text-base text-gild sm:text-lg">
                     {t(`ascension.${starCount > 0 ? 'ascended' : progress.ascension}`)}
@@ -251,6 +259,11 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                       />
                     ))}
                   </div>
+                  {ascensionLocked ? (
+                    <span className="text-[10px] leading-tight text-muted">
+                      {t('hero.ascensionLinked')}
+                    </span>
+                  ) : null}
                 </button>
                 <DialogPrimitive.Description className="mt-1 font-mono text-[10px] tracking-[0.18em] text-muted uppercase">
                   {t(`faction.${entry.faction}`)} · {t(getHeroClassKey(entry))}

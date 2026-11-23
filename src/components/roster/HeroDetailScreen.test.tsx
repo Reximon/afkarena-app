@@ -58,7 +58,7 @@ describe('HeroDetailScreen', () => {
   it('limits Dimensional linked heroes to the owned roster', async () => {
     const user = userEvent.setup()
     useAppStore.getState().addHero(createDefaultHeroProgress('98'))
-    useAppStore.getState().addHero(createDefaultHeroProgress('182'))
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { ascension: 'ascended' }))
 
     render(<HeroDetailScreen heroId="98" onClose={vi.fn()} />)
 
@@ -67,7 +67,35 @@ describe('HeroDetailScreen', () => {
     expect(within(select).queryByRole('option', { name: 'Alvida' })).not.toBeInTheDocument()
 
     await user.selectOptions(select, '182')
-    expect(useAppStore.getState().heroes['98'].linkedHeroId).toBe('182')
+    expect(useAppStore.getState().heroes['98']).toMatchObject({
+      linkedHeroId: '182',
+      ascension: 'ascended',
+    })
+  })
+
+  it('locks the ascension control while a Dimensional is linked', () => {
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { ascension: 'ascended' }))
+    useAppStore.getState().addHero(createDefaultHeroProgress('98', { linkedHeroId: '182' }))
+
+    render(<HeroDetailScreen heroId="98" onClose={vi.fn()} />)
+
+    expect(screen.getByRole('button', { name: 'Decrease Ascension' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Increase Ascension' })).toBeDisabled()
+    expect(screen.queryByRole('radio', { name: 'Star 1' })).not.toBeInTheDocument()
+    expect(screen.getByText('Ascension follows the linked hero.')).toBeInTheDocument()
+  })
+
+  it('mirrors the linked ascension while drafting a Dimensional', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { ascension: 'ascended' }))
+
+    render(<HeroDetailScreen heroId={null} onClose={vi.fn()} />)
+
+    await user.click(screen.getByRole('button', { name: /Ainz Ooal Gown/ }))
+    await user.selectOptions(screen.getByRole('combobox', { name: /linked hero/i }), '182')
+
+    expect(screen.getByText('Ascended')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Increase Ascension' })).toBeDisabled()
   })
 
   it('keeps showing a stored linked hero that is no longer owned', () => {

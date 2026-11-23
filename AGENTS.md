@@ -47,6 +47,8 @@ Before finishing any task run `npm run typecheck`, `npm run lint` and `npm run t
 - Internally heroes are always keyed by `heroId`; never key store data by display name.
 - Pets are keyed by `petId` in `pets`; presence in the record means the pet is owned. Beast level is derived (sum of the three attribute buffs); teams may reference one pet via `petId`.
 - `Profile.petResonanceLevel` (optional, 0–54) is the player-set beast resonance target. It is informational only: pets below it show a `+N` deficit badge, and buffs are never raised automatically. The deficit is measured against `min(resonance, tier max level)`.
+- Dimensional heroes mirror the ascension of their `linkedHeroId` (helpers in `src/features/heroes/linkedAscension.ts`): linking copies it, changes to the linked hero propagate, direct ascension edits are ignored while linked, and import/rehydration normalizes divergences. Unlinking keeps the last copied ascension, and the UI disables the ascension selector while linked.
+- Deleting a linked hero does not touch other heroes' `linkedHeroId`: the Dimensional keeps a dangling link (shown via the catalog as "Linked to X"), keeps its last copied ascension, and the selector stays locked until the link is cleared manually. Only links whose target exists in `heroes` mirror or propagate ascension.
 - Adding a field to `HeroProgress`, `PetProgress` or `Profile` requires:
   1. `src/types/index.ts`
   2. a default in `src/features/persistence/defaults.ts`

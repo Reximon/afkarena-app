@@ -16,6 +16,7 @@ export const es: TranslationSchema = {
     equipment: 'Equipamiento',
     artifacts: 'Artefactos',
     settings: 'Ajustes',
+    menu: 'Menú',
   },
   common: {
     add: 'Añadir',
@@ -127,6 +128,7 @@ export const es: TranslationSchema = {
     noPet: 'Sin mascota',
     noPetsHint: 'Añade mascotas desde la página Mascotas para asignar una a un equipo.',
     emptySlot: 'Posición vacía',
+    addHeroSlot: 'Añadir héroe a la posición {{position}}',
     noHeroes: 'Añade héroes al roster antes de montar un equipo.',
     heroUsed: 'Ya está en este equipo',
     deleteTitle: '¿Eliminar equipo?',
@@ -146,7 +148,7 @@ export const es: TranslationSchema = {
     dropToFill: 'Suelta para añadir',
     rowFull: 'Completa',
     factionBonus: 'Bonus de facción',
-    factionTier: 'Bonus de facción {{tier}}',
+    factionBonusSummary: '{{tier}} · ATK +{{attack}}% · HP +{{hp}}%',
     factionStatBonus: 'ATK +{{attack}}% · HP +{{hp}}%',
     noFactionBonus: 'Sin bonus de facción',
     celestialHint: 'Los Celestial cuentan como cualquier facción.',
@@ -279,6 +281,7 @@ export const es: TranslationSchema = {
     linkedHero: 'Héroe vinculado',
     linkedHeroHint:
       'Los héroes dimensionales comparten ascensión con un héroe no dimensional de tu roster.',
+    ascensionLinked: 'La ascensión sigue al héroe vinculado.',
     linkedTo: 'Vinculado a {{name}}',
     linkHero: 'Vincular héroe',
     noLinkableHeroes: 'Añade héroes a tu roster para vincular uno.',

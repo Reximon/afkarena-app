@@ -6,11 +6,12 @@ import { ASCENSIONS, type Ascension } from '@/types'
 interface AscensionStarsProps {
   value: Ascension
   onChange: (value: Ascension) => void
+  disabled?: boolean
 }
 
 const ASCENDED_INDEX = ASCENSIONS.indexOf('ascended')
 
-export function AscensionStars({ value, onChange }: AscensionStarsProps) {
+export function AscensionStars({ value, onChange, disabled = false }: AscensionStarsProps) {
   const { t } = useTranslation()
   const index = ASCENSIONS.indexOf(value)
   const starCount = index > ASCENDED_INDEX ? index - ASCENDED_INDEX : 0
@@ -26,7 +27,8 @@ export function AscensionStars({ value, onChange }: AscensionStarsProps) {
         <button
           type="button"
           onClick={() => step(-1)}
-          disabled={index === 0}
+          disabled={disabled || index === 0}
+          title={disabled ? t('hero.ascensionLinked') : undefined}
           aria-label={`${t('common.decrease')} ${t('hero.ascension')}`}
           className="icon-action rounded-lg border border-line bg-night/40 p-1.5 text-muted hover:border-gild/40 hover:text-parch disabled:opacity-40"
         >
@@ -38,7 +40,8 @@ export function AscensionStars({ value, onChange }: AscensionStarsProps) {
         <button
           type="button"
           onClick={() => step(1)}
-          disabled={index === ASCENSIONS.length - 1}
+          disabled={disabled || index === ASCENSIONS.length - 1}
+          title={disabled ? t('hero.ascensionLinked') : undefined}
           aria-label={`${t('common.increase')} ${t('hero.ascension')}`}
           className="icon-action rounded-lg border border-line bg-night/40 p-1.5 text-muted hover:border-gild/40 hover:text-parch disabled:opacity-40"
         >
@@ -48,13 +51,13 @@ export function AscensionStars({ value, onChange }: AscensionStarsProps) {
       <Stars
         total={5}
         value={starCount}
-        onChange={(stars) => onChange(ASCENSIONS[ASCENDED_INDEX + stars])}
+        onChange={disabled ? undefined : (stars) => onChange(ASCENSIONS[ASCENDED_INDEX + stars])}
         size={18}
         label={t('hero.ascension')}
         className="justify-center"
       />
       <p className="text-center text-[10px] leading-relaxed text-muted">
-        {t('heroScreen.ascensionHint')}
+        {disabled ? t('hero.ascensionLinked') : t('heroScreen.ascensionHint')}
       </p>
     </div>
   )

@@ -11,8 +11,7 @@ describe('FactionBonusPanel', () => {
     expect(screen.getByText('Wilder')).toBeInTheDocument()
     expect(screen.getByText('×3')).toBeInTheDocument()
     expect(screen.getByText('×2')).toBeInTheDocument()
-    expect(screen.getByText('Faction bonus 3+2')).toBeInTheDocument()
-    expect(screen.getByText('ATK +15% · HP +15%')).toBeInTheDocument()
+    expect(screen.getByText('3+2 · ATK +15% · HP +15%')).toBeInTheDocument()
   })
 
   it('lists only the active Hypogean ladder bonuses', () => {

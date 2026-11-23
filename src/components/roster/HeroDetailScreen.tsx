@@ -20,6 +20,7 @@ import {
   getHeroClassKey,
   heroCatalog,
 } from '@/features/heroes/heroCatalog'
+import { withLinkedAscension } from '@/features/heroes/linkedAscension'
 import { createDefaultHeroProgress } from '@/features/persistence/defaults'
 import { cn } from '@/lib/cn'
 import { useAppStore } from '@/store/useAppStore'
@@ -81,7 +82,9 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
     if (liveHero && activeId) {
       updateHero(activeId, patch)
     } else {
-      setDraft((current) => (current ? { ...current, ...patch } : current))
+      setDraft((current) =>
+        current ? withLinkedAscension({ ...current, ...patch }, heroes) : current,
+      )
     }
   }
 
@@ -326,6 +329,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
               <AscensionStars
                 value={progress.ascension}
                 onChange={(ascension) => commit({ ascension })}
+                disabled={entry.faction === 'Dimensional' && Boolean(progress.linkedHeroId)}
               />
             }
           />

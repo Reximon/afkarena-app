@@ -6,6 +6,11 @@ import {
   createEmptyAppData,
   createEmptyTeam,
 } from '@/features/persistence/defaults'
+import {
+  normalizeLinkedAscensions,
+  propagateAscension,
+  withLinkedAscension,
+} from '@/features/heroes/linkedAscension'
 import { clampPetBuffs, PET_MAX_RESONANCE } from '@/features/pets/pets'
 import { createId } from '@/lib/id'
 
@@ -40,16 +45,19 @@ export const useAppStore = create<AppState>()(
       addHero: (hero) => {
         const now = new Date().toISOString()
 
-        set((state) => ({
-          heroes: {
+        set((state) => {
+          const next = {
+            ...withLinkedAscension(hero, state.heroes),
+            heroId: hero.heroId,
+            updatedAt: now,
+          }
+          const heroes = {
             ...state.heroes,
-            [hero.heroId]: {
-              ...hero,
-              heroId: hero.heroId,
-              updatedAt: now,
-            },
-          },
-        }))
+            [next.heroId]: next,
+          }
+
+          return { heroes: propagateAscension(heroes, next.heroId, next.ascension, now) }
+        })
       },
 
       updateHero: (heroId, patch) => {
@@ -57,16 +65,18 @@ export const useAppStore = create<AppState>()(
           const current = state.heroes[heroId]
           if (!current) return state
 
+          const now = new Date().toISOString()
+          const merged = withLinkedAscension({ ...current, ...patch, heroId }, state.heroes)
+          const heroes = {
+            ...state.heroes,
+            [heroId]: { ...merged, updatedAt: now },
+          }
+
           return {
-            heroes: {
-              ...state.heroes,
-              [heroId]: {
-                ...current,
-                ...patch,
-                heroId,
-                updatedAt: new Date().toISOString(),
-              },
-            },
+            heroes:
+              merged.ascension === current.ascension
+                ? heroes
+                : propagateAscension(heroes, heroId, merged.ascension, now),
           }
         })
       },
@@ -281,7 +291,7 @@ export const useAppStore = create<AppState>()(
         set({
           schemaVersion: data.schemaVersion,
           profile: data.profile,
-          heroes: data.heroes,
+          heroes: normalizeLinkedAscensions(data.heroes),
           pets: data.pets,
           teams: data.teams,
         })
@@ -294,6 +304,14 @@ export const useAppStore = create<AppState>()(
     {
       name: DATA_STORAGE_KEY,
       version: 1,
+      merge: (persisted, current) => {
+        const data = persisted as Partial<AppData>
+        return {
+          ...current,
+          ...data,
+          heroes: data.heroes ? normalizeLinkedAscensions(data.heroes) : current.heroes,
+        }
+      },
       partialize: (state) => ({
         schemaVersion: state.schemaVersion,
         profile: state.profile,

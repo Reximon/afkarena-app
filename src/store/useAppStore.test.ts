@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createDefaultHeroProgress, createEmptyAppData } from '@/features/persistence/defaults'
-import { useAppStore } from './useAppStore'
+import { DATA_STORAGE_KEY, useAppStore } from './useAppStore'
 
 beforeEach(() => {
   localStorage.clear()
@@ -160,6 +160,55 @@ describe('useAppStore', () => {
     const copy = useAppStore.getState().teams.find((team) => team.id === copyId)
 
     expect(copy?.petId).toBe('6004')
+  })
+
+  it('mirrors the linked hero ascension for Dimensionals', () => {
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { ascension: 'ascended' }))
+    useAppStore.getState().addHero(createDefaultHeroProgress('98'))
+
+    useAppStore.getState().updateHero('98', { linkedHeroId: '182' })
+    expect(useAppStore.getState().heroes['98'].ascension).toBe('ascended')
+
+    useAppStore.getState().updateHero('182', { ascension: 'legendary' })
+    expect(useAppStore.getState().heroes['98'].ascension).toBe('legendary')
+
+    useAppStore.getState().updateHero('98', { ascension: 'elite' })
+    expect(useAppStore.getState().heroes['98'].ascension).toBe('legendary')
+  })
+
+  it('keeps the last mirrored ascension after unlinking', () => {
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { ascension: 'ascended' }))
+    useAppStore.getState().addHero(
+      createDefaultHeroProgress('98', {
+        ascension: 'elite',
+        linkedHeroId: '182',
+      }),
+    )
+    expect(useAppStore.getState().heroes['98'].ascension).toBe('ascended')
+
+    useAppStore.getState().updateHero('98', { linkedHeroId: undefined })
+    useAppStore.getState().updateHero('182', { ascension: 'legendary' })
+
+    expect(useAppStore.getState().heroes['98']).toMatchObject({
+      linkedHeroId: undefined,
+      ascension: 'ascended',
+    })
+  })
+
+  it('normalizes linked ascensions on import and rehydration', async () => {
+    const data = createEmptyAppData()
+    data.heroes = {
+      '182': createDefaultHeroProgress('182', { ascension: 'ascended' }),
+      '98': createDefaultHeroProgress('98', { linkedHeroId: '182' }),
+    }
+
+    useAppStore.getState().importData(data)
+    expect(useAppStore.getState().heroes['98'].ascension).toBe('ascended')
+
+    localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify({ state: data, version: 1 }))
+    await useAppStore.persist.rehydrate()
+
+    expect(useAppStore.getState().heroes['98'].ascension).toBe('ascended')
   })
 
   it('unassigns a collection without losing its progress', () => {

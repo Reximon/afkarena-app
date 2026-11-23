@@ -59,14 +59,13 @@ export function FactionBonusPanel({ heroIds, className }: FactionBonusPanelProps
 
       <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
         {regularBonus ? (
-          <>
-            <Badge variant="gold">
-              {t('teams.factionTier', { tier: TIER_LABELS[regularBonus.tier] })}
-            </Badge>
-            <Badge variant="gold">
-              {t('teams.factionStatBonus', { attack: regularBonus.attack, hp: regularBonus.hp })}
-            </Badge>
-          </>
+          <Badge variant="gold">
+            {t('teams.factionBonusSummary', {
+              tier: TIER_LABELS[regularBonus.tier],
+              attack: regularBonus.attack,
+              hp: regularBonus.hp,
+            })}
+          </Badge>
         ) : (
           <span className="font-mono text-[10px] tracking-[0.12em] text-muted uppercase">
             {t('teams.noFactionBonus')}

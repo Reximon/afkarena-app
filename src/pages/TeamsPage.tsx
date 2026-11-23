@@ -52,7 +52,7 @@ export function TeamsPage() {
           }
         />
       ) : (
-        <div className="grid gap-5 lg:grid-cols-2 2xl:grid-cols-3">
+        <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
           {teams.map((team) => (
             <TeamCard
               key={team.id}

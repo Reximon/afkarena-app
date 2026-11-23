@@ -14,6 +14,7 @@ export const en = {
     equipment: 'Equipment',
     artifacts: 'Artifacts',
     settings: 'Settings',
+    menu: 'Menu',
   },
   common: {
     add: 'Add',
@@ -125,6 +126,7 @@ export const en = {
     noPet: 'No pet',
     noPetsHint: 'Add pets from the Pets page to assign one to a team.',
     emptySlot: 'Empty slot',
+    addHeroSlot: 'Add hero to slot {{position}}',
     noHeroes: 'Add heroes to your roster before building a team.',
     heroUsed: 'Already in this team',
     deleteTitle: 'Delete team?',
@@ -144,7 +146,7 @@ export const en = {
     dropToFill: 'Drop to add',
     rowFull: 'Full',
     factionBonus: 'Faction bonus',
-    factionTier: 'Faction bonus {{tier}}',
+    factionBonusSummary: '{{tier}} · ATK +{{attack}}% · HP +{{hp}}%',
     factionStatBonus: 'ATK +{{attack}}% · HP +{{hp}}%',
     noFactionBonus: 'No faction bonus',
     celestialHint: 'Celestials count as any faction.',
@@ -278,6 +280,7 @@ export const en = {
     linkedHero: 'Linked hero',
     linkedHeroHint:
       'Dimensional heroes share ascension with a non-dimensional hero from your roster.',
+    ascensionLinked: 'Ascension follows the linked hero.',
     linkedTo: 'Linked to {{name}}',
     linkHero: 'Link hero',
     noLinkableHeroes: 'Add heroes to your roster to link one.',

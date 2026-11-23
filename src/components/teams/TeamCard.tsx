@@ -63,7 +63,12 @@ export function TeamCard({ team, heroes, pets, onEdit, onDuplicate, onDelete }: 
         </div>
       </div>
 
-      <TeamFormation slots={team.slots} heroes={heroes} className="mt-4" />
+      <TeamFormation
+        slots={team.slots}
+        heroes={heroes}
+        className="mt-4"
+        onSlotClick={() => onEdit(team.id)}
+      />
 
       <FactionBonusPanel heroIds={team.slots.map((slot) => slot.heroId)} className="mt-3" />
 

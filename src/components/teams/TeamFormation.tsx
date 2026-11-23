@@ -8,10 +8,20 @@ import type { HeroProgress, TeamSlot } from '@/types'
 interface TeamFormationProps {
   slots: TeamSlot[]
   heroes: Record<string, HeroProgress>
+  onSlotClick?: (slot: TeamSlot) => void
   className?: string
 }
 
-function SlotView({ slot, hero }: { slot: TeamSlot; hero: HeroProgress | undefined }) {
+function SlotView({
+  slot,
+  hero,
+  onSelect,
+}: {
+  slot: TeamSlot
+  hero: HeroProgress | undefined
+  onSelect?: () => void
+}) {
+  const { t } = useTranslation()
   const entry = hero ? getHeroCatalogEntry(hero.heroId) : undefined
 
   if (hero && entry) {
@@ -33,19 +43,39 @@ function SlotView({ slot, hero }: { slot: TeamSlot; hero: HeroProgress | undefin
     )
   }
 
-  return (
-    <div className="flex min-h-20 flex-col items-center justify-center rounded-xl border border-dashed border-line bg-night/20 p-2 text-center">
+  const content = (
+    <>
       <span className="font-mono text-[9px] tracking-[0.16em] text-muted uppercase">
         {slot.position}
       </span>
       <span className="mt-1.5 grid size-6 place-items-center rounded-full border border-line text-muted">
         <Plus size={12} aria-hidden="true" />
       </span>
-    </div>
+    </>
+  )
+  const emptyClassName =
+    'flex min-h-20 flex-col items-center justify-center rounded-xl border border-dashed border-line bg-night/20 p-2 text-center transition-colors'
+
+  if (!onSelect) {
+    return <div className={emptyClassName}>{content}</div>
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-label={t('teams.addHeroSlot', { position: slot.position })}
+      className={cn(
+        emptyClassName,
+        'hover:border-gild/40 hover:bg-night/30 hover:text-parch focus-visible:border-gild/40 focus-visible:outline-none',
+      )}
+    >
+      {content}
+    </button>
   )
 }
 
-export function TeamFormation({ slots, heroes, className }: TeamFormationProps) {
+export function TeamFormation({ slots, heroes, onSlotClick, className }: TeamFormationProps) {
   const { t } = useTranslation()
   const front = slots.filter((slot) => slot.row === 'front')
   const back = slots.filter((slot) => slot.row === 'back')
@@ -62,6 +92,7 @@ export function TeamFormation({ slots, heroes, className }: TeamFormationProps) 
               key={slot.position}
               slot={slot}
               hero={slot.heroId ? heroes[slot.heroId] : undefined}
+              onSelect={onSlotClick ? () => onSlotClick(slot) : undefined}
             />
           ))}
         </div>
@@ -76,6 +107,7 @@ export function TeamFormation({ slots, heroes, className }: TeamFormationProps) 
               key={slot.position}
               slot={slot}
               hero={slot.heroId ? heroes[slot.heroId] : undefined}
+              onSelect={onSlotClick ? () => onSlotClick(slot) : undefined}
             />
           ))}
         </div>
