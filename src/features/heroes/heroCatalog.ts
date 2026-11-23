@@ -1,6 +1,13 @@
 import catalogJson from '@/data/heroes.json'
 import heroClassesJson from '@/data/hero-classes.json'
-import type { Faction, HeroCatalogEntry, HeroCatalogFile, HeroClass, HeroClassFile } from '@/types'
+import {
+  FACTIONS,
+  type Faction,
+  type HeroCatalogEntry,
+  type HeroCatalogFile,
+  type HeroClass,
+  type HeroClassFile,
+} from '@/types'
 
 const catalog = catalogJson as HeroCatalogFile
 const heroClasses = heroClassesJson as HeroClassFile
@@ -45,4 +52,20 @@ export function getFactionColor(faction: Faction): string {
 
 export function getHeroClassKey(hero: HeroCatalogEntry): `heroClass.${HeroClass | 'Unknown'}` {
   return hero.class ? `heroClass.${hero.class}` : 'heroClass.Unknown'
+}
+
+export interface LinkableHeroGroup {
+  faction: Faction
+  heroes: HeroCatalogEntry[]
+}
+
+export function getLinkableHeroGroups(ownedHeroIds: ReadonlySet<string>): LinkableHeroGroup[] {
+  return FACTIONS.filter((faction) => faction !== 'Dimensional')
+    .map((faction) => ({
+      faction,
+      heroes: heroCatalog
+        .filter((hero) => hero.faction === faction && ownedHeroIds.has(hero.id))
+        .sort((a, b) => a.displayName.localeCompare(b.displayName)),
+    }))
+    .filter((group) => group.heroes.length > 0)
 }

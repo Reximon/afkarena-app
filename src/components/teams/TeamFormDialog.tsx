@@ -29,6 +29,7 @@ import { pets } from '@/features/pets/pets'
 import { assignHeroToSlot, resolveDropTarget } from '@/features/teams/teamSlots'
 import { cn } from '@/lib/cn'
 import { useAppStore } from '@/store/useAppStore'
+import { FactionBonusPanel } from './FactionBonusPanel'
 import {
   PET_TIERS,
   TEAM_MODES,
@@ -490,6 +491,7 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
                 isDragging={activeHeroId !== null}
                 onAssign={setSlotHero}
               />
+              <FactionBonusPanel heroIds={draft.slots.map((slot) => slot.heroId)} />
             </section>
           </div>
 

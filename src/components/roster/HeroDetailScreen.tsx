@@ -331,7 +331,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
           />
 
           <div className="space-y-5">
-            <InvestmentPanel entry={entry} progress={progress} commit={commit} />
+            <InvestmentPanel entry={entry} progress={progress} heroes={heroes} commit={commit} />
             <NotesField value={progress.notes ?? ''} onChange={(notes) => commit({ notes })} />
           </div>
         </div>

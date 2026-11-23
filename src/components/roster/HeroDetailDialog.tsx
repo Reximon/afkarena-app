@@ -2,6 +2,7 @@ import { useState } from 'react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import {
   Gem,
+  Link2,
   Pencil,
   ShieldPlus,
   Sparkles,
@@ -46,10 +47,11 @@ import { EngraveDrawer } from './hero-detail/EngraveDrawer'
 import { FurnitureDrawer } from './hero-detail/FurnitureDrawer'
 import { GearPickerDrawer } from './hero-detail/GearPickerDrawer'
 import { GearSlot } from './hero-detail/GearSlot'
+import { LinkedHeroDrawer } from './hero-detail/LinkedHeroDrawer'
 
 const ASCENDED_INDEX = ASCENSIONS.indexOf('ascended')
 
-type DialogDrawer = 'ascension' | 'artifact' | 'collection' | 'engrave' | 'furniture'
+type DialogDrawer = 'ascension' | 'artifact' | 'collection' | 'engrave' | 'furniture' | 'linked'
 
 interface HeroDetailDialogProps {
   heroId: string
@@ -59,6 +61,7 @@ interface HeroDetailDialogProps {
 export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
   const { t } = useTranslation()
   const progress = useAppStore((state) => state.heroes[heroId])
+  const heroes = useAppStore((state) => state.heroes)
   const updateHero = useAppStore((state) => state.updateHero)
   const assignArtifact = useAppStore((state) => state.assignArtifact)
   const unassignArtifact = useAppStore((state) => state.unassignArtifact)
@@ -74,6 +77,10 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
   if (!progress || !entry) return null
 
   const heroEntry = entry
+  const linkedEntry =
+    entry.faction === 'Dimensional' && progress.linkedHeroId
+      ? getHeroCatalogEntry(progress.linkedHeroId)
+      : undefined
   const starCount = Math.max(0, ASCENSIONS.indexOf(progress.ascension) - ASCENDED_INDEX)
   const artifact = getArtifact(progress.artifact)
   const collection = getCollection(progress.collection?.collectionId)
@@ -248,6 +255,20 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                 <DialogPrimitive.Description className="mt-1 font-mono text-[10px] tracking-[0.18em] text-muted uppercase">
                   {t(`faction.${entry.faction}`)} · {t(getHeroClassKey(entry))}
                 </DialogPrimitive.Description>
+                {entry.faction === 'Dimensional' ? (
+                  <button
+                    type="button"
+                    onClick={() => openDrawer('linked')}
+                    aria-label={`${t('common.edit')} ${t('hero.linkedHero')}`}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-0.5 text-[11px] text-arcane transition-colors hover:border-gild/40 hover:text-gild focus-visible:border-gild/40 focus-visible:text-gild focus-visible:outline-none"
+                  >
+                    <Link2 size={11} aria-hidden="true" />
+                    {linkedEntry
+                      ? t('hero.linkedTo', { name: linkedEntry.displayName })
+                      : t('hero.linkHero')}
+                    <Pencil size={9} aria-hidden="true" />
+                  </button>
+                ) : null}
                 <DialogPrimitive.Title className="font-display text-2xl leading-tight text-parch sm:text-3xl">
                   {entry.displayName}
                 </DialogPrimitive.Title>
@@ -439,6 +460,16 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
               heroClass={heroEntry.class}
               onSelect={setCollection}
               onChange={updateCollection}
+              onClose={closeDrawer}
+            />
+          ) : null}
+
+          {drawer === 'linked' ? (
+            <LinkedHeroDrawer
+              heroName={heroEntry.displayName}
+              linkedHeroId={progress.linkedHeroId}
+              heroes={heroes}
+              onChange={(linkedHeroId) => updateHero(heroId, { linkedHeroId })}
               onClose={closeDrawer}
             />
           ) : null}

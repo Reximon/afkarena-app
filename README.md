@@ -13,7 +13,7 @@ Bilingual roster and team tracker for **AFK Arena Classic**. Record the heroes y
 - 23 collections with class restrictions, level 0-10, skill level 0-3 and mythic stats 0-8.
 - Artifacts and collections are mutually exclusive; switching keeps collection progress saved.
 - Search and filters by faction, class, ascension and role.
-- Saved teams with a 2-front, 3-back formation, mode and notes, including drag-and-drop hero placement.
+- Saved teams with a 2-front, 3-back formation, mode and notes, including drag-and-drop hero placement and the faction combo with its ATK/HP bonus.
 - 30 pets (Beasts) with their three Attribute Buffs, derived beast level and training, a player-set beast resonance level that flags pets below it with a pending `+N` badge, and one pet assignable per saved team.
 - Versioned JSON export and validated import.
 - English and Spanish interface, with game terms kept in English.

@@ -145,6 +145,16 @@ export const es: TranslationSchema = {
     removeHero: 'Quitar de la posición',
     dropToFill: 'Suelta para añadir',
     rowFull: 'Completa',
+    factionBonus: 'Bonus de facción',
+    factionTier: 'Bonus de facción {{tier}}',
+    factionStatBonus: 'ATK +{{attack}}% · HP +{{hp}}%',
+    noFactionBonus: 'Sin bonus de facción',
+    celestialHint: 'Los Celestial cuentan como cualquier facción.',
+    hypogeanDefense: '+30% DEF',
+    hypogeanEnergy: '+25% recuperación de energía al ser herido',
+    hypogeanCritRating: '+15% critical rating',
+    hypogeanCritDamage: '+30% critical damage',
+    hypogeanHaste: '+15 haste',
   },
   teamMode: {
     campaign: 'Campaña',
@@ -267,8 +277,11 @@ export const es: TranslationSchema = {
     gear: 'Gear',
     artifact: 'Artifact',
     linkedHero: 'Héroe vinculado',
-    linkedHeroHint: 'Los héroes dimensionales comparten ascensión con un héroe no dimensional.',
+    linkedHeroHint:
+      'Los héroes dimensionales comparten ascensión con un héroe no dimensional de tu roster.',
     linkedTo: 'Vinculado a {{name}}',
+    linkHero: 'Vincular héroe',
+    noLinkableHeroes: 'Añade héroes a tu roster para vincular uno.',
     collection: 'Collection',
     collectionLevel: 'Nivel de collection',
     collectionSkill: 'Skill de collection',
@@ -308,6 +321,8 @@ export const es: TranslationSchema = {
     engrave: 'Engrave',
     engraveHint:
       'El grabado mejora las estadísticas a 30, 60 y 80. Llegar a 60 con 9 muebles desbloquea el retrato foil.',
+    furnitureHint:
+      'F36 marca un set completo de 9 piezas de furniture subidas a +3 con copias Mythic sobrantes.',
     artifactHint: 'Equipar un artefacto desequipa la colección actual.',
     collectionHint: 'Equipar una colección desequipa el artefacto actual.',
     skills: 'Skills',

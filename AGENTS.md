@@ -87,6 +87,7 @@ When adding new references (e.g. a new hero link field), follow this dual-format
 - Display names are unique across the 255 heroes.
 - Artifact and collection catalogs are maintained in code under `src/features/artifacts/` and `src/features/collections/`.
 - The pet/beast catalog is maintained in `src/features/pets/pets.ts` (30 pets). Max buff per tier: Rare 6, Elite 12, Fabled 18; beast level is the sum of the three buffs. Training levels 0–3 unlock at beast levels 3/9/15 and only Elite/Fabled pets have it. `getPetResonanceDeficit` caps the resonance target per tier (18/36/54) and `PET_MAX_RESONANCE` is 54.
+- Team faction bonuses are computed in `src/features/teams/factionBonus.ts` from the actual hero factions: 3 → +10% ATK/HP, 3+2 → +15/+15, 4 → +15/20, 5 → +25/25. Celestials are wildcards for regular factions (not for the Hypogean ladder), Hypogeans stack their own bonus ladder, Draconis grant +2% ATK/HP each, and Dimensional heroes do not count.
 - Official artwork is loaded from `afk.global` / `afk-mine` CDNs at runtime (pet art: `/images/afk-arena/game/beast/{id}.webp`).
 
 ## Testing

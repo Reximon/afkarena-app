@@ -143,6 +143,16 @@ export const en = {
     removeHero: 'Remove from slot',
     dropToFill: 'Drop to add',
     rowFull: 'Full',
+    factionBonus: 'Faction bonus',
+    factionTier: 'Faction bonus {{tier}}',
+    factionStatBonus: 'ATK +{{attack}}% · HP +{{hp}}%',
+    noFactionBonus: 'No faction bonus',
+    celestialHint: 'Celestials count as any faction.',
+    hypogeanDefense: '+30% DEF',
+    hypogeanEnergy: '+25% energy recovery when injured',
+    hypogeanCritRating: '+15% critical rating',
+    hypogeanCritDamage: '+30% critical damage',
+    hypogeanHaste: '+15 haste',
   },
   teamMode: {
     campaign: 'Campaign',
@@ -266,8 +276,11 @@ export const en = {
     gear: 'Gear',
     artifact: 'Artifact',
     linkedHero: 'Linked hero',
-    linkedHeroHint: 'Dimensional heroes share ascension with a non-dimensional hero.',
+    linkedHeroHint:
+      'Dimensional heroes share ascension with a non-dimensional hero from your roster.',
     linkedTo: 'Linked to {{name}}',
+    linkHero: 'Link hero',
+    noLinkableHeroes: 'Add heroes to your roster to link one.',
     collection: 'Collection',
     collectionLevel: 'Collection level',
     collectionSkill: 'Collection skill',
@@ -305,6 +318,8 @@ export const en = {
     engrave: 'Engrave',
     engraveHint:
       'Engraving boosts stats at 30, 60 and 80. Reaching 60 with 9 furniture unlocks the foil portrait.',
+    furnitureHint:
+      'F36 marks a full set of 9 furniture pieces upgraded to +3 with spare Mythic copies.',
     artifactHint: 'Equipping an artifact unequips the current collection.',
     collectionHint: 'Equipping a collection unequips the current artifact.',
     skills: 'Skills',

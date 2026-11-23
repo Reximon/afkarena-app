@@ -3,6 +3,7 @@ import { Copy, PawPrint, Pencil, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { EquipmentImage } from '@/components/equipment/EquipmentImage'
 import { getPet } from '@/features/pets/pets'
+import { FactionBonusPanel } from './FactionBonusPanel'
 import { TeamFormation } from './TeamFormation'
 import type { HeroProgress, PetProgress, PetTier, Team } from '@/types'
 
@@ -63,6 +64,8 @@ export function TeamCard({ team, heroes, pets, onEdit, onDuplicate, onDelete }: 
       </div>
 
       <TeamFormation slots={team.slots} heroes={heroes} className="mt-4" />
+
+      <FactionBonusPanel heroIds={team.slots.map((slot) => slot.heroId)} className="mt-3" />
 
       {pet ? (
         <div className="mt-3 flex items-center gap-2 rounded-xl border border-line bg-night/25 px-2.5 py-1.5">

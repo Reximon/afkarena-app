@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
@@ -53,5 +53,28 @@ describe('HeroDetailScreen', () => {
 
     expect(useAppStore.getState().heroes['131']).toBeDefined()
     expect(screen.getByText('Progress saved')).toBeInTheDocument()
+  })
+
+  it('limits Dimensional linked heroes to the owned roster', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('98'))
+    useAppStore.getState().addHero(createDefaultHeroProgress('182'))
+
+    render(<HeroDetailScreen heroId="98" onClose={vi.fn()} />)
+
+    const select = screen.getByRole('combobox', { name: /linked hero/i })
+    expect(within(select).getByRole('option', { name: 'Adrian & Elyse' })).toBeInTheDocument()
+    expect(within(select).queryByRole('option', { name: 'Alvida' })).not.toBeInTheDocument()
+
+    await user.selectOptions(select, '182')
+    expect(useAppStore.getState().heroes['98'].linkedHeroId).toBe('182')
+  })
+
+  it('keeps showing a stored linked hero that is no longer owned', () => {
+    useAppStore.getState().addHero(createDefaultHeroProgress('98', { linkedHeroId: '220' }))
+
+    render(<HeroDetailScreen heroId="98" onClose={vi.fn()} />)
+
+    expect(screen.getByRole('combobox', { name: /linked hero/i })).toHaveDisplayValue('Alvida')
   })
 })

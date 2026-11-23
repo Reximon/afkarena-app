@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 import { Gem, Minus, Plus, Target } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Field, Input, Select } from '@/components/ui/Input'
-import { heroCatalog } from '@/features/heroes/heroCatalog'
+import { getLinkableHeroGroups, heroCatalog } from '@/features/heroes/heroCatalog'
 import { cn } from '@/lib/cn'
-import { FACTIONS, type HeroCatalogEntry, type HeroProgress } from '@/types'
+import type { HeroCatalogEntry, HeroProgress } from '@/types'
 import { ProgressStepControl } from './ProgressStepControl'
 
 const SIGNATURE_OPTIONS = [0, 10, 20, 30, 40] as const
@@ -14,24 +14,18 @@ const ENGRAVING_OPTIONS = [0, 30, 60, 80] as const
 interface InvestmentPanelProps {
   entry: HeroCatalogEntry
   progress: HeroProgress
+  heroes: Record<string, HeroProgress>
   commit: (patch: Partial<HeroProgress>) => void
 }
 
-export function InvestmentPanel({ entry, progress, commit }: InvestmentPanelProps) {
+export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentPanelProps) {
   const { t } = useTranslation()
 
   const linkedHeroGroups = useMemo(() => {
     if (entry.faction !== 'Dimensional') return []
 
-    return FACTIONS.filter((faction) => faction !== 'Dimensional')
-      .map((faction) => ({
-        faction,
-        heroes: heroCatalog
-          .filter((hero) => hero.faction === faction)
-          .sort((a, b) => a.displayName.localeCompare(b.displayName)),
-      }))
-      .filter((group) => group.heroes.length > 0)
-  }, [entry.faction])
+    return getLinkableHeroGroups(new Set(Object.keys(heroes)))
+  }, [entry.faction, heroes])
 
   const linkedHeroEntry = progress.linkedHeroId
     ? heroCatalog.find((hero) => hero.id === progress.linkedHeroId)

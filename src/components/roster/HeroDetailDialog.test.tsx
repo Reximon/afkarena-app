@@ -42,4 +42,44 @@ describe('HeroDetailDialog', () => {
     expect(useAppStore.getState().heroes['182'].furniture).toBe(3)
     expect(screen.getByText('Furniture 3')).toBeInTheDocument()
   })
+
+  it('shows the linked hero for Dimensionals', () => {
+    useAppStore.getState().addHero(createDefaultHeroProgress('98', { linkedHeroId: '182' }))
+
+    render(<HeroDetailDialog heroId="98" onClose={vi.fn()} />)
+
+    expect(screen.getByText('Linked to Adrian & Elyse')).toBeInTheDocument()
+  })
+
+  it('links an owned hero from the view panel', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('98'))
+    useAppStore.getState().addHero(createDefaultHeroProgress('182'))
+
+    render(<HeroDetailDialog heroId="98" onClose={vi.fn()} />)
+
+    await user.click(screen.getByRole('button', { name: 'Edit Linked hero' }))
+    await user.click(screen.getByRole('button', { name: 'Adrian & Elyse' }))
+
+    expect(useAppStore.getState().heroes['98'].linkedHeroId).toBe('182')
+    expect(screen.getByText('Linked to Adrian & Elyse')).toBeInTheDocument()
+  })
+
+  it('offers only owned heroes when linking and can clear the link', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('98', { linkedHeroId: '182' }))
+    useAppStore.getState().addHero(createDefaultHeroProgress('182'))
+
+    render(<HeroDetailDialog heroId="98" onClose={vi.fn()} />)
+
+    await user.click(screen.getByRole('button', { name: 'Edit Linked hero' }))
+
+    expect(screen.getByRole('button', { name: 'Adrian & Elyse' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Alvida' })).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'None' }))
+
+    expect(useAppStore.getState().heroes['98'].linkedHeroId).toBeUndefined()
+    expect(screen.getByText('Link hero')).toBeInTheDocument()
+  })
 })
