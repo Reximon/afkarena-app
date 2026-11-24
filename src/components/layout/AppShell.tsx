@@ -152,7 +152,7 @@ export function AppShell() {
       <div className="gild-rule mt-4" aria-hidden="true" />
       <footer className="py-5">
         <p className="text-center font-mono text-[9px] tracking-[0.16em] text-muted/70 uppercase">
-          {t('app.name')} · v1.3.0 · {t('app.game')}
+          {t('app.name')} · v1.4.0 · {t('app.game')}
         </p>
       </footer>
     </div>
