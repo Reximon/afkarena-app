@@ -40,41 +40,23 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="game-header sticky top-0 z-40 shadow-[0_14px_32px_rgba(4,2,1,0.55)]">
-        <div className="mx-auto flex h-16 w-full max-w-[1440px] items-stretch gap-3 px-4 sm:px-6 lg:px-8">
-          <NavLink to="/" aria-label={t('app.name')} className="flex shrink-0 items-center gap-3">
-            <span className="brand-seal" aria-hidden="true">
-              RH
-            </span>
-            <span className="hidden min-w-0 sm:block">
-              <span className="block truncate font-display text-[15px] leading-tight font-semibold tracking-[0.01em] text-parch">
-                {t('app.name')}
-              </span>
-              <span className="mt-0.5 block truncate font-mono text-[8px] tracking-[0.24em] text-muted uppercase">
-                {t('app.game')}
-              </span>
-            </span>
-          </NavLink>
+      <header className="game-header sticky top-0 z-40 border-b border-gild/10">
+        <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8">
+          <span className="hidden lg:block" aria-hidden="true" />
 
-          <span className="flex min-w-0 flex-1 items-center truncate font-display text-[11px] font-semibold tracking-[0.18em] text-parch uppercase sm:hidden">
+          <span className="min-w-0 flex-1 truncate font-display text-[11px] font-semibold tracking-[0.18em] text-parch uppercase lg:hidden">
             {t(pageTitleKey)}
           </span>
 
-          <nav className="ml-auto hidden items-stretch xl:flex" aria-label={t('app.name')}>
+          <nav className="nav-rail hidden items-center lg:flex" aria-label={t('app.name')}>
             {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className="nav-plate focus-visible:z-10"
-              >
+              <NavLink key={item.to} to={item.to} end={item.end} className="nav-tab">
                 {t(item.labelKey)}
               </NavLink>
             ))}
           </nav>
 
-          <div className="ml-auto flex shrink-0 items-center gap-3 xl:ml-0">
-            <span className="hidden h-5 w-px bg-gild/15 xl:block" aria-hidden="true" />
+          <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0 lg:justify-self-end">
             <LanguageToggle />
 
             <DialogPrimitive.Root
@@ -85,7 +67,7 @@ export function AppShell() {
                 <button
                   type="button"
                   aria-label={t('nav.menu')}
-                  className="icon-action grid size-9 place-items-center rounded-[5px] border border-gild/25 text-muted hover:border-gild/50 hover:bg-gild/5 hover:text-parch xl:hidden"
+                  className="icon-action grid size-9 place-items-center rounded-md border border-gild/20 text-parch hover:border-gild/40 hover:bg-gild/10 lg:hidden"
                 >
                   <Menu size={18} strokeWidth={1.7} aria-hidden="true" />
                 </button>
@@ -109,7 +91,7 @@ export function AppShell() {
 
                   <nav
                     aria-label={t('nav.menu')}
-                    className="mt-7 flex flex-col border-t border-gild/15"
+                    className="mt-7 flex flex-col gap-0.5 rounded-lg border border-gild/10 bg-abyss/60 p-1"
                   >
                     {navItems.map((item) => (
                       <NavLink
@@ -119,13 +101,12 @@ export function AppShell() {
                         onClick={() => setMobileNavPath(null)}
                         className={({ isActive }) =>
                           cn(
-                            'nav-row flex items-center justify-between gap-3 border-b border-gild/10 px-2 py-3.5 text-[11px] transition-colors',
+                            'nav-row px-3 py-3 text-[11px] transition-colors',
                             isActive ? 'text-gild-bright' : 'text-muted hover:text-parch',
                           )
                         }
                       >
-                        <span>{t(item.labelKey)}</span>
-                        <span className="nav-mark" aria-hidden="true" />
+                        {t(item.labelKey)}
                       </NavLink>
                     ))}
                   </nav>
@@ -134,7 +115,6 @@ export function AppShell() {
             </DialogPrimitive.Root>
           </div>
         </div>
-        <div className="header-rule" aria-hidden="true" />
       </header>
 
       <main className="mx-auto w-full max-w-[1440px] flex-1 px-4 py-8 sm:px-6 lg:px-8 lg:py-10">

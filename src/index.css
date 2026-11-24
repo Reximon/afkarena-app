@@ -664,160 +664,62 @@
       0 0 28px rgba(226, 185, 109, 0.1);
   }
 
-  /* Navigation: engraved brass plates on one continuous rail, not pills. */
-  .nav-plate {
-    position: relative;
-    display: flex;
+  /* Navigation: one compact segmented rail of mono tabs, Koyeb-style. */
+  .nav-rail {
+    height: 3rem;
+    gap: 0.125rem;
+    padding: 0.25rem;
+    border: 1px solid rgba(226, 185, 109, 0.12);
+    border-radius: 0.5rem;
+    background: rgba(8, 4, 3, 0.55);
+    box-shadow: inset 0 1px 0 rgba(247, 223, 164, 0.05);
+  }
+
+  .nav-tab {
+    display: inline-flex;
     height: 100%;
     align-items: center;
-    padding: 0 1.35rem;
-    font-family: var(--font-display);
+    padding: 0 1.1rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-muted);
-    transition: color 160ms ease;
+    white-space: nowrap;
+    transition:
+      color 160ms ease,
+      background-color 160ms ease;
   }
 
-  .nav-plate + .nav-plate {
-    border-left: 1px solid rgba(226, 185, 109, 0.12);
-  }
-
-  .nav-plate::before {
-    content: '';
-    position: absolute;
-    inset: 35% 0 0;
-    pointer-events: none;
-    background: linear-gradient(0deg, rgba(226, 185, 109, 0.1), transparent 82%);
-    opacity: 0;
-    transition: opacity 160ms ease;
-  }
-
-  .nav-plate::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    background: var(--color-gild-bright);
-    box-shadow: 0 0 10px rgba(247, 223, 164, 0.8);
-    transform: translateX(-50%) rotate(45deg) scale(0);
-    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .nav-plate:hover {
+  .nav-tab:hover {
     color: var(--color-parch);
+    background-color: rgba(226, 185, 109, 0.07);
   }
 
-  .nav-plate:hover::before {
-    opacity: 0.5;
-  }
-
-  .nav-plate[aria-current='page'] {
+  .nav-tab[aria-current='page'] {
     color: var(--color-gild-bright);
-  }
-
-  .nav-plate[aria-current='page']::before {
-    opacity: 1;
-  }
-
-  .nav-plate[aria-current='page']::after {
-    transform: translateX(-50%) rotate(45deg) scale(1);
+    background-color: rgba(226, 185, 109, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(226, 185, 109, 0.18);
   }
 
   .nav-row {
-    font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: 0.18em;
+    border-radius: 0.375rem;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+  }
+
+  .nav-row:hover {
+    background-color: rgba(226, 185, 109, 0.07);
   }
 
   .nav-row[aria-current='page'] {
     color: var(--color-gild-bright);
-    background: linear-gradient(90deg, rgba(226, 185, 109, 0.08), transparent 72%);
-  }
-
-  .nav-mark {
-    width: 5px;
-    height: 5px;
-    border: 1px solid rgba(226, 185, 109, 0.35);
-    transform: rotate(45deg);
-    transition:
-      border-color 160ms ease,
-      background-color 160ms ease;
-  }
-
-  .nav-row[aria-current='page'] .nav-mark {
-    border-color: transparent;
-    background: var(--color-gild-bright);
-    box-shadow: 0 0 8px rgba(247, 223, 164, 0.8);
-  }
-
-  /* Double hairline under the header; the active plate notch rests on it. */
-  .header-rule {
-    position: relative;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(226, 185, 109, 0.22) 7%,
-      rgba(226, 185, 109, 0.46) 50%,
-      rgba(226, 185, 109, 0.22) 93%,
-      transparent
-    );
-  }
-
-  .header-rule::after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    right: 0;
-    left: 0;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(226, 185, 109, 0.12) 10%,
-      rgba(226, 185, 109, 0.2) 50%,
-      rgba(226, 185, 109, 0.12) 90%,
-      transparent
-    );
-  }
-
-  /* Brand seal: a struck medallion with an RH monogram. */
-  .brand-seal {
-    position: relative;
-    display: grid;
-    width: 2.35rem;
-    height: 2.35rem;
-    place-items: center;
-    border: 1px solid rgba(226, 185, 109, 0.55);
-    border-radius: 999px;
-    background:
-      radial-gradient(circle at 50% 20%, rgba(226, 185, 109, 0.18), transparent 62%),
-      linear-gradient(180deg, #2c1a10, #0b0604 78%);
-    box-shadow:
-      inset 0 0 0 3px rgba(9, 5, 3, 0.92),
-      inset 0 0 0 4px rgba(226, 185, 109, 0.16),
-      0 0 20px rgba(226, 185, 109, 0.12);
-    font-family: var(--font-display);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--color-gild-bright);
-    text-shadow: 0 0 10px rgba(247, 223, 164, 0.45);
-  }
-
-  .brand-seal::after {
-    content: '';
-    position: absolute;
-    inset: 6px;
-    border-radius: inherit;
-    border-top: 1px solid rgba(247, 223, 164, 0.28);
-    border-bottom: 1px solid rgba(226, 185, 109, 0.16);
-    pointer-events: none;
+    background-color: rgba(226, 185, 109, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(226, 185, 109, 0.18);
   }
 
   @keyframes dialog-fade-in {
