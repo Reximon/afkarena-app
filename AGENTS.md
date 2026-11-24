@@ -27,11 +27,11 @@ Before finishing any task run `npm run typecheck`, `npm run lint` and `npm run t
 - Use `import type` for type-only imports.
 - Write no comments unless the why is non-obvious.
 - Prefer existing primitives over new ones: `Button`, `Badge`, `Dialog`, `EmptyState`, `Input`/`Select`/`Field`, `PageHeader`, `cn()` from `@/lib/cn`.
-- Tailwind tokens and component classes live in `src/index.css` (CSS-first, no `tailwind.config`). Reuse them instead of raw colors where possible:
-  - Surfaces: `codex-panel`, `codex-panel-soft`, `dialog-frame`, `hero-stage`, `picker-sheet`, `formation-slot`, `portrait-frame`, `game-medallion`, `stat-medal`, `brand-seal`.
+- The visual language and header/navigation spec live in `DESIGN.md`. Tailwind tokens and component classes live in `src/index.css` (CSS-first, no `tailwind.config`). Reuse them instead of raw colors where possible:
+  - Surfaces: `codex-panel`, `codex-panel-soft`, `dialog-frame`, `hero-stage`, `picker-sheet`, `formation-slot`, `portrait-frame`, `game-medallion`, `stat-medal`.
   - Type and rules: `panel-title`, `display-title`, `page-eyebrow`, `gild-rule`, `stat-value`, `star-chart`. Display type is Poppins; body text is Manrope; labels use JetBrains Mono.
   - Controls: `btn-gild`, `btn-leather`, `btn-ghost`, `btn-danger`, `game-field`, `game-tab`, `detail-action`, `icon-action`, `badge-gold|cyan|rose|muted|outline`.
-  - Motion and chrome: `card-lift`, `hero-foil`, `nav-plate`, `nav-row`, `nav-mark`, `header-rule`.
+  - Motion and chrome: `card-lift`, `hero-foil`, `nav-rail`, `nav-tab`, `nav-row`.
 - `Badge` variants: `gold`, `cyan`, `rose`, `muted`, `outline`.
 
 ## Layout
