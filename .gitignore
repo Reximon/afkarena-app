@@ -13,11 +13,17 @@ dist-ssr
 *.local
 backup/
 
+# Local tooling and design-QA artifacts
+.design-qa/
+.design-qa-seed.*
+docs/*.exe
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .qwen/
+.qoder/
 .DS_Store
 *.suo
 *.ntvs*
