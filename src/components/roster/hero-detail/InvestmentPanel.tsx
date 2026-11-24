@@ -40,7 +40,7 @@ export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentP
 
   return (
     <section className="space-y-3">
-      <div className="rounded-xl border border-line bg-night/30 px-3 py-2.5">
+      <div className="rounded-xl border border-gild/15 bg-abyss/40 px-3 py-2.5 shadow-[inset_0_2px_8px_rgba(0,0,0,0.35)]">
         <p className="font-mono text-[10px] tracking-[0.16em] text-muted uppercase">
           {t('hero.level')}
         </p>
@@ -50,7 +50,7 @@ export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentP
             onClick={() => stepLevel(-1)}
             disabled={progress.level <= 1}
             aria-label={`${t('common.decrease')} ${t('hero.level')}`}
-            className="icon-action rounded-lg border border-line bg-night/40 p-1.5 text-muted hover:border-gild/40 hover:text-parch disabled:opacity-40"
+            className="icon-action rounded-lg border border-gild/20 bg-night/50 p-1.5 text-muted hover:border-gild/45 hover:text-parch disabled:opacity-40"
           >
             <Minus size={14} aria-hidden="true" />
           </button>
@@ -70,7 +70,7 @@ export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentP
             onClick={() => stepLevel(1)}
             disabled={progress.level >= 1000}
             aria-label={`${t('common.increase')} ${t('hero.level')}`}
-            className="icon-action rounded-lg border border-line bg-night/40 p-1.5 text-muted hover:border-gild/40 hover:text-parch disabled:opacity-40"
+            className="icon-action rounded-lg border border-gild/20 bg-night/50 p-1.5 text-muted hover:border-gild/45 hover:text-parch disabled:opacity-40"
           >
             <Plus size={14} aria-hidden="true" />
           </button>
@@ -106,8 +106,8 @@ export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentP
           className={cn(
             'flex w-full items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
             progress.inCrystal
-              ? 'border-arcane/50 bg-arcane/15 text-arcane'
-              : 'border-line bg-night/30 text-muted hover:border-arcane/40 hover:text-parch',
+              ? 'border-arcane/50 bg-arcane/15 text-arcane shadow-[0_0_18px_rgba(120,200,181,0.12)]'
+              : 'border-gild/15 bg-abyss/40 text-muted hover:border-arcane/40 hover:text-parch',
           )}
         >
           <Gem size={15} aria-hidden="true" />
@@ -122,8 +122,8 @@ export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentP
           className={cn(
             'flex w-full items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
             progress.priority
-              ? 'border-gild/50 bg-gild/10 text-gild'
-              : 'border-line bg-night/30 text-muted hover:border-gild/40 hover:text-parch',
+              ? 'border-gild/50 bg-gild/10 text-gild-bright shadow-[0_0_18px_rgba(226,185,109,0.14)]'
+              : 'border-gild/15 bg-abyss/40 text-muted hover:border-gild/40 hover:text-parch',
           )}
         >
           <Target size={15} aria-hidden="true" />

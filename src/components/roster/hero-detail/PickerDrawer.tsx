@@ -49,21 +49,21 @@ export function PickerDrawer({ kicker, title, onClose, children }: PickerDrawerP
         aria-labelledby="picker-drawer-title"
         tabIndex={-1}
         className={cn(
-          'picker-drawer absolute inset-x-0 bottom-0 max-h-[85%] overflow-y-auto rounded-t-2xl border-t border-line bg-panel p-4 shadow-[0_-18px_60px_rgba(0,0,0,0.55)] outline-none',
+          'picker-drawer picker-sheet absolute inset-x-0 bottom-0 max-h-[85%] overflow-y-auto rounded-t-2xl border-t p-4 outline-none',
           'sm:inset-y-0 sm:right-0 sm:left-auto sm:w-[23rem] sm:max-h-none sm:rounded-t-none sm:rounded-l-2xl sm:border-t-0 sm:border-l',
         )}
       >
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="font-mono text-[9px] tracking-[0.16em] text-muted uppercase">{kicker}</p>
-            <h3 id="picker-drawer-title" className="font-display text-xl text-parch">
+            <h3 id="picker-drawer-title" className="panel-title text-xl">
               {title}
             </h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="icon-action grid size-8 place-items-center rounded-full border border-line bg-night/60 text-muted hover:border-gild/40 hover:text-parch"
+            className="icon-action grid size-8 place-items-center rounded-full border border-gild/25 bg-night/60 text-muted hover:border-gild/50 hover:text-parch"
           >
             <X size={15} aria-hidden="true" />
             <span className="sr-only">{t('common.close')}</span>

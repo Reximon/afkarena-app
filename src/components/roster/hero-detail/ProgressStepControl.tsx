@@ -23,7 +23,7 @@ export function ProgressStepControl<T extends number>({
   }
 
   return (
-    <div className="rounded-xl border border-line bg-night/30 px-3 py-2.5">
+    <div className="rounded-xl border border-gild/15 bg-abyss/40 px-3 py-2.5 shadow-[inset_0_2px_8px_rgba(0,0,0,0.35)]">
       <p className="font-mono text-[10px] tracking-[0.16em] text-muted uppercase">{label}</p>
       <div className="mt-1.5 flex items-center justify-between gap-2">
         <button
@@ -31,7 +31,7 @@ export function ProgressStepControl<T extends number>({
           onClick={() => step(-1)}
           disabled={index <= 0}
           aria-label={`${t('common.decrease')} ${label}`}
-          className="icon-action rounded-lg border border-line bg-night/40 p-1.5 text-muted hover:border-gild/40 hover:text-parch disabled:opacity-40"
+          className="icon-action rounded-lg border border-gild/20 bg-night/50 p-1.5 text-muted hover:border-gild/45 hover:text-parch disabled:opacity-40"
         >
           <Minus size={14} aria-hidden="true" />
         </button>
@@ -43,7 +43,7 @@ export function ProgressStepControl<T extends number>({
           onClick={() => step(1)}
           disabled={index >= options.length - 1}
           aria-label={`${t('common.increase')} ${label}`}
-          className="icon-action rounded-lg border border-line bg-night/40 p-1.5 text-muted hover:border-gild/40 hover:text-parch disabled:opacity-40"
+          className="icon-action rounded-lg border border-gild/20 bg-night/50 p-1.5 text-muted hover:border-gild/45 hover:text-parch disabled:opacity-40"
         >
           <Plus size={14} aria-hidden="true" />
         </button>

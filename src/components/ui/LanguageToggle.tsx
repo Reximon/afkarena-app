@@ -14,27 +14,29 @@ export function LanguageToggle() {
   const setLanguage = usePreferencesStore((state) => state.setLanguage)
 
   return (
-    <div
-      className="flex items-center gap-1 rounded-full border border-line bg-panel/70 p-1"
-      role="group"
-      aria-label={t('common.language')}
-    >
-      {languages.map((option) => {
+    <div className="flex items-center" role="group" aria-label={t('common.language')}>
+      {languages.map((option, index) => {
         const isActive = language === option.value
 
         return (
-          <button
-            key={option.value}
-            type="button"
-            aria-pressed={isActive}
-            onClick={() => setLanguage(option.value)}
-            className={cn(
-              'rounded-full px-3 py-1 font-mono text-[11px] tracking-[0.18em] transition-[color,background-color,transform] duration-150 active:scale-95',
-              isActive ? 'bg-gild text-night' : 'text-muted hover:bg-dusk/70 hover:text-parch',
-            )}
-          >
-            {option.label}
-          </button>
+          <div key={option.value} className="flex items-center">
+            {index > 0 ? (
+              <span className="mx-0.5 h-3.5 w-px bg-gild/20" aria-hidden="true" />
+            ) : null}
+            <button
+              type="button"
+              aria-pressed={isActive}
+              onClick={() => setLanguage(option.value)}
+              className={cn(
+                'rounded-[3px] px-2.5 py-2 font-mono text-[11px] tracking-[0.2em] transition-colors duration-150 active:scale-95',
+                isActive
+                  ? 'bg-gild/10 text-gild-bright'
+                  : 'text-muted hover:bg-gild/5 hover:text-parch',
+              )}
+            >
+              {option.label}
+            </button>
+          </div>
         )
       })}
     </div>

@@ -46,7 +46,7 @@ export function EquipmentPage() {
       <div
         role="tablist"
         aria-label={t('equipment.title')}
-        className="flex w-fit max-w-full gap-1 overflow-x-auto rounded-2xl border border-line bg-night/30 p-1"
+        className="flex w-fit max-w-full gap-1 overflow-x-auto rounded-2xl border border-gild/25 bg-abyss/50 p-1 shadow-[inset_0_2px_10px_rgba(0,0,0,0.45)]"
       >
         {tabs.map((tab) => {
           const isActive = tab.id === activeTab
@@ -59,10 +59,7 @@ export function EquipmentPage() {
               aria-selected={isActive}
               onClick={() => setTab(tab.id)}
               className={cn(
-                'inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition-[color,background-color,border-color,transform] duration-150 active:scale-[0.97]',
-                isActive
-                  ? 'border-gild/20 bg-gild/10 text-gild'
-                  : 'border-transparent text-muted hover:bg-dusk/60 hover:text-parch',
+                'game-tab inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm transition-[color,background-color,border-color,transform] duration-150 active:scale-[0.97]',
               )}
             >
               <span className="font-medium">{tab.label}</span>

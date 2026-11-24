@@ -30,7 +30,7 @@ export function TeamCard({ team, heroes, pets, onEdit, onDuplicate, onDelete }: 
     <article className="codex-panel p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="truncate font-display text-2xl leading-tight text-parch">{team.name}</h2>
+          <h2 className="panel-title truncate text-2xl leading-tight">{team.name}</h2>
           <Badge variant="cyan" className="mt-1.5">
             {t(`teamMode.${team.mode}`)}
           </Badge>
@@ -73,7 +73,7 @@ export function TeamCard({ team, heroes, pets, onEdit, onDuplicate, onDelete }: 
       <FactionBonusPanel heroIds={team.slots.map((slot) => slot.heroId)} className="mt-3" />
 
       {pet ? (
-        <div className="mt-3 flex items-center gap-2 rounded-xl border border-line bg-night/25 px-2.5 py-1.5">
+        <div className="mt-3 flex items-center gap-2 rounded-xl border border-gild/20 bg-abyss/45 px-2.5 py-1.5 shadow-[inset_0_2px_8px_rgba(0,0,0,0.35)]">
           <span className="grid size-7 shrink-0 place-items-center overflow-hidden rounded-md border border-gild/25 bg-night/40">
             <EquipmentImage src={pet.image} alt="" icon={PawPrint} iconClassName="size-4" />
           </span>

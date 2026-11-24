@@ -28,7 +28,9 @@ export function Stars({ total, value, onChange, size = 14, className, label }: S
             aria-hidden="true"
             className={cn(
               'transition-colors',
-              filled ? 'fill-gild text-gild' : 'fill-transparent text-muted/45',
+              filled
+                ? 'fill-gild text-gild drop-shadow-[0_0_3px_rgba(247,223,164,0.7)]'
+                : 'fill-transparent text-muted/40',
             )}
           />
         )

@@ -106,18 +106,19 @@ export function GearSlot({
   const starCount = descriptor.kind === 'gear' ? (descriptor.piece?.stars ?? 0) : null
 
   const tileClassName = cn(
-    'relative flex w-full flex-col items-center gap-1 rounded-xl border p-1',
+    'relative flex w-full flex-col items-center gap-1 rounded-xl p-1',
     filled
-      ? 'border-gild/30 bg-night/70 shadow-[0_10px_26px_rgba(4,7,20,0.45)]'
-      : 'border-dashed border-line bg-night/45',
-    onSelect && 'transition-colors hover:border-gild/50',
+      ? 'border border-gild/35 bg-[linear-gradient(180deg,rgba(40,23,14,0.85),rgba(10,5,3,0.94))] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.55),0_8px_20px_rgba(0,0,0,0.4)]'
+      : 'border border-dashed border-gild/20 bg-night/40',
+    onSelect &&
+      'transition-colors hover:border-gild/55 hover:shadow-[0_0_18px_rgba(226,185,109,0.12)]',
     className,
   )
 
   const content = (
     <>
       <div className="relative w-full">
-        <span className="grid aspect-square w-full place-items-center overflow-hidden rounded-lg bg-black/25 p-1">
+        <span className="grid aspect-square w-full place-items-center overflow-hidden rounded-lg bg-abyss/60 p-1 shadow-[inset_0_0_12px_rgba(0,0,0,0.6)]">
           {visual}
         </span>
         {chip ? (

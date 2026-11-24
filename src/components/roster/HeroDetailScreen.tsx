@@ -292,7 +292,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
           ? `${t(`faction.${entry.faction}`)} · ${t(getHeroClassKey(entry))}`
           : t('roster.addHeroBody')
       }
-      className="h-dvh max-h-none w-full max-w-5xl rounded-none border-0 sm:h-[min(92dvh,56rem)] sm:w-[calc(100vw-2rem)] sm:rounded-2xl sm:border"
+      className="h-dvh max-h-none w-full max-w-5xl rounded-none border-0 sm:h-[min(92dvh,56rem)] sm:w-[calc(100vw-2rem)] sm:rounded-2xl sm:border sm:border-gild/35"
       footer={footer}
       overlay={overlay}
     >
@@ -368,7 +368,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
                   disabled={owned}
                   onClick={() => setDraft(createDefaultHeroProgress(hero.id))}
                   className={cn(
-                    'relative overflow-hidden rounded-xl border border-line bg-night/30 p-2 text-left transition-[color,background-color,border-color,transform] duration-150 enabled:hover:border-gild/30 enabled:hover:bg-dusk/40 enabled:active:scale-[0.97]',
+                    'relative overflow-hidden rounded-xl border border-gild/20 bg-abyss/40 p-2 text-left transition-[color,background-color,border-color,transform] duration-150 enabled:hover:border-gild/45 enabled:hover:bg-dusk/30 enabled:active:scale-[0.97]',
                     owned && 'cursor-not-allowed opacity-45',
                   )}
                 >
@@ -388,7 +388,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
                     {t(`faction.${hero.faction}`)}
                   </p>
                   <span
-                    className="absolute top-3 left-3 size-2 rounded-full ring-2 ring-night/70"
+                    className="absolute top-3 left-3 size-2 rotate-45 rounded-[2px] ring-2 ring-night/70"
                     style={{ backgroundColor: getFactionColor(hero.faction) }}
                     aria-hidden="true"
                   />

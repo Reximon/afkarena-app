@@ -26,7 +26,7 @@ function SlotView({
 
   if (hero && entry) {
     return (
-      <div className="rounded-xl border border-line bg-night/30 p-1.5">
+      <div className="formation-slot p-1.5">
         <FramedHeroIcon
           heroId={entry.id}
           ascension={hero.ascension}
@@ -48,13 +48,13 @@ function SlotView({
       <span className="font-mono text-[9px] tracking-[0.16em] text-muted uppercase">
         {slot.position}
       </span>
-      <span className="mt-1.5 grid size-6 place-items-center rounded-full border border-line text-muted">
+      <span className="mt-1.5 grid size-6 place-items-center rounded-full border border-gild/25 bg-gild/5 text-gild/80">
         <Plus size={12} aria-hidden="true" />
       </span>
     </>
   )
   const emptyClassName =
-    'flex min-h-20 flex-col items-center justify-center rounded-xl border border-dashed border-line bg-night/20 p-2 text-center transition-colors'
+    'formation-slot flex min-h-20 flex-col items-center justify-center border-dashed p-2 text-center transition-colors'
 
   if (!onSelect) {
     return <div className={emptyClassName}>{content}</div>

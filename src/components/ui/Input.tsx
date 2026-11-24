@@ -7,7 +7,7 @@ import type {
 import { cn } from '@/lib/cn'
 
 const fieldStyles =
-  'w-full rounded-xl border border-line bg-night/50 px-3 text-sm text-parch placeholder:text-muted/60 transition-colors focus:border-gild/50 focus:outline-none focus:ring-2 focus:ring-gild/15 disabled:opacity-60'
+  'game-field w-full rounded-xl px-3 text-sm transition-shadow disabled:opacity-60'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>
 

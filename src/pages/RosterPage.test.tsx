@@ -12,6 +12,35 @@ beforeEach(() => {
   useAppStore.setState(createEmptyAppData())
 })
 
+describe('RosterPage sorting', () => {
+  it('orders heroes by ascension in both directions', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('131', { ascension: 'mythic' }))
+    useAppStore.getState().addHero(createDefaultHeroProgress('98', { ascension: 'elite' }))
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { ascension: 'ascended' }))
+
+    render(
+      <MemoryRouter>
+        <RosterPage />
+      </MemoryRouter>,
+    )
+
+    const viewOrder = () =>
+      screen
+        .getAllByRole('button', { name: /^View / })
+        .map((button) => button.getAttribute('aria-label'))
+
+    expect(viewOrder()).toEqual(['View Adrian & Elyse', 'View Ainz Ooal Gown', 'View Alaro'])
+
+    const select = screen.getByRole('combobox', { name: 'Sort by' })
+    await user.selectOptions(select, 'ascension-desc')
+    expect(viewOrder()).toEqual(['View Adrian & Elyse', 'View Alaro', 'View Ainz Ooal Gown'])
+
+    await user.selectOptions(select, 'ascension-asc')
+    expect(viewOrder()).toEqual(['View Ainz Ooal Gown', 'View Alaro', 'View Adrian & Elyse'])
+  })
+})
+
 describe('RosterPage targets', () => {
   it('flags target cards and filters the roster to them', async () => {
     const user = userEvent.setup()

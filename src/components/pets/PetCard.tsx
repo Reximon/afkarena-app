@@ -42,7 +42,7 @@ export function PetCard({ pet, progress, resonanceLevel, onAdd, onEdit, onRemove
         <div className="relative shrink-0">
           <div
             className={cn(
-              'grid size-16 shrink-0 place-items-center overflow-hidden rounded-xl border border-gild/25 bg-night/40 ring-1 ring-gild/10',
+              'game-medallion size-16 shrink-0 overflow-hidden',
               !owned && 'opacity-50',
             )}
           >
@@ -51,7 +51,7 @@ export function PetCard({ pet, progress, resonanceLevel, onAdd, onEdit, onRemove
           {resonanceDeficit > 0 ? (
             <Badge
               variant="cyan"
-              className="absolute -top-2 -right-2 bg-night shadow-[0_4px_12px_rgba(4,7,20,0.6)]"
+              className="absolute -top-2 -right-2 bg-night shadow-[0_4px_12px_rgba(5,2,1,0.65)]"
               aria-label={t('pets.resonancePending', { count: resonanceDeficit })}
             >
               +{resonanceDeficit}
@@ -61,7 +61,7 @@ export function PetCard({ pet, progress, resonanceLevel, onAdd, onEdit, onRemove
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <h3 className="font-display text-lg leading-tight text-parch">{pet.name}</h3>
+            <h3 className="panel-title text-lg leading-tight">{pet.name}</h3>
             {owned ? (
               <div className="flex shrink-0 gap-1">
                 <button
@@ -110,7 +110,7 @@ export function PetCard({ pet, progress, resonanceLevel, onAdd, onEdit, onRemove
             <div
               key={key}
               title={t(`pets.${key}`)}
-              className="rounded-lg border border-line bg-night/25 px-2 py-1.5 text-center"
+              className="rounded-lg border border-gild/15 bg-abyss/50 px-2 py-1.5 text-center shadow-[inset_0_2px_6px_rgba(0,0,0,0.35)]"
             >
               <span className="block font-mono text-[9px] tracking-[0.16em] text-muted uppercase">
                 {key[0].toUpperCase()}

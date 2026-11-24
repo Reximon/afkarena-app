@@ -43,7 +43,7 @@ export function TargetHeroesPanel() {
     <section className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <h2 className="font-display text-2xl text-parch">{t('dashboard.targetTitle')}</h2>
+          <h2 className="panel-title text-2xl">{t('dashboard.targetTitle')}</h2>
           <Badge variant="outline">{targets.length}</Badge>
         </div>
         {targets.length > 0 ? (
@@ -133,7 +133,7 @@ function TargetHeroCard({ hero, entry, onOpen, onRemove }: TargetHeroCardProps) 
         </span>
         <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[10px] tracking-wide text-muted">
           <span
-            className="size-1.5 shrink-0 rounded-full"
+            className="size-1.5 shrink-0 rotate-45 rounded-[1px]"
             style={{ backgroundColor: getFactionColor(entry.faction) }}
             aria-hidden="true"
           />

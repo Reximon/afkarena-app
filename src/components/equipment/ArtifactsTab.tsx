@@ -165,7 +165,7 @@ export function ArtifactsTab() {
               <Gem size={20} strokeWidth={1.6} aria-hidden="true" />
             </span>
             <div>
-              <h2 className="font-display text-xl text-parch">{t('artifacts.noHeroesTitle')}</h2>
+              <h2 className="panel-title text-xl">{t('artifacts.noHeroesTitle')}</h2>
               <p className="mt-1 text-sm text-muted">{t('artifacts.noHeroesBody')}</p>
             </div>
           </div>
@@ -177,7 +177,7 @@ export function ArtifactsTab() {
 
       <section className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
-          <h2 className="font-display text-2xl text-parch">{t('artifacts.duraGroup')}</h2>
+          <h2 className="panel-title text-2xl">{t('artifacts.duraGroup')}</h2>
           <Badge variant="gold">
             {t('artifacts.artifactCount', { count: duraArtifacts.length })}
           </Badge>
@@ -189,7 +189,7 @@ export function ArtifactsTab() {
 
       <section className="space-y-6">
         <div className="flex flex-wrap items-center gap-3">
-          <h2 className="font-display text-2xl text-parch">{t('artifacts.classArtifacts')}</h2>
+          <h2 className="panel-title text-2xl">{t('artifacts.classArtifacts')}</h2>
           <Badge variant="cyan">
             {t('artifacts.artifactCount', {
               count: classGroups.reduce((total, group) => total + group.items.length, 0),

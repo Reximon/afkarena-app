@@ -28,6 +28,7 @@ type FactionFilter = Faction | 'all'
 type ClassFilter = HeroClass | 'all'
 type AscensionFilter = Ascension | 'all'
 type RoleFilter = HeroRole | 'all'
+type SortOption = 'name' | 'ascension-desc' | 'ascension-asc'
 
 export function RosterPage() {
   const { t } = useTranslation()
@@ -39,6 +40,7 @@ export function RosterPage() {
   const [heroClass, setHeroClass] = useState<ClassFilter>('all')
   const [ascension, setAscension] = useState<AscensionFilter>('all')
   const [role, setRole] = useState<RoleFilter>('all')
+  const [sort, setSort] = useState<SortOption>('name')
   const [onlyTargets, setOnlyTargets] = useState(false)
   const [dialog, setDialog] = useState<{ heroId: string | null } | null>(null)
   const [detailHeroId, setDetailHeroId] = useState<string | null>(null)
@@ -58,7 +60,7 @@ export function RosterPage() {
   const filteredHeroes = useMemo(() => {
     const term = search.trim().toLowerCase()
 
-    return ownedHeroes.filter(({ hero, entry }) => {
+    const filtered = ownedHeroes.filter(({ hero, entry }) => {
       if (
         term &&
         !entry.displayName.toLowerCase().includes(term) &&
@@ -73,7 +75,15 @@ export function RosterPage() {
       if (onlyTargets && !hero.priority) return false
       return true
     })
-  }, [ascension, faction, heroClass, onlyTargets, ownedHeroes, role, search])
+
+    if (sort === 'name') return filtered
+
+    const direction = sort === 'ascension-desc' ? -1 : 1
+    return [...filtered].sort((a, b) => {
+      const rank = ASCENSIONS.indexOf(a.hero.ascension) - ASCENSIONS.indexOf(b.hero.ascension)
+      return rank !== 0 ? rank * direction : a.entry.displayName.localeCompare(b.entry.displayName)
+    })
+  }, [ascension, faction, heroClass, onlyTargets, ownedHeroes, role, search, sort])
 
   const hasFilters =
     search.trim().length > 0 ||
@@ -160,7 +170,7 @@ export function RosterPage() {
           </div>
         </div>
 
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           <Select
             value={faction}
             onChange={(event) => setFaction(event.target.value as FactionFilter)}
@@ -211,6 +221,16 @@ export function RosterPage() {
                 {value}
               </option>
             ))}
+          </Select>
+
+          <Select
+            value={sort}
+            onChange={(event) => setSort(event.target.value as SortOption)}
+            aria-label={t('roster.sortBy')}
+          >
+            <option value="name">{t('roster.sortName')}</option>
+            <option value="ascension-desc">{t('roster.sortAscensionDesc')}</option>
+            <option value="ascension-asc">{t('roster.sortAscensionAsc')}</option>
           </Select>
         </div>
       </div>

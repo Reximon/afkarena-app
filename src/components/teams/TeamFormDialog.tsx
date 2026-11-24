@@ -72,7 +72,7 @@ function RosterHero({ hero, entry, used }: RosterHeroProps) {
       style={{ touchAction: 'none' }}
       title={t('teams.dragHero', { name: entry.displayName })}
       className={cn(
-        'group relative flex flex-col items-center rounded-xl border border-line bg-night/30 p-1.5 text-center transition-colors hover:border-gild/30 hover:bg-dusk/40',
+        'group relative flex flex-col items-center rounded-xl border border-gild/20 bg-abyss/40 p-1.5 text-center transition-colors hover:border-gild/45 hover:bg-dusk/25',
         used && 'border-arcane/25 bg-arcane/5',
         isDragging && 'opacity-40',
       )}
@@ -91,7 +91,7 @@ function RosterHero({ hero, entry, used }: RosterHeroProps) {
       </span>
       <span className="mt-0.5 flex w-full items-center justify-center gap-1 font-mono text-[8px] tracking-wide text-muted uppercase">
         <span
-          className="size-1.5 rounded-full"
+          className="size-1.5 rotate-45 rounded-[1px]"
           style={{ backgroundColor: getFactionColor(entry.faction) }}
           aria-hidden="true"
         />
@@ -135,7 +135,7 @@ function TeamSlotCard({
     <div
       ref={setNodeRef}
       className={cn(
-        'rounded-xl border border-line bg-night/25 p-2 transition-colors',
+        'formation-slot p-2 transition-colors',
         isDragging && 'border-dashed border-arcane/25',
         isOver && 'border-gild/60 bg-gild/10',
       )}
@@ -167,7 +167,7 @@ function TeamSlotCard({
           className="mt-1 w-full"
         />
       ) : (
-        <div className="mt-1 flex aspect-square items-center justify-center rounded-lg border border-dashed border-line text-muted">
+        <div className="mt-1 flex aspect-square items-center justify-center rounded-lg border border-dashed border-gild/20 bg-abyss/40 text-muted">
           <Plus size={18} aria-hidden="true" />
         </div>
       )}
@@ -432,7 +432,7 @@ export function TeamFormDialog({ teamId, onClose }: TeamFormDialogProps) {
             <section className="codex-panel-soft flex min-h-0 flex-col p-3">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <h3 className="font-display text-lg text-parch">{t('teams.rosterPanel')}</h3>
+                  <h3 className="panel-title text-lg">{t('teams.rosterPanel')}</h3>
                   <p className="mt-0.5 text-[11px] text-muted">{t('teams.dragHint')}</p>
                 </div>
                 <Badge variant="outline">

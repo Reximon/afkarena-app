@@ -30,6 +30,7 @@ import {
 } from '@/features/heroes/heroCatalog'
 import { hasFoilEffect } from '@/lib/framedIcon'
 import { cn } from '@/lib/cn'
+import { usePointerFoil } from '@/lib/usePointerFoil'
 import { useAppStore } from '@/store/useAppStore'
 import {
   ASCENSIONS,
@@ -68,6 +69,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
   const assignCollection = useAppStore((state) => state.assignCollection)
   const unassignCollection = useAppStore((state) => state.unassignCollection)
   const [showNotes, setShowNotes] = useState(false)
+  const onFoilPointerMove = usePointerFoil()
   const [pickerSlot, setPickerSlot] = useState<GearSlotId | null>(null)
   const [drawer, setDrawer] = useState<DialogDrawer | null>(null)
   const [confirmingRemove, setConfirmingRemove] = useState(false)
@@ -202,11 +204,11 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
         <DialogPrimitive.Overlay className="dialog-overlay fixed inset-0 z-50 bg-night/85 backdrop-blur-sm" />
         <DialogPrimitive.Content
           className={cn(
-            'hero-detail-dialog fixed inset-0 z-50 flex h-dvh w-full flex-col overflow-hidden border-0 bg-night text-parch',
-            'sm:inset-auto sm:top-1/2 sm:left-1/2 sm:h-auto sm:max-h-[92dvh] sm:w-[calc(100vw-2rem)] sm:max-w-3xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-3xl sm:border sm:border-line sm:shadow-[0_24px_80px_rgba(0,0,0,0.55)]',
+            'hero-detail-dialog hero-stage fixed inset-0 z-50 flex h-dvh w-full flex-col overflow-hidden border-0 text-parch',
+            'sm:inset-auto sm:top-1/2 sm:left-1/2 sm:h-auto sm:max-h-[92dvh] sm:w-[calc(100vw-2rem)] sm:max-w-3xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-3xl sm:border sm:border-gild/35 sm:shadow-[0_30px_90px_rgba(4,2,1,0.72)]',
           )}
         >
-          <DialogPrimitive.Close className="icon-action absolute top-3 right-3 z-20 grid size-9 place-items-center rounded-full border border-line bg-night/80 text-muted hover:border-gild/40 hover:text-parch">
+          <DialogPrimitive.Close className="icon-action absolute top-3 right-3 z-20 grid size-9 place-items-center rounded-full border border-gild/25 bg-night/80 text-muted hover:border-gild/50 hover:text-parch">
             <X size={17} aria-hidden="true" />
             <span className="sr-only">{t('common.close')}</span>
           </DialogPrimitive.Close>
@@ -218,7 +220,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_0%,rgba(224,185,94,0.14),transparent_62%),radial-gradient(80%_60%_at_50%_100%,rgba(111,168,255,0.1),transparent_70%)]"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_0%,rgba(226,185,109,0.16),transparent_62%),radial-gradient(80%_60%_at_50%_100%,rgba(120,200,181,0.1),transparent_70%)]"
             />
 
             <div className="relative mx-auto flex w-full max-w-2xl flex-col items-center px-3 pt-7 pb-5 sm:px-6 sm:pt-9">
@@ -236,7 +238,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                       : 'hover:bg-gild/5 focus-visible:bg-gild/5 focus-visible:outline-none',
                   )}
                 >
-                  <p className="font-display text-base text-gild sm:text-lg">
+                  <p className="font-display text-base text-gild-bright sm:text-lg">
                     {t(`ascension.${starCount > 0 ? 'ascended' : progress.ascension}`)}
                   </p>
                   <Stars
@@ -282,7 +284,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                     <Pencil size={9} aria-hidden="true" />
                   </button>
                 ) : null}
-                <DialogPrimitive.Title className="font-display text-2xl leading-tight text-parch sm:text-3xl">
+                <DialogPrimitive.Title className="panel-title text-2xl leading-tight sm:text-3xl">
                   {entry.displayName}
                 </DialogPrimitive.Title>
                 <button
@@ -346,6 +348,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                     className="absolute bottom-2 left-1/2 size-32 -translate-x-1/2 rounded-full border border-gild/15 sm:size-44"
                   />
                   <div
+                    onPointerMove={onFoilPointerMove}
                     className={cn(
                       'relative w-full max-w-[12rem] sm:max-w-[15rem]',
                       hasFoilEffect(progress) && 'hero-foil rounded-2xl',
@@ -358,7 +361,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                       furniture={progress.furniture}
                       engraving={progress.engraving}
                       alt={entry.displayName}
-                      className="w-full drop-shadow-[0_18px_40px_rgba(4,7,20,0.7)]"
+                      className="w-full drop-shadow-[0_18px_40px_rgba(8,4,2,0.7)]"
                     />
                   </div>
                 </div>
@@ -374,7 +377,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
               </div>
 
               {showNotes ? (
-                <div className="mt-4 w-full rounded-xl border border-line bg-panel/70 p-3 text-left sm:mt-5">
+                <div className="mt-4 w-full rounded-xl border border-gild/20 bg-abyss/50 p-3 text-left shadow-[inset_0_2px_10px_rgba(0,0,0,0.4)] sm:mt-5">
                   <p className="font-mono text-[9px] tracking-[0.16em] text-muted uppercase">
                     {t('hero.notes')}
                   </p>
@@ -386,7 +389,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
             </div>
           </div>
 
-          <footer className="relative z-10 border-t border-line bg-night/95 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-4 sm:pt-3">
+          <footer className="dialog-footer relative z-10 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-4 sm:pt-3">
             <div className="mx-auto grid max-w-2xl grid-cols-5 gap-1.5 sm:gap-2">
               <DetailAction
                 icon={Trash2}
@@ -532,13 +535,13 @@ function DetailAction({
       aria-pressed={pressed}
       title={disabled ? (disabledHint ?? t('heroDialog.readOnly')) : title}
       className={cn(
-        'flex flex-col items-center justify-center gap-1 rounded-xl border px-1 py-2 text-[10px] leading-tight font-semibold transition-colors sm:flex-row sm:gap-2 sm:py-2.5 sm:text-xs',
+        'detail-action flex flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-[10px] leading-tight font-semibold transition-colors sm:flex-row sm:gap-2 sm:py-2.5 sm:text-xs',
         danger
-          ? 'border-ember/50 bg-ember/10 text-ember'
+          ? 'border-ember/55 bg-ember/10 text-ember'
           : pressed
-            ? 'border-gild/50 bg-gild/10 text-gild'
-            : 'border-line bg-panel/60 text-muted',
-        disabled ? 'cursor-not-allowed opacity-45' : 'hover:border-gild/40 hover:text-parch',
+            ? 'border-gild/50 bg-gild/10 text-gild-bright'
+            : 'text-muted',
+        disabled ? 'cursor-not-allowed opacity-45' : null,
       )}
     >
       <Icon size={16} aria-hidden="true" className="shrink-0" />

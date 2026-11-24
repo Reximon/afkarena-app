@@ -44,11 +44,11 @@ export function PetsPage() {
 
       <section className="codex-panel flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
-          <div className="grid size-12 shrink-0 place-items-center rounded-xl border border-arcane/25 bg-arcane/10 text-arcane ring-1 ring-arcane/10">
+          <div className="game-medallion size-12 shrink-0 text-arcane">
             <Waves size={22} aria-hidden="true" />
           </div>
           <div className="min-w-0">
-            <h2 className="font-display text-xl text-parch">{t('pets.resonance')}</h2>
+            <h2 className="panel-title text-xl">{t('pets.resonance')}</h2>
             <p className="mt-1 text-sm leading-relaxed text-muted">{t('pets.resonanceHint')}</p>
             <p className="mt-1 font-mono text-[10px] tracking-[0.12em] text-muted uppercase">
               {t('pets.resonanceCaps')}
@@ -94,7 +94,7 @@ export function PetsPage() {
         return (
           <section key={tier} className="space-y-3">
             <div className="flex items-center gap-3">
-              <h2 className="font-display text-2xl text-parch">{t(`petTier.${tier}`)}</h2>
+              <h2 className="panel-title text-2xl">{t(`petTier.${tier}`)}</h2>
               <Badge variant="outline">
                 {t('pets.sectionCount', { owned: tierOwned, total: tierPets.length })}
               </Badge>

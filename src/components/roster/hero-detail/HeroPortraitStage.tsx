@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/Badge'
 import { getFactionColor, getHeroClassKey } from '@/features/heroes/heroCatalog'
 import { cn } from '@/lib/cn'
 import { hasFoilEffect } from '@/lib/framedIcon'
+import { usePointerFoil } from '@/lib/usePointerFoil'
 import type { HeroCatalogEntry, HeroProgress } from '@/types'
 
 interface HeroPortraitStageProps {
@@ -23,6 +24,7 @@ export function HeroPortraitStage({
   ascensionControl,
 }: HeroPortraitStageProps) {
   const { t } = useTranslation()
+  const onFoilPointerMove = usePointerFoil()
 
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-[8.5rem_minmax(0,1fr)_8.5rem] lg:items-center">
@@ -31,7 +33,7 @@ export function HeroPortraitStage({
       <div className="order-1 col-span-2 space-y-3 lg:order-2 lg:col-span-1">
         <div className="flex flex-wrap items-center justify-center gap-1.5">
           <span
-            className="size-2.5 rounded-full ring-2 ring-night/70"
+            className="size-2.5 rotate-45 rounded-[2px] ring-2 ring-night/70"
             style={{ backgroundColor: getFactionColor(entry.faction) }}
             aria-hidden="true"
           />
@@ -42,8 +44,9 @@ export function HeroPortraitStage({
         </div>
 
         <div
+          onPointerMove={onFoilPointerMove}
           className={cn(
-            'mx-auto w-full max-w-64 overflow-hidden rounded-2xl',
+            'portrait-frame mx-auto w-full max-w-64 overflow-hidden rounded-2xl shadow-[0_18px_44px_rgba(4,2,1,0.6)]',
             hasFoilEffect(progress) && 'hero-foil',
           )}
         >

@@ -53,7 +53,7 @@ export function SettingsPage() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <section className="codex-panel p-6">
-          <h2 className="font-display text-2xl text-parch">{t('settings.profile')}</h2>
+          <h2 className="panel-title text-2xl">{t('settings.profile')}</h2>
           <div className="mt-5 space-y-4">
             <Field label={t('settings.playerName')}>
               <Input
@@ -87,7 +87,7 @@ export function SettingsPage() {
         </section>
 
         <section className="codex-panel p-6">
-          <h2 className="font-display text-2xl text-parch">{t('settings.language')}</h2>
+          <h2 className="panel-title text-2xl">{t('settings.language')}</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted">{t('app.subtitle')}</p>
           <div className="mt-5">
             <LanguageToggle />
@@ -95,7 +95,7 @@ export function SettingsPage() {
         </section>
 
         <section className="codex-panel p-6">
-          <h2 className="font-display text-2xl text-parch">{t('settings.data')}</h2>
+          <h2 className="panel-title text-2xl">{t('settings.data')}</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted">{t('settings.dataHint')}</p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Button variant="secondary" onClick={handleExport}>
@@ -138,7 +138,7 @@ export function SettingsPage() {
         <section className="codex-panel p-6">
           <div className="flex items-center gap-2">
             <Info size={17} className="text-arcane" aria-hidden="true" />
-            <h2 className="font-display text-2xl text-parch">{t('settings.about')}</h2>
+            <h2 className="panel-title text-2xl">{t('settings.about')}</h2>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-muted">{t('settings.disclaimer')}</p>
           <p className="mt-4 font-mono text-xs text-muted">{t('settings.schemaVersion')}: 1</p>

@@ -226,7 +226,7 @@ export function CollectionsTab() {
               <Gem size={20} strokeWidth={1.6} aria-hidden="true" />
             </span>
             <div>
-              <h2 className="font-display text-xl text-parch">{t('collections.noHeroesTitle')}</h2>
+              <h2 className="panel-title text-xl">{t('collections.noHeroesTitle')}</h2>
               <p className="mt-1 text-sm text-muted">{t('collections.noHeroesBody')}</p>
             </div>
           </div>
@@ -239,7 +239,7 @@ export function CollectionsTab() {
       {classGroups.map((group) => (
         <section key={group.heroClass} className="space-y-4">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="font-display text-2xl text-parch">{t(`heroClass.${group.heroClass}`)}</h2>
+            <h2 className="panel-title text-2xl">{t(`heroClass.${group.heroClass}`)}</h2>
             <Badge variant="cyan">
               {t('collections.collectionCount', { count: group.items.length })}
             </Badge>

@@ -18,11 +18,12 @@ export function EmptyState({ icon: Icon, title, body, action, className }: Empty
         className,
       )}
     >
-      <span className="mb-5 rounded-2xl border border-gild/25 bg-gild/10 p-4 text-gild">
+      <span className="game-medallion mb-5 size-16 text-gild">
         <Icon size={28} strokeWidth={1.5} aria-hidden="true" />
       </span>
-      <h2 className="font-display text-2xl text-parch">{title}</h2>
-      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">{body}</p>
+      <h2 className="panel-title text-2xl">{title}</h2>
+      <div className="gild-rule mt-4 w-40" aria-hidden="true" />
+      <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{body}</p>
       {action ? <div className="mt-6">{action}</div> : null}
     </div>
   )

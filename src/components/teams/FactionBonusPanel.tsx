@@ -34,7 +34,10 @@ export function FactionBonusPanel({ heroIds, className }: FactionBonusPanelProps
   return (
     <section
       aria-label={t('teams.factionBonus')}
-      className={cn('rounded-xl border border-line bg-night/25 px-3 py-2.5', className)}
+      className={cn(
+        'rounded-xl border border-gild/15 bg-abyss/40 px-3 py-2.5 shadow-[inset_0_2px_8px_rgba(0,0,0,0.35)]',
+        className,
+      )}
     >
       <p className="font-mono text-[9px] tracking-[0.18em] text-muted uppercase">
         {t('teams.factionBonus')}
@@ -44,7 +47,7 @@ export function FactionBonusPanel({ heroIds, className }: FactionBonusPanelProps
         {counts.map(({ faction, count }) => (
           <span
             key={faction}
-            className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/5 px-2 py-0.5 font-mono text-[10px] tracking-[0.12em] text-parch uppercase"
+            className="inline-flex items-center gap-1.5 rounded-full border border-gild/20 bg-night/40 px-2 py-0.5 font-mono text-[10px] tracking-[0.12em] text-parch uppercase"
           >
             <span
               className="size-1.5 rounded-full"

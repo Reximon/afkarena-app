@@ -10,6 +10,7 @@ import {
 import type { HeroCatalogEntry, HeroProgress } from '@/types'
 import { cn } from '@/lib/cn'
 import { hasFoilEffect } from '@/lib/framedIcon'
+import { usePointerFoil } from '@/lib/usePointerFoil'
 
 interface HeroCardProps {
   hero: HeroProgress
@@ -24,10 +25,11 @@ export function HeroCard({ hero, entry, onView, onEdit, onToggleTarget, onRemove
   const { t } = useTranslation()
   const linkedEntry = hero.linkedHeroId ? getHeroCatalogEntry(hero.linkedHeroId) : undefined
   const hasFoil = hasFoilEffect(hero)
+  const onFoilPointerMove = usePointerFoil()
 
   return (
     <article className="card-lift codex-panel-soft group overflow-hidden">
-      <div className="relative bg-night/35 p-2">
+      <div className="portrait-frame relative m-2 p-1.5">
         <button
           type="button"
           onClick={() => onView(entry.id)}
@@ -35,6 +37,7 @@ export function HeroCard({ hero, entry, onView, onEdit, onToggleTarget, onRemove
           className="block w-full"
         >
           <span
+            onPointerMove={onFoilPointerMove}
             className={cn(
               'block w-full transition-transform duration-300 group-hover:scale-[1.03]',
               hasFoil && 'hero-foil',
@@ -52,7 +55,7 @@ export function HeroCard({ hero, entry, onView, onEdit, onToggleTarget, onRemove
           </span>
         </button>
         <span
-          className="absolute top-2 left-2 size-2.5 rounded-full ring-2 ring-night/70"
+          className="absolute top-2 left-2 size-2.5 rotate-45 rounded-[2px] ring-2 ring-night/70"
           style={{ backgroundColor: getFactionColor(entry.faction) }}
           aria-hidden="true"
         />
@@ -72,7 +75,7 @@ export function HeroCard({ hero, entry, onView, onEdit, onToggleTarget, onRemove
       <div className="p-3">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <h3 className="truncate text-sm font-semibold text-parch">{entry.displayName}</h3>
+            <h3 className="panel-title truncate text-[15px]">{entry.displayName}</h3>
             <p className="mt-0.5 truncate font-mono text-[10px] tracking-wide text-muted">
               {t(`faction.${entry.faction}`)} · {t(getHeroClassKey(entry))}
             </p>
