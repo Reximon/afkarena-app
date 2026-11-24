@@ -37,7 +37,8 @@ only small labels are set in all caps.
 | `--color-line`        | `rgba(226, 185, 109, 0.22)` | Default border                      |
 
 Surfaces: `codex-panel`, `codex-panel-soft`, `dialog-frame`, `hero-stage`,
-`picker-sheet`, `formation-slot`, `portrait-frame`, `game-medallion`, `stat-medal`.
+`faction-scene`, `picker-sheet`, `formation-slot`, `portrait-frame`, `game-medallion`,
+`stat-medal`.
 Controls: `btn-gild`, `btn-leather`, `btn-ghost`, `btn-danger`, `game-field`,
 `game-tab`, `detail-action`, `icon-action`, badges `badge-gold|cyan|rose|muted|outline`.
 
@@ -98,6 +99,33 @@ actions on the right and no rule or shadow fighting the content.
 - Active state comes from `NavLink` (`aria-current="page"`), so CSS never guesses.
 - Language buttons keep `aria-pressed`; focus uses the global 2px gild outline.
 - Do not remove the visible focus ring or the menu button's accessible name.
+
+## Hero faction scenes
+
+Every hero preview sits in its own hall, framed by that faction's official artwork
+the way the game presents a hero.
+
+- `FactionScene` (`src/components/roster/hero-detail/FactionScene.tsx`) renders an
+  `aria-hidden` layer with `class="faction-scene"` and `data-faction="<Faction>"`.
+  It imports the eight WebP paintings from `src/assets/factions/` (one per faction)
+  and exposes the active one as the `--faction-art` custom property, so Vite
+  fingerprints the file and respects `base`.
+- Used in two places: behind the whole `HeroDetailDialog`, and in the centered
+  column of `HeroPortraitStage` in the add/edit screen (with the
+  `faction-scene--stage` modifier). Both wrap it in a `relative overflow-hidden`
+  container so it never leaks past the rounded frame.
+- `::before` paints the artwork with `cover`, centered at 44%, and a per-faction
+  `brightness(0.82–1.02)`/`saturate(0.92)` filter that pulls the painting into the
+  app's dark palette.
+- `::after` is the legibility scrim: a 52/34% vertical shade, a top-center canopy
+  behind the header, a 55% edge vignette and a faction-colored floor glow. The
+  stage modifier lightens the scrim (24/8%), zooms the art to 150% and shifts it to
+  22% so the room's focal point shows above the portrait.
+- Every faction color comes from `FACTION_COLORS` in `src/features/heroes/heroCatalog.ts`.
+  Keep lettering gold/parch; the painting is the only faction signal.
+- The scene is decoration only: it must stay `pointer-events-none`, `aria-hidden`
+  and darker than the foreground. Never put body copy or form fields directly on
+  bare art; the header label over the stage carries a 1px black text shadow.
 
 ## Motion
 

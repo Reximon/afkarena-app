@@ -292,7 +292,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
           ? `${t(`faction.${entry.faction}`)} · ${t(getHeroClassKey(entry))}`
           : t('roster.addHeroBody')
       }
-      className="h-dvh max-h-none w-full max-w-5xl rounded-none border-0 sm:h-[min(92dvh,56rem)] sm:w-[calc(100vw-2rem)] sm:rounded-2xl sm:border sm:border-gild/35"
+      className="h-dvh max-h-none w-full max-w-5xl rounded-none border-0 sm:h-auto sm:max-h-[min(92dvh,56rem)] sm:w-[calc(100vw-2rem)] sm:rounded-2xl sm:border sm:border-gild/35"
       footer={footer}
       overlay={overlay}
     >

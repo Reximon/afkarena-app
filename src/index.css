@@ -586,6 +586,109 @@
       auto;
   }
 
+  /* Faction scene: every hero preview sits in its own hall. */
+  .faction-scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background-color: var(--color-abyss);
+  }
+
+  .faction-scene::before,
+  .faction-scene::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .faction-scene::before {
+    background-image: var(--faction-art);
+    background-position: center var(--faction-art-y, 44%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: brightness(var(--faction-art-brightness, 0.86)) saturate(0.92);
+  }
+
+  .faction-scene::after {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(6, 3, 2, var(--faction-scrim-top, 0.52)),
+        rgba(6, 3, 2, var(--faction-scrim-mid, 0.34)) 24%,
+        rgba(6, 3, 2, var(--faction-scrim-mid, 0.34)) 64%,
+        rgba(4, 2, 1, 0.92)
+      ),
+      radial-gradient(68% 32% at 50% 13%, rgba(4, 2, 1, 0.62), transparent 76%),
+      radial-gradient(120% 85% at 50% 44%, transparent 30%, rgba(4, 2, 1, 0.55) 100%),
+      radial-gradient(72% 38% at 50% 104%, var(--faction-tint, transparent), transparent 74%);
+  }
+
+  .faction-scene[data-faction='Lightbearer'] {
+    --faction-tint: rgba(127, 178, 240, 0.2);
+  }
+
+  .faction-scene[data-faction='Mauler'] {
+    --faction-tint: rgba(224, 96, 60, 0.24);
+  }
+
+  .faction-scene[data-faction='Wilder'] {
+    --faction-art-brightness: 1.02;
+    --faction-scrim-mid: 0.24;
+    --faction-tint: rgba(111, 191, 115, 0.22);
+  }
+
+  .faction-scene[data-faction='Graveborn'] {
+    --faction-art-brightness: 0.94;
+    --faction-scrim-mid: 0.3;
+    --faction-tint: rgba(155, 123, 212, 0.22);
+  }
+
+  .faction-scene[data-faction='Celestial'] {
+    --faction-art-brightness: 0.82;
+    --faction-scrim-top: 0.58;
+    --faction-scrim-mid: 0.44;
+    --faction-tint: rgba(247, 223, 164, 0.22);
+  }
+
+  .faction-scene[data-faction='Hypogean'] {
+    --faction-tint: rgba(192, 90, 138, 0.22);
+  }
+
+  .faction-scene[data-faction='Dimensional'] {
+    --faction-art-brightness: 1;
+    --faction-scrim-mid: 0.26;
+    --faction-tint: rgba(103, 232, 249, 0.2);
+  }
+
+  .faction-scene[data-faction='Draconis'] {
+    --faction-tint: rgba(183, 227, 107, 0.2);
+  }
+
+  .faction-scene--stage {
+    --faction-scrim-top: 0.24;
+    --faction-scrim-mid: 0.08;
+  }
+
+  .faction-scene--stage::before {
+    background-position: 50% 22%;
+    background-size: auto 150%;
+  }
+
+  .faction-scene--stage::after {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(6, 3, 2, 0.24),
+        rgba(6, 3, 2, 0.08) 24%,
+        rgba(6, 3, 2, 0.14) 52%,
+        rgba(5, 2, 1, 0.82) 65%,
+        rgba(4, 2, 1, 0.9)
+      ),
+      radial-gradient(120% 85% at 50% 44%, transparent 34%, rgba(4, 2, 1, 0.4) 100%),
+      radial-gradient(72% 38% at 50% 104%, var(--faction-tint, transparent), transparent 74%);
+  }
+
   .detail-action {
     border: 1px solid rgba(226, 185, 109, 0.22);
     background: linear-gradient(180deg, rgba(62, 37, 22, 0.72), rgba(20, 11, 7, 0.92));

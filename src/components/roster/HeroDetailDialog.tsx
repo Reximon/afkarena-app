@@ -45,6 +45,7 @@ import { ArtifactDrawer } from './hero-detail/ArtifactDrawer'
 import { AscensionDrawer } from './hero-detail/AscensionDrawer'
 import { CollectionDrawer } from './hero-detail/CollectionDrawer'
 import { EngraveDrawer } from './hero-detail/EngraveDrawer'
+import { FactionScene } from './hero-detail/FactionScene'
 import { FurnitureDrawer } from './hero-detail/FurnitureDrawer'
 import { GearPickerDrawer } from './hero-detail/GearPickerDrawer'
 import { GearSlot } from './hero-detail/GearSlot'
@@ -208,22 +209,15 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
             'sm:inset-auto sm:top-1/2 sm:left-1/2 sm:h-auto sm:max-h-[92dvh] sm:w-[calc(100vw-2rem)] sm:max-w-3xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-3xl sm:border sm:border-gild/35 sm:shadow-[0_30px_90px_rgba(4,2,1,0.72)]',
           )}
         >
+          <FactionScene faction={entry.faction} />
+
           <DialogPrimitive.Close className="icon-action absolute top-3 right-3 z-20 grid size-9 place-items-center rounded-full border border-gild/25 bg-night/80 text-muted hover:border-gild/50 hover:text-parch">
             <X size={17} aria-hidden="true" />
             <span className="sr-only">{t('common.close')}</span>
           </DialogPrimitive.Close>
 
           <div className="relative min-h-0 flex-1 overflow-y-auto">
-            <div
-              aria-hidden="true"
-              className="star-chart pointer-events-none absolute inset-0 opacity-50"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_0%,rgba(226,185,109,0.16),transparent_62%),radial-gradient(80%_60%_at_50%_100%,rgba(120,200,181,0.1),transparent_70%)]"
-            />
-
-            <div className="relative mx-auto flex w-full max-w-2xl flex-col items-center px-3 pt-7 pb-5 sm:px-6 sm:pt-9">
+            <div className="relative mx-auto flex w-full max-w-2xl flex-col items-center px-3 pt-4 pb-5 sm:px-6 sm:pt-5">
               <div className="flex flex-col items-center gap-1 text-center">
                 <button
                   type="button"
@@ -267,7 +261,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                     </span>
                   ) : null}
                 </button>
-                <DialogPrimitive.Description className="mt-1 font-mono text-[10px] tracking-[0.18em] text-muted uppercase">
+                <DialogPrimitive.Description className="mt-1 font-mono text-[10px] tracking-[0.18em] text-parch/75 uppercase [text-shadow:0_1px_3px_rgba(0,0,0,0.9)]">
                   {t(`faction.${entry.faction}`)} · {t(getHeroClassKey(entry))}
                 </DialogPrimitive.Description>
                 {entry.faction === 'Dimensional' ? (
@@ -275,7 +269,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                     type="button"
                     onClick={() => openDrawer('linked')}
                     aria-label={`${t('common.edit')} ${t('hero.linkedHero')}`}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-0.5 text-[11px] text-arcane transition-colors hover:border-gild/40 hover:text-gild focus-visible:border-gild/40 focus-visible:text-gild focus-visible:outline-none"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line bg-night/45 px-2.5 py-0.5 text-[11px] text-arcane backdrop-blur-[2px] transition-colors hover:border-gild/40 hover:text-gild focus-visible:border-gild/40 focus-visible:text-gild focus-visible:outline-none"
                   >
                     <Link2 size={11} aria-hidden="true" />
                     {linkedEntry
@@ -327,7 +321,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                 </div>
               </div>
 
-              <div className="mt-5 grid w-full grid-cols-[minmax(0,3.75rem)_minmax(0,1fr)_minmax(0,3.75rem)] items-center gap-2 sm:mt-7 sm:grid-cols-[6.5rem_minmax(0,1fr)_6.5rem] sm:gap-5">
+              <div className="mt-4 grid w-full grid-cols-[minmax(0,3.75rem)_minmax(0,1fr)_minmax(0,3.75rem)] items-center gap-2 sm:mt-5 sm:grid-cols-[6.5rem_minmax(0,1fr)_6.5rem] sm:gap-5">
                 <div className="flex flex-col gap-2 sm:gap-3">
                   {renderGearSlot('weapon')}
                   {renderGearSlot('helmet')}

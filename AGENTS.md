@@ -28,7 +28,7 @@ Before finishing any task run `npm run typecheck`, `npm run lint` and `npm run t
 - Write no comments unless the why is non-obvious.
 - Prefer existing primitives over new ones: `Button`, `Badge`, `Dialog`, `EmptyState`, `Input`/`Select`/`Field`, `PageHeader`, `cn()` from `@/lib/cn`.
 - The visual language and header/navigation spec live in `DESIGN.md`. Tailwind tokens and component classes live in `src/index.css` (CSS-first, no `tailwind.config`). Reuse them instead of raw colors where possible:
-  - Surfaces: `codex-panel`, `codex-panel-soft`, `dialog-frame`, `hero-stage`, `picker-sheet`, `formation-slot`, `portrait-frame`, `game-medallion`, `stat-medal`.
+  - Surfaces: `codex-panel`, `codex-panel-soft`, `dialog-frame`, `hero-stage`, `faction-scene` (plus `data-faction`), `picker-sheet`, `formation-slot`, `portrait-frame`, `game-medallion`, `stat-medal`.
   - Type and rules: `panel-title`, `display-title`, `page-eyebrow`, `gild-rule`, `stat-value`, `star-chart`. Display type is Poppins; body text is Manrope; labels use JetBrains Mono.
   - Controls: `btn-gild`, `btn-leather`, `btn-ghost`, `btn-danger`, `game-field`, `game-tab`, `detail-action`, `icon-action`, `badge-gold|cyan|rose|muted|outline`.
   - Motion and chrome: `card-lift`, `hero-foil`, `nav-rail`, `nav-tab`, `nav-row`.
@@ -38,6 +38,8 @@ Before finishing any task run `npm run typecheck`, `npm run lint` and `npm run t
 
 - `src/pages/` — route screens (Dashboard, Roster, Teams, Pets, Equipment, Settings).
 - `src/components/` — `ui/` primitives, `roster/`, `dashboard/`, `teams/`, `pets/`, `equipment/`, `heroes/`.
+- `src/components/roster/hero-detail/` — presentation pieces of the hero detail screen (portrait stage, gear pickers, investment panel). `FactionScene.tsx` paints the per-faction preview backdrop using the official paintings in `src/assets/factions/`; see `DESIGN.md`.
+- `src/assets/factions/` — official faction paintings (one WebP per faction) used by the hero preview scenes.
 - `src/features/` — domain logic: `heroes`, `gear`, `artifacts`, `collections`, `pets`, `teams`, `persistence`.
 - `src/store/useAppStore.ts` — Zustand store.
 - `src/types/index.ts` — all shared types and enums.
