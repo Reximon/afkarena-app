@@ -100,8 +100,8 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-screen flex-col" style={sceneStyle}>
-      <header className="sticky top-0 z-40 border-b border-transparent">
-        <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8">
+      <header className="sticky top-0 z-40">
+        <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:grid lg:h-auto lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:px-8">
           <span className="hidden lg:block" aria-hidden="true" />
 
           <span className="min-w-0 flex-1 truncate font-display text-[11px] font-semibold tracking-[0.18em] text-parch uppercase lg:hidden">
@@ -109,6 +109,7 @@ export function AppShell() {
           </span>
 
           <nav className="nav-rail hidden items-center lg:flex" aria-label={t('app.name')}>
+            <span className="nav-surface" aria-hidden="true" />
             {navItems.map((item) => (
               <NavLink key={item.to} to={item.to} end={item.end} className="nav-tab">
                 {t(item.labelKey)}
@@ -116,7 +117,7 @@ export function AppShell() {
             ))}
           </nav>
 
-          <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0 lg:justify-self-end">
+          <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0 lg:justify-self-end lg:self-start lg:pt-1.5">
             <LanguageToggle />
 
             <DialogPrimitive.Root
@@ -162,7 +163,7 @@ export function AppShell() {
                         className={({ isActive }) =>
                           cn(
                             'nav-row px-3 py-3 text-[11px] transition-colors',
-                            isActive ? 'text-gild-bright' : 'text-muted hover:text-parch',
+                            isActive ? '' : 'text-muted hover:text-parch',
                           )
                         }
                       >
