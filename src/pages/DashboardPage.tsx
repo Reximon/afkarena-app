@@ -25,6 +25,7 @@ export function DashboardPage() {
         eyebrow={identity ? `${t('app.game')} · ${identity}` : t('app.game')}
         title={t('dashboard.title')}
         subtitle={t('dashboard.subtitle')}
+        className="sm:flex-col sm:items-start sm:justify-start"
         actions={
           <>
             <Link to="/roster" className={buttonStyles({ variant: 'secondary' })}>
