@@ -23,7 +23,7 @@ export function VirtueBranch({ virtue, level, onLevelChange }: VirtueBranchProps
   const quickLevels = [minLevel, virtue.blessings[1].unlockLevel, 60, maxLevel]
 
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)]">
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)]">
       <aside className="min-w-0 lg:sticky lg:top-24">
         <div className="codex-panel overflow-hidden">
           <div className="relative h-96">
@@ -56,12 +56,15 @@ export function VirtueBranch({ virtue, level, onLevelChange }: VirtueBranchProps
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-1.5">
-              {virtue.focus.map((stat) => (
-                <Badge key={stat} variant="outline">
-                  {stat}
-                </Badge>
-              ))}
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap gap-1.5">
+                {virtue.focus.map((stat) => (
+                  <Badge key={stat} variant="outline">
+                    {stat}
+                  </Badge>
+                ))}
+              </div>
+              <Badge variant="outline">{t('elderTree.valuesAt', { level })}</Badge>
             </div>
 
             <div className="codex-panel-soft p-4">
