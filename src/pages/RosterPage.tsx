@@ -151,10 +151,6 @@ export function RosterPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <SlidersHorizontal size={15} className="text-muted" aria-hidden="true" />
-            <span className="font-mono text-[10px] tracking-[0.16em] text-muted uppercase">
-              {t('roster.filters')}
-            </span>
             <button
               type="button"
               aria-pressed={onlyTargets}
@@ -208,6 +204,8 @@ export function RosterPage() {
             renderIcon={(value) => <RoleIcon role={value} />}
             onChange={setRole}
           />
+
+          <SlidersHorizontal size={24} className="shrink-0 text-muted" aria-hidden="true" />
         </div>
 
         <div className="grid gap-2 sm:grid-cols-2">
