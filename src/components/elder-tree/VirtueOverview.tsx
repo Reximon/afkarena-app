@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import elderTreeBackground from '@/assets/elder-tree/elder-tree.webp'
 import { ClassIcon } from '@/components/heroes/ClassIcon'
-import { Badge } from '@/components/ui/Badge'
 import {
   elderTreeVirtues,
   getBlessingState,
@@ -74,23 +73,30 @@ function VirtueCard({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-1.5">
-        {virtue.focus.map((stat) => (
-          <Badge key={stat} variant="outline">
-            {stat}
-          </Badge>
-        ))}
-      </div>
-
       <ul className="mt-auto space-y-1.5 border-t border-gild/10 pt-3">
         {virtue.blessings.map((blessing, index) => {
           const state = getBlessingState(virtue, index, clampedLevel)
           return (
             <li key={blessing.name} className="flex items-baseline justify-between gap-3">
-              <span
-                className={cn('truncate text-xs', state.unlocked ? 'text-muted' : 'text-muted/50')}
-              >
-                {blessing.name}
+              <span className="flex min-w-0 items-center gap-2">
+                <img
+                  src={blessing.icon}
+                  alt=""
+                  aria-hidden="true"
+                  draggable={false}
+                  className={cn(
+                    'size-5 shrink-0 rounded-full object-cover',
+                    state.unlocked ? undefined : 'opacity-45 grayscale',
+                  )}
+                />
+                <span
+                  className={cn(
+                    'truncate text-xs',
+                    state.unlocked ? 'text-muted' : 'text-muted/50',
+                  )}
+                >
+                  {blessing.name}
+                </span>
               </span>
               <span
                 className={cn(
