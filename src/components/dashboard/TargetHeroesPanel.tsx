@@ -41,11 +41,9 @@ export function TargetHeroesPanel() {
 
   return (
     <section className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <h2 className="panel-title text-2xl">{t('dashboard.targetTitle')}</h2>
-          <Badge variant="outline">{targets.length}</Badge>
-        </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <h2 className="panel-title text-2xl">{t('dashboard.targetTitle')}</h2>
+        <Badge variant="outline">{targets.length}</Badge>
         {targets.length > 0 ? (
           <Button variant="secondary" size="sm" onClick={() => setPickerOpen(true)}>
             <Plus size={16} aria-hidden="true" />
