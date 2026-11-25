@@ -53,6 +53,7 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
   const heroes = useAppStore((state) => state.heroes)
   const addHero = useAppStore((state) => state.addHero)
   const updateHero = useAppStore((state) => state.updateHero)
+  const crystalLevel = useAppStore((state) => state.profile.crystalLevel)
 
   const [createdId, setCreatedId] = useState<string | null>(null)
   const [draft, setDraft] = useState<HeroProgress | null>(null)
@@ -335,7 +336,13 @@ export function HeroDetailScreen({ heroId, onClose }: HeroDetailScreenProps) {
           />
 
           <div className="space-y-5">
-            <InvestmentPanel entry={entry} progress={progress} heroes={heroes} commit={commit} />
+            <InvestmentPanel
+              entry={entry}
+              progress={progress}
+              heroes={heroes}
+              crystalLevel={crystalLevel}
+              commit={commit}
+            />
             <NotesField value={progress.notes ?? ''} onChange={(notes) => commit({ notes })} />
           </div>
         </div>

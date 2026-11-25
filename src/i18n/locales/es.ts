@@ -304,6 +304,7 @@ export const es: TranslationSchema = {
     furniture: 'Furniture',
     engraving: 'Engraving',
     inCrystal: 'In crystal',
+    levelFromCrystal: 'El nivel se toma del Resonating Crystal en Ajustes.',
     target: 'Héroe objetivo',
     targetHint: 'Muestra este héroe en el panel de objetivos del dashboard.',
     gear: 'Gear',

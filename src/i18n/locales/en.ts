@@ -303,6 +303,7 @@ export const en = {
     furniture: 'Furniture',
     engraving: 'Engraving',
     inCrystal: 'In crystal',
+    levelFromCrystal: 'Level comes from the Resonating Crystal in Settings.',
     target: 'Target hero',
     targetHint: 'Show this hero in the dashboard targets panel.',
     gear: 'Gear',

@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Gem, Minus, Plus, Target } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Field, Input, Select } from '@/components/ui/Input'
+import { getHeroLevel } from '@/features/heroes/heroLevel'
 import { getLinkableHeroGroups, heroCatalog } from '@/features/heroes/heroCatalog'
 import { cn } from '@/lib/cn'
 import type { HeroCatalogEntry, HeroProgress } from '@/types'
@@ -15,10 +16,17 @@ interface InvestmentPanelProps {
   entry: HeroCatalogEntry
   progress: HeroProgress
   heroes: Record<string, HeroProgress>
+  crystalLevel: number
   commit: (patch: Partial<HeroProgress>) => void
 }
 
-export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentPanelProps) {
+export function InvestmentPanel({
+  entry,
+  progress,
+  heroes,
+  crystalLevel,
+  commit,
+}: InvestmentPanelProps) {
   const { t } = useTranslation()
 
   const linkedHeroGroups = useMemo(() => {
@@ -34,8 +42,11 @@ export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentP
     group.heroes.some((hero) => hero.id === progress.linkedHeroId),
   )
 
+  const level = getHeroLevel(progress, crystalLevel)
+  const levelLocked = progress.inCrystal
+
   function stepLevel(delta: number) {
-    commit({ level: Math.min(1000, Math.max(1, progress.level + delta)) })
+    commit({ level: Math.min(1000, Math.max(1, level + delta)) })
   }
 
   return (
@@ -48,7 +59,7 @@ export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentP
           <button
             type="button"
             onClick={() => stepLevel(-1)}
-            disabled={progress.level <= 1}
+            disabled={levelLocked || level <= 1}
             aria-label={`${t('common.decrease')} ${t('hero.level')}`}
             className="icon-action rounded-lg border border-gild/20 bg-night/50 p-1.5 text-muted hover:border-gild/45 hover:text-parch disabled:opacity-40"
           >
@@ -58,23 +69,27 @@ export function InvestmentPanel({ entry, progress, heroes, commit }: InvestmentP
             type="number"
             min={1}
             max={1000}
-            value={progress.level}
+            value={level}
             onChange={(event) =>
               commit({ level: Math.min(1000, Math.max(1, Number(event.target.value) || 1)) })
             }
+            disabled={levelLocked}
             aria-label={t('hero.level')}
-            className="h-9 flex-1 text-center font-display text-lg"
+            className="h-9 flex-1 text-center font-display text-lg disabled:opacity-60"
           />
           <button
             type="button"
             onClick={() => stepLevel(1)}
-            disabled={progress.level >= 1000}
+            disabled={levelLocked || level >= 1000}
             aria-label={`${t('common.increase')} ${t('hero.level')}`}
             className="icon-action rounded-lg border border-gild/20 bg-night/50 p-1.5 text-muted hover:border-gild/45 hover:text-parch disabled:opacity-40"
           >
             <Plus size={14} aria-hidden="true" />
           </button>
         </div>
+        {levelLocked ? (
+          <p className="mt-1.5 text-[10px] leading-snug text-muted">{t('hero.levelFromCrystal')}</p>
+        ) : null}
       </div>
 
       <div className="grid gap-2 sm:grid-cols-3">

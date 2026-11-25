@@ -38,6 +38,25 @@ describe('HeroDetailScreen', () => {
     expect(useAppStore.getState().heroes['182'].gear.weapon?.tier).toBe('mythic')
   })
 
+  it('uses the Resonating Crystal level for crystal heroes', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().setProfile({ crystalLevel: 350 })
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { level: 200 }))
+
+    render(<HeroDetailScreen heroId="182" onClose={vi.fn()} />)
+
+    expect(screen.getByRole('spinbutton', { name: 'Level' })).toHaveValue(200)
+
+    await user.click(screen.getByRole('button', { name: 'In crystal' }))
+
+    expect(screen.getByRole('spinbutton', { name: 'Level' })).toHaveValue(350)
+    expect(screen.getByRole('spinbutton', { name: 'Level' })).toBeDisabled()
+    expect(
+      screen.getByText('Level comes from the Resonating Crystal in Settings.'),
+    ).toBeInTheDocument()
+    expect(useAppStore.getState().heroes['182'].level).toBe(200)
+  })
+
   it('adds a hero from the catalog picker and switches to edit mode', async () => {
     const user = userEvent.setup()
     useAppStore.getState().addHero(createDefaultHeroProgress('182'))
