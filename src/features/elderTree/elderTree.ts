@@ -1,7 +1,23 @@
+import astralFocusIcon from '@/assets/elder-tree/blessings/astral-focus.webp'
+import astralTideIcon from '@/assets/elder-tree/blessings/astral-tide.webp'
+import bloodThirstIcon from '@/assets/elder-tree/blessings/blood-thirst.webp'
+import clawbackIcon from '@/assets/elder-tree/blessings/clawback.webp'
+import defianceIcon from '@/assets/elder-tree/blessings/defiance.webp'
+import impendingDangerIcon from '@/assets/elder-tree/blessings/impending-danger.webp'
+import lifeFlashIcon from '@/assets/elder-tree/blessings/life-flash.webp'
+import lifeKindleIcon from '@/assets/elder-tree/blessings/life-kindle.webp'
+import maimIcon from '@/assets/elder-tree/blessings/maim.webp'
+import powerSurgeIcon from '@/assets/elder-tree/blessings/power-surge.webp'
+import rapidSurgeIcon from '@/assets/elder-tree/blessings/rapid-surge.webp'
+import saviorsGiftIcon from '@/assets/elder-tree/blessings/saviors-gift.webp'
+import shatteringForceIcon from '@/assets/elder-tree/blessings/shattering-force.webp'
+import shieldOfFortitudeIcon from '@/assets/elder-tree/blessings/shield-of-fortitude.webp'
+import sunderingSlamIcon from '@/assets/elder-tree/blessings/sundering-slam.webp'
 import type { HeroClass } from '@/types'
 
 export interface ElderTreeBlessing {
   name: string
+  icon: string
   unlockLevel: number
   text: string
 }
@@ -27,16 +43,19 @@ export const elderTreeVirtues: readonly ElderTreeVirtue[] = [
     blessings: [
       {
         name: 'Impending Danger',
+        icon: impendingDangerIcon,
         unlockLevel: 5,
         text: 'When the health of the hero receiving this blessing falls below 50% for the first time, their Dodge will be increased by 80 points and their Haste will be increased by 10 points for 6 seconds.',
       },
       {
         name: 'Maim',
+        icon: maimIcon,
         unlockLevel: 15,
         text: 'After dealing damage to an enemy with health lower than 50%, heroes receiving this blessing will deal an additional 140% damage to the enemy which cannot be dodged. Heroes receiving this blessing may only activate its effects once every 3 seconds.',
       },
       {
         name: 'Rapid Surge',
+        icon: rapidSurgeIcon,
         unlockLevel: 25,
         text: 'If a hero receiving this blessing deals damage to an enemy 5 seconds prior to the enemy’s death, the blessed hero will instantly recover 4% of their max health and their Haste will be increased by 80 points for 4 seconds.',
       },
@@ -139,16 +158,19 @@ export const elderTreeVirtues: readonly ElderTreeVirtue[] = [
     blessings: [
       {
         name: 'Clawback',
+        icon: clawbackIcon,
         unlockLevel: 5,
         text: 'When the health of the heroes receiving this blessing falls below 30% for the first time they will recover 2.5% of their max health every second for 10 seconds.',
       },
       {
         name: 'Sundering Slam',
+        icon: sunderingSlamIcon,
         unlockLevel: 15,
         text: "Heroes that receive this blessing will unleash a small shockwave every time they lose 30% of their max health, dealing AoE damage equal to 3% of each respective enemies' max health. Enemies affected by the shockwave will also lose 30 Haste points for 3 seconds.",
       },
       {
         name: 'Life Flash',
+        icon: lifeFlashIcon,
         unlockLevel: 25,
         text: 'Heroes receiving this blessing will recover additional health equal to 9% of their max health when an allied hero heals them. Heroes receiving this blessing may only activate its effects once every 11 seconds.',
       },
@@ -243,16 +265,19 @@ export const elderTreeVirtues: readonly ElderTreeVirtue[] = [
     blessings: [
       {
         name: 'Shattering Force',
+        icon: shatteringForceIcon,
         unlockLevel: 5,
         text: "Heroes receiving this blessing will cause their enemies to lose 24% of their health recovery rate and receive 15% more damage for 3 seconds if the enemy is successfully struck. This ability's effects may not be stacked.",
       },
       {
         name: 'Shield of Fortitude',
+        icon: shieldOfFortitudeIcon,
         unlockLevel: 15,
         text: 'Heroes receiving this blessing will receive a shield that can mitigate damage equal to 15% of their max health for 5 seconds when an enemy uses their ultimate ability. Heroes receiving this blessing may only activate its effects once every 16 seconds.',
       },
       {
         name: 'Blood Thirst',
+        icon: bloodThirstIcon,
         unlockLevel: 25,
         text: 'Heroes that receive this blessing will have their Life Leech increased by 14 points for 5 seconds the first time they use their ultimate abilities in battle.',
       },
@@ -347,16 +372,19 @@ export const elderTreeVirtues: readonly ElderTreeVirtue[] = [
     blessings: [
       {
         name: 'Astral Focus',
+        icon: astralFocusIcon,
         unlockLevel: 5,
         text: 'Heroes receiving this blessing will receive an Attack Rating increase of 10% for 3 seconds each time they use their ultimate abilities.',
       },
       {
         name: 'Astral Tide',
+        icon: astralTideIcon,
         unlockLevel: 15,
         text: 'When a hero receiving this blessing uses their ultimate ability, all of their allies will recover 30 energy points. If an ally receives this ability effect multiple times within 10 seconds, its efficacy will be reduced by 60%.',
       },
       {
         name: 'Power Surge',
+        icon: powerSurgeIcon,
         unlockLevel: 25,
         text: 'Heroes receiving this blessing will recover 40 energy points the first time their health falls below 30% and will be immune to enemy control abilities for 1.5 seconds.',
       },
@@ -451,16 +479,19 @@ export const elderTreeVirtues: readonly ElderTreeVirtue[] = [
     blessings: [
       {
         name: "Savior's Gift",
+        icon: saviorsGiftIcon,
         unlockLevel: 5,
         text: "Creates a protective shield around the most injured ally which is able to mitigate an amount of damage equal to 220% of the blessed hero's own Attack Rating for 7 seconds when the blessed hero uses their ultimate ability for the first time.",
       },
       {
         name: 'Life Kindle',
+        icon: lifeKindleIcon,
         unlockLevel: 15,
         text: 'When the caster receiving this blessing heals an ally, they will also additionally heal the most injured allied hero for 100% worth of the caster’s own Attack Rating as health. Heroes receiving this blessing may only activate its effects once every 10 seconds.',
       },
       {
         name: 'Defiance',
+        icon: defianceIcon,
         unlockLevel: 25,
         text: 'Heroes receiving this blessing will recover 60 energy points after 15 seconds of a battle have passed and will also be immune to enemy control abilities for 1.5 seconds.',
       },
