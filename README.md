@@ -57,7 +57,7 @@ This is a fan-made project, not affiliated with or endorsed by Lilith Games.
 
 ### GitHub Pages
 
-`.github/workflows/deploy.yml` typechecks, lints, tests and builds the app, then deploys `dist` to GitHub Pages. Enable Pages with **GitHub Actions** as the source. The workflow sets the Vite base path from the repository name automatically.
+`.github/workflows/deploy.yml` runs on every push to `master`: it typechecks, lints, tests and builds the app, then deploys `dist` to GitHub Pages at <https://reximon.github.io/afkarena-app/>. Enable Pages once with **GitHub Actions** as the source (Settings → Pages). The workflow sets the Vite base path from the repository name automatically.
 
 ### Docker
 
