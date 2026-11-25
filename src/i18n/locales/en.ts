@@ -384,7 +384,6 @@ export const en = {
     virtueOf: '{{class}} virtue',
     levelLabel: 'Virtue level',
     jumpTo: 'Set level {{level}}',
-    blessings: 'Blessings',
     valuesAt: 'Values at Lv {{level}}',
     levelShort: 'Lv {{level}}',
     locked: 'Locked',

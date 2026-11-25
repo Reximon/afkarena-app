@@ -387,7 +387,6 @@ export const es: TranslationSchema = {
     virtueOf: 'Virtud de {{class}}',
     levelLabel: 'Nivel de virtud',
     jumpTo: 'Ir al nivel {{level}}',
-    blessings: 'Bendiciones',
     valuesAt: 'Valores a Lv {{level}}',
     levelShort: 'Lv {{level}}',
     locked: 'Bloqueada',

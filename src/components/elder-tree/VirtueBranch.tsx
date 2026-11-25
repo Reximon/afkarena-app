@@ -114,60 +114,63 @@ export function VirtueBranch({ virtue, level, onLevelChange }: VirtueBranchProps
         </div>
       </aside>
 
-      <div className="min-w-0 space-y-6">
-        <section className="space-y-4">
-          <div className="flex items-center justify-between gap-3">
-            <h2 className="panel-title text-2xl">{t('elderTree.blessings')}</h2>
-            <Badge variant="outline">{t('elderTree.valuesAt', { level })}</Badge>
-          </div>
-
-          <div className="codex-panel divide-y divide-gild/10 overflow-hidden">
-            {virtue.blessings.map((blessing, index) => {
-              const state = getBlessingState(virtue, index, level)
-              return (
-                <article
-                  key={blessing.name}
-                  className="grid gap-3 p-5 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:gap-5"
-                >
-                  <div>
-                    <h3 className="panel-title text-lg leading-tight">{blessing.name}</h3>
-                    <div className="mt-2">
-                      <Badge
-                        variant={
-                          !state.unlocked
-                            ? 'muted'
-                            : state.activeLevel > blessing.unlockLevel
-                              ? 'gold'
-                              : 'outline'
-                        }
-                      >
-                        {state.unlocked
-                          ? t('elderTree.levelShort', { level: state.activeLevel })
-                          : t('elderTree.locked')}
-                      </Badge>
-                    </div>
-                    <p className="mt-2 font-mono text-[9px] tracking-[0.12em] text-muted uppercase">
-                      {t('elderTree.unlockAt', { level: blessing.unlockLevel })}
-                    </p>
-                    <p className="mt-1 font-mono text-[9px] tracking-[0.12em] text-gild/80 uppercase">
-                      {state.nextLevel
-                        ? t('elderTree.nextAt', { level: state.nextLevel })
-                        : t('elderTree.maxed')}
-                    </p>
-                  </div>
-                  <p
+      <div className="codex-panel flex min-w-0 flex-col divide-y divide-gild/10 overflow-hidden">
+        {virtue.blessings.map((blessing, index) => {
+          const state = getBlessingState(virtue, index, level)
+          return (
+            <article
+              key={blessing.name}
+              className="grid flex-1 content-center gap-3 p-5 sm:grid-cols-[minmax(0,12rem)_minmax(0,1fr)] sm:items-center sm:gap-5"
+            >
+              <div>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={blessing.icon}
+                    alt=""
+                    aria-hidden="true"
+                    draggable={false}
                     className={cn(
-                      'text-sm leading-relaxed',
-                      state.unlocked ? 'text-muted' : 'text-muted/60',
+                      'size-14 shrink-0 rounded-full border border-gild/20 object-cover',
+                      !state.unlocked && 'opacity-45 grayscale',
                     )}
+                  />
+                  <h3 className="panel-title text-lg leading-tight">{blessing.name}</h3>
+                </div>
+                <div className="mt-2">
+                  <Badge
+                    variant={
+                      !state.unlocked
+                        ? 'muted'
+                        : state.activeLevel > blessing.unlockLevel
+                          ? 'gold'
+                          : 'outline'
+                    }
                   >
-                    {state.text}
-                  </p>
-                </article>
-              )
-            })}
-          </div>
-        </section>
+                    {state.unlocked
+                      ? t('elderTree.levelShort', { level: state.activeLevel })
+                      : t('elderTree.locked')}
+                  </Badge>
+                </div>
+                <p className="mt-2 font-mono text-[9px] tracking-[0.12em] text-muted uppercase">
+                  {t('elderTree.unlockAt', { level: blessing.unlockLevel })}
+                </p>
+                <p className="mt-1 font-mono text-[9px] tracking-[0.12em] text-gild/80 uppercase">
+                  {state.nextLevel
+                    ? t('elderTree.nextAt', { level: state.nextLevel })
+                    : t('elderTree.maxed')}
+                </p>
+              </div>
+              <p
+                className={cn(
+                  'text-sm leading-relaxed',
+                  state.unlocked ? 'text-muted' : 'text-muted/60',
+                )}
+              >
+                {state.text}
+              </p>
+            </article>
+          )
+        })}
       </div>
     </div>
   )
