@@ -44,34 +44,44 @@ Controls: `btn-gild`, `btn-leather`, `btn-ghost`, `btn-danger`, `game-field`,
 
 ## Header and navigation
 
-The header is a single centered navigation rail on a near-black leather bar:
-no logo and no monogram. The rail is the identity. The app name
-still appears in the document title, the mobile drawer heading and the footer.
+The header is a single centered navigation rail welded to the top edge of the viewport:
+square at the top with concave shoulders tying it to the browser edge, half-pill rounded
+at the bottom (24px, half its height), painted in one solid dark color with a soft
+shadow below the whole silhouette, so it reads as browser chrome. No logo and no
+monogram; the rail is the identity. The app name still appears in the document title,
+the mobile drawer heading and the footer.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│                  ┌──────────────────────────────────┐    ┌────────┐  │
-│                  │ DASHBOARD ROSTER TEAMS ...       │    │ EN  ES │  │
-│                  └──────────────────────────────────┘    └────────┘  │
-├──────────────────────────────────────────────────────────────────────┤
+│                ┌──────────────────────────────────┐    ┌────────┐    │
+│                │ DASHBOARD ROSTER TEAMS ...       │    │ EN  ES │    │
+│                ╰──────────────────────────────────╯    └────────┘    │
 ```
 
-Inspired by Koyeb's header: one soft segmented strip, mono uppercase tabs, compact
-actions on the right and no rule or shadow fighting the content.
+Inspired by browser chrome: the rail is flush with the top edge, the tabs are mono
+uppercase with compact actions on the right, and the current tab is marked by a glowing
+brass line under its label. The surface carries no border; separation comes from the
+solid fill and a two-layer drop shadow under the bar and its shoulders.
 
 ### Anatomy and sizes
 
-- Header: `game-header sticky top-0 z-40 border-b border-gild/10`, inner height 64px
-  (`h-16`), max width 1440px.
-- Desktop layout: `lg:grid lg:grid-cols-[1fr_auto_1fr]`. The rail occupies the center
-  column and stays optically centered on the page; the third column holds the controls.
-- Rail (`nav-rail`): 48px tall (`h-12`), 4px padding, 8px radius, 1px brass border at
-  12% opacity, `rgba(8, 4, 3, 0.55)` fill and a faint top inset highlight.
+- Header: `sticky top-0 z-40`, max width 1440px; 64px tall on mobile, the rail height
+  on desktop.
+- Desktop layout: `lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start`. The rail
+  occupies the center column, starts at `top: 0` and stays optically centered; the
+  third column holds the controls, top-aligned with the rail.
+- Rail (`nav-rail`): 48px tall, 4px padding, no background of its own. The `nav-surface`
+  layer behind it is one solid silhouette (`#140b07`): square top with 16px concave
+  shoulders and 24px half-pill rounded bottom corners, plus a two-layer `drop-shadow`
+  that follows the shape (shoulders included). Shoulders use the same solid fill and
+  overlap the bar by 1px so no hairline can appear at the join. No border: the seams
+  and the brass outline were removed on purpose. The top edge itself stays straight.
 - Tab (`nav-tab`): full rail height, 1.1rem horizontal padding, 6px radius, JetBrains
   Mono 11px/500, 0.12em tracking, uppercase, `muted` text.
-- Hover: text turns `parch` with a brass background at 7% opacity.
-- Active (`aria-current="page"`): `gild-bright` text, a brass fill at 10% opacity and
-  a 1px inset ring at 18% opacity. Never use an underline or a floating glow.
+- Hover: text turns `parch` and a 1px `arcane` line fades in under the label (same slot
+  as the active line, no fill, no glow).
+- Active (`aria-current="page"`): `gild-bright` text plus a 2px brass line under the
+  label (soft-edged gradient with a faint glow). No plate, no gem, no fill.
 
 ### Right-hand controls
 
@@ -89,8 +99,8 @@ actions on the right and no rule or shadow fighting the content.
   uppercase on the left, then the language toggle and menu button on the right.
 - Mobile drawer: right-hand panel `min(19rem, 86vw)`, app name and game subtitle at the
   top, then the same destinations as a vertical `nav-row` list inside a rounded
-  `abyss/60` well. The active row uses the same gold fill and inset ring as `nav-tab`.
-  Rows are full-width, mono 11px uppercase, with no icons or diamonds.
+  `abyss/60` well. The active row uses `gild-bright` text plus a 2px brass inset bar on
+  the left. Rows are full-width, mono 11px uppercase, with no icons or diamonds.
 
 ### Accessibility
 
