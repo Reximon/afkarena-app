@@ -120,33 +120,35 @@ export function RosterPage() {
         eyebrow={t('app.game')}
         title={t('roster.title')}
         subtitle={t('roster.subtitle')}
-        actions={
-          <>
-            <Badge variant="cyan">{t('roster.resultsCount', { count: ownedHeroes.length })}</Badge>
-            <Button onClick={() => setDialog({ heroId: null })}>
-              <Plus size={16} aria-hidden="true" />
-              {t('roster.addHero')}
-            </Button>
-          </>
-        }
       />
 
       <div className="codex-panel space-y-3 p-4">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <div className="relative flex-1">
-            <Search
-              size={16}
-              className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted"
-              aria-hidden="true"
-            />
-            <Input
-              type="search"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder={t('roster.searchPlaceholder')}
-              className="pl-9"
-              aria-label={t('roster.searchPlaceholder')}
-            />
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center">
+            <div className="relative flex-1">
+              <Search
+                size={16}
+                className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted"
+                aria-hidden="true"
+              />
+              <Input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder={t('roster.searchPlaceholder')}
+                className="pl-9"
+                aria-label={t('roster.searchPlaceholder')}
+              />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Badge variant="cyan">
+                {t('roster.resultsCount', { count: ownedHeroes.length })}
+              </Badge>
+              <Button onClick={() => setDialog({ heroId: null })}>
+                <Plus size={16} aria-hidden="true" />
+                {t('roster.addHero')}
+              </Button>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <SlidersHorizontal size={15} className="text-muted" aria-hidden="true" />
