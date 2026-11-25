@@ -37,7 +37,7 @@ export function TeamCard({
   const pet = team.petId && pets[team.petId] ? getPet(team.petId) : undefined
 
   return (
-    <article className={cn('codex-panel p-5', team.pinned && 'border-gild/45')}>
+    <article className={cn('codex-panel codex-panel--sheer p-5', team.pinned && 'border-gild/45')}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="panel-title truncate text-2xl leading-tight">{team.name}</h2>

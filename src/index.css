@@ -162,6 +162,14 @@
       inset 0 -24px 48px rgba(0, 0, 0, 0.32);
   }
 
+  /* Softer panel used where the page backdrop should show through (Teams cards). */
+  .codex-panel--sheer {
+    background-color: rgba(24, 13, 8, 0.74);
+    background-image:
+      var(--leather-grain), linear-gradient(180deg, rgba(78, 46, 27, 0.42), rgba(18, 10, 6, 0.76)),
+      radial-gradient(120% 120% at 50% 0%, rgba(226, 185, 109, 0.08), transparent 58%);
+  }
+
   .game-header {
     background-color: rgba(12, 7, 5, 0.96);
     background-image:
