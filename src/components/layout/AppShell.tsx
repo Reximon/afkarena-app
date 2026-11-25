@@ -3,7 +3,11 @@ import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import dashboardBackdrop from '@/assets/backgrounds/dashboard.webp'
+import dashboardBackdrop from '@/assets/backgrounds/dashboard.jpg'
+import elderTreeBackdrop from '@/assets/backgrounds/elder-tree.jpg'
+import petsBackdrop from '@/assets/backgrounds/pets.jpg'
+import ruinsBackdrop from '@/assets/backgrounds/ruins.jpg'
+import teamsBackdrop from '@/assets/backgrounds/teams.jpg'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
 import { cn } from '@/lib/cn'
 
@@ -36,30 +40,67 @@ const pageTitleKeys: Record<string, PageTitleKey> = {
   '/settings': 'nav.settings',
 }
 
+interface SceneConfig {
+  image: string
+  position: string
+  overlay: string
+}
+
+const SCENES: Record<string, SceneConfig> = {
+  '/': {
+    image: dashboardBackdrop,
+    position: 'center 32%',
+    overlay:
+      'linear-gradient(180deg, rgba(8, 4, 3, 0.5) 0%, rgba(8, 4, 3, 0.78) 45%, rgba(8, 4, 3, 0.96) 100%), radial-gradient(85% 50% at 50% 8%, rgba(226, 185, 109, 0.14), transparent 72%)',
+  },
+  world: {
+    image: ruinsBackdrop,
+    position: 'center 38%',
+    overlay:
+      'linear-gradient(180deg, rgba(8, 4, 3, 0.24) 0%, rgba(8, 4, 3, 0.55) 45%, rgba(8, 4, 3, 0.92) 100%), radial-gradient(80% 45% at 50% 6%, rgba(226, 185, 109, 0.1), transparent 70%)',
+  },
+  '/elder-tree': {
+    image: elderTreeBackdrop,
+    position: 'center 52%',
+    overlay:
+      'linear-gradient(180deg, rgba(8, 4, 3, 0.18) 0%, rgba(8, 4, 3, 0.48) 45%, rgba(8, 4, 3, 0.9) 100%)',
+  },
+  '/teams': {
+    image: teamsBackdrop,
+    position: 'center 50%',
+    overlay:
+      'linear-gradient(180deg, rgba(8, 4, 3, 0.16) 0%, rgba(8, 4, 3, 0.48) 45%, rgba(8, 4, 3, 0.9) 100%)',
+  },
+  '/pets': {
+    image: petsBackdrop,
+    position: 'center 46%',
+    overlay:
+      'linear-gradient(180deg, rgba(8, 4, 3, 0.2) 0%, rgba(8, 4, 3, 0.52) 45%, rgba(8, 4, 3, 0.9) 100%)',
+  },
+}
+
 export function AppShell() {
   const { t } = useTranslation()
   const location = useLocation()
   const [mobileNavPath, setMobileNavPath] = useState<string | null>(null)
   const mobileNavOpen = mobileNavPath === location.pathname
   const pageTitleKey: PageTitleKey = pageTitleKeys[location.pathname] ?? 'nav.dashboard'
-  const dashboardSceneStyle: CSSProperties | undefined =
-    location.pathname === '/'
-      ? {
-          backgroundImage: `linear-gradient(180deg, rgba(8, 4, 3, 0.5) 0%, rgba(8, 4, 3, 0.78) 45%, rgba(8, 4, 3, 0.96) 100%), radial-gradient(85% 50% at 50% 8%, rgba(226, 185, 109, 0.14), transparent 72%), url("${dashboardBackdrop}")`,
-          backgroundAttachment: 'fixed',
-          backgroundPosition: 'center 32%',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-        }
-      : undefined
+  const scene = SCENES[location.pathname] ?? SCENES.world
+  const sceneStyle: CSSProperties = {
+    backgroundImage: `${scene.overlay}, url("${scene.image}")`,
+    backgroundAttachment: 'fixed',
+    backgroundPosition: scene.position,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  }
 
   useEffect(() => {
     document.title = `${t(pageTitleKey)} · ${t('app.name')}`
   }, [pageTitleKey, t])
 
   return (
-    <div className="flex min-h-screen flex-col" style={dashboardSceneStyle}>
-      <header className="game-header sticky top-0 z-40 border-b border-gild/10">
+    <div className="flex min-h-screen flex-col" style={sceneStyle}>
+      <header className="sticky top-0 z-40 border-b border-transparent">
         <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8">
           <span className="hidden lg:block" aria-hidden="true" />
 
