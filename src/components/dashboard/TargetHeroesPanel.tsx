@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Check, Plus, Search, Target, X } from 'lucide-react'
 import { FramedHeroIcon } from '@/components/heroes/FramedHeroIcon'
 import { HeroDetailDialog } from '@/components/roster/HeroDetailDialog'
+import { getHeroLevel } from '@/features/heroes/heroLevel'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
@@ -24,6 +25,7 @@ export function TargetHeroesPanel() {
   const { t } = useTranslation()
   const heroes = useAppStore((state) => state.heroes)
   const updateHero = useAppStore((state) => state.updateHero)
+  const crystalLevel = useAppStore((state) => state.profile.crystalLevel)
   const [pickerOpen, setPickerOpen] = useState(false)
   const [detailHeroId, setDetailHeroId] = useState<string | null>(null)
 
@@ -79,6 +81,7 @@ export function TargetHeroesPanel() {
               key={hero.heroId}
               hero={hero}
               entry={entry}
+              crystalLevel={crystalLevel}
               onOpen={setDetailHeroId}
               onRemove={(heroId) => updateHero(heroId, { priority: false })}
             />
@@ -97,11 +100,12 @@ export function TargetHeroesPanel() {
 interface TargetHeroCardProps {
   hero: HeroProgress
   entry: HeroCatalogEntry
+  crystalLevel: number
   onOpen: (heroId: string) => void
   onRemove: (heroId: string) => void
 }
 
-function TargetHeroCard({ hero, entry, onOpen, onRemove }: TargetHeroCardProps) {
+function TargetHeroCard({ hero, entry, crystalLevel, onOpen, onRemove }: TargetHeroCardProps) {
   const { t } = useTranslation()
   const hasFoil = hasFoilEffect(hero)
   const gearCount = GEAR_SLOTS.filter((slot) => hero.gear[slot]).length
@@ -142,7 +146,7 @@ function TargetHeroCard({ hero, entry, onOpen, onRemove }: TargetHeroCardProps) 
         <span className="mt-2 flex flex-wrap items-center gap-1">
           <Badge variant="gold">{t(`ascension.${hero.ascension}`)}</Badge>
           <Badge variant="outline">
-            {t('hero.level')} {hero.level}
+            {t('hero.level')} {getHeroLevel(hero, crystalLevel)}
           </Badge>
           <Badge variant="cyan">SI {hero.signatureItem}</Badge>
           <Badge variant="rose">F {hero.furniture}</Badge>
