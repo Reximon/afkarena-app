@@ -1,8 +1,9 @@
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState, type CSSProperties } from 'react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
+import dashboardBackdrop from '@/assets/backgrounds/dashboard.webp'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
 import { cn } from '@/lib/cn'
 
@@ -11,18 +12,26 @@ const navItems = [
   { to: '/roster', labelKey: 'nav.roster', end: false },
   { to: '/teams', labelKey: 'nav.teams', end: false },
   { to: '/pets', labelKey: 'nav.pets', end: false },
+  { to: '/elder-tree', labelKey: 'nav.elderTree', end: false },
   { to: '/equipment', labelKey: 'nav.equipment', end: false },
   { to: '/settings', labelKey: 'nav.settings', end: false },
 ] as const
 
 type PageTitleKey =
-  'nav.dashboard' | 'nav.roster' | 'nav.teams' | 'nav.pets' | 'nav.equipment' | 'nav.settings'
+  | 'nav.dashboard'
+  | 'nav.roster'
+  | 'nav.teams'
+  | 'nav.pets'
+  | 'nav.elderTree'
+  | 'nav.equipment'
+  | 'nav.settings'
 
 const pageTitleKeys: Record<string, PageTitleKey> = {
   '/': 'nav.dashboard',
   '/roster': 'nav.roster',
   '/teams': 'nav.teams',
   '/pets': 'nav.pets',
+  '/elder-tree': 'nav.elderTree',
   '/equipment': 'nav.equipment',
   '/settings': 'nav.settings',
 }
@@ -33,13 +42,23 @@ export function AppShell() {
   const [mobileNavPath, setMobileNavPath] = useState<string | null>(null)
   const mobileNavOpen = mobileNavPath === location.pathname
   const pageTitleKey: PageTitleKey = pageTitleKeys[location.pathname] ?? 'nav.dashboard'
+  const dashboardSceneStyle: CSSProperties | undefined =
+    location.pathname === '/'
+      ? {
+          backgroundImage: `linear-gradient(180deg, rgba(8, 4, 3, 0.5) 0%, rgba(8, 4, 3, 0.78) 45%, rgba(8, 4, 3, 0.96) 100%), radial-gradient(85% 50% at 50% 8%, rgba(226, 185, 109, 0.14), transparent 72%), url("${dashboardBackdrop}")`,
+          backgroundAttachment: 'fixed',
+          backgroundPosition: 'center 32%',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+        }
+      : undefined
 
   useEffect(() => {
     document.title = `${t(pageTitleKey)} · ${t('app.name')}`
   }, [pageTitleKey, t])
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col" style={dashboardSceneStyle}>
       <header className="game-header sticky top-0 z-40 border-b border-gild/10">
         <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8">
           <span className="hidden lg:block" aria-hidden="true" />

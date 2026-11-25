@@ -1,18 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { ChevronRight, Download, Gem, PawPrint, Plus, Sparkles, Swords, Users } from 'lucide-react'
+import { Plus, Swords } from 'lucide-react'
+import { InvestmentMilestones } from '@/components/dashboard/InvestmentMilestones'
+import { PetsOverview } from '@/components/dashboard/PetsOverview'
+import { RosterComposition } from '@/components/dashboard/RosterComposition'
 import { TargetHeroesPanel } from '@/components/dashboard/TargetHeroesPanel'
-import { Badge } from '@/components/ui/Badge'
+import { TeamsOverview } from '@/components/dashboard/TeamsOverview'
 import { PageHeader } from '@/components/ui/PageHeader'
-import { StatCard } from '@/components/ui/StatCard'
 import { buttonStyles } from '@/components/ui/buttonStyles'
-import {
-  FACTION_COLORS,
-  getHeroCatalogEntry,
-  heroCatalogCount,
-} from '@/features/heroes/heroCatalog'
-import { petCatalogCount } from '@/features/pets/pets'
-import { FACTIONS } from '@/types'
 import { useAppStore } from '@/store/useAppStore'
 
 export function DashboardPage() {
@@ -22,20 +17,12 @@ export function DashboardPage() {
   const pets = useAppStore((state) => state.pets)
   const profile = useAppStore((state) => state.profile)
 
-  const ownedHeroes = Object.keys(heroes).length
-  const ownedPets = Object.keys(pets).length
-  const factionCounts = Object.values(heroes).reduce<Record<string, number>>((counts, hero) => {
-    const catalogEntry = getHeroCatalogEntry(hero.heroId)
-    if (catalogEntry) {
-      counts[catalogEntry.faction] = (counts[catalogEntry.faction] ?? 0) + 1
-    }
-    return counts
-  }, {})
+  const identity = [profile.playerName, profile.server].filter(Boolean).join(' · ')
 
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow={t('app.game')}
+        eyebrow={identity ? `${t('app.game')} · ${identity}` : t('app.game')}
         title={t('dashboard.title')}
         subtitle={t('dashboard.subtitle')}
         actions={
@@ -52,159 +39,16 @@ export function DashboardPage() {
         }
       />
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard
-          label={t('dashboard.ownedHeroes')}
-          value={ownedHeroes}
-          hint={t('roster.catalogReady', { count: heroCatalogCount })}
-          icon={Users}
-          accent="gold"
-        />
-        <StatCard
-          label={t('dashboard.savedTeams')}
-          value={teams.length}
-          hint={t('teams.subtitle')}
-          icon={Swords}
-          accent="cyan"
-        />
-        <StatCard
-          label={t('dashboard.ownedPets')}
-          value={ownedPets}
-          hint={t('pets.catalogCount', { count: petCatalogCount })}
-          icon={PawPrint}
-          accent="cyan"
-        />
-        <StatCard
-          label={t('dashboard.crystalLevel')}
-          value={profile.crystalLevel}
-          hint={t('settings.crystalLevel')}
-          icon={Gem}
-          accent="rose"
-        />
-      </section>
-
       <TargetHeroesPanel />
 
-      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="codex-panel p-6">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="panel-title text-2xl">{t('dashboard.factionBreakdown')}</h2>
-            <Badge variant="outline">{ownedHeroes}</Badge>
-          </div>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            {FACTIONS.map((faction) => (
-              <div
-                key={faction}
-                className="flex items-center gap-3 rounded-xl border border-line bg-night/25 px-3 py-2.5"
-              >
-                <span
-                  className="size-2.5 rotate-45 rounded-[2px]"
-                  style={{ backgroundColor: FACTION_COLORS[faction] }}
-                  aria-hidden="true"
-                />
-                <span className="flex-1 text-sm text-parch">{t(`faction.${faction}`)}</span>
-                <span className="font-mono text-xs text-muted">{factionCounts[faction] ?? 0}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+      <InvestmentMilestones heroes={heroes} />
 
-        <div className="codex-panel p-6">
-          <h2 className="panel-title text-2xl">{t('dashboard.quickActions')}</h2>
-          <div className="mt-5 space-y-3">
-            <Link
-              to="/roster"
-              className={buttonStyles({
-                variant: 'secondary',
-                className: 'w-full justify-between',
-              })}
-            >
-              <span className="flex items-center gap-2">
-                <Users size={16} aria-hidden="true" />
-                {t('nav.roster')}
-              </span>
-              <ChevronRight size={16} aria-hidden="true" />
-            </Link>
-            <Link
-              to="/teams"
-              className={buttonStyles({
-                variant: 'secondary',
-                className: 'w-full justify-between',
-              })}
-            >
-              <span className="flex items-center gap-2">
-                <Swords size={16} aria-hidden="true" />
-                {t('nav.teams')}
-              </span>
-              <ChevronRight size={16} aria-hidden="true" />
-            </Link>
-            <Link
-              to="/equipment"
-              className={buttonStyles({
-                variant: 'secondary',
-                className: 'w-full justify-between',
-              })}
-            >
-              <span className="flex items-center gap-2">
-                <Gem size={16} aria-hidden="true" />
-                {t('nav.equipment')}
-              </span>
-              <ChevronRight size={16} aria-hidden="true" />
-            </Link>
-            <Link
-              to="/equipment?tab=collections"
-              className={buttonStyles({
-                variant: 'secondary',
-                className: 'w-full justify-between',
-              })}
-            >
-              <span className="flex items-center gap-2">
-                <Sparkles size={16} aria-hidden="true" />
-                {t('equipment.tabs.collections')}
-              </span>
-              <ChevronRight size={16} aria-hidden="true" />
-            </Link>
-            <Link
-              to="/pets"
-              className={buttonStyles({
-                variant: 'secondary',
-                className: 'w-full justify-between',
-              })}
-            >
-              <span className="flex items-center gap-2">
-                <PawPrint size={16} aria-hidden="true" />
-                {t('nav.pets')}
-              </span>
-              <ChevronRight size={16} aria-hidden="true" />
-            </Link>
-            <button
-              type="button"
-              disabled
-              className={buttonStyles({ variant: 'ghost', className: 'w-full justify-between' })}
-            >
-              <span className="flex items-center gap-2">
-                <Download size={16} aria-hidden="true" />
-                {t('dashboard.exportJson')}
-              </span>
-              <Badge variant="muted">{t('common.comingSoon')}</Badge>
-            </button>
-          </div>
-        </div>
-      </section>
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_0.6fr]">
+        <TeamsOverview teams={teams} heroes={heroes} pets={pets} />
+        <PetsOverview pets={pets} resonanceLevel={profile.petResonanceLevel ?? 0} />
+      </div>
 
-      <section className="codex-panel star-chart flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="max-w-2xl">
-          <Badge variant="cyan">{t('common.phaseTwo')}</Badge>
-          <h2 className="panel-title mt-3 text-2xl">{t('dashboard.foundationTitle')}</h2>
-          <p className="mt-2 text-sm leading-relaxed text-muted">{t('dashboard.foundationBody')}</p>
-        </div>
-        <div className="shrink-0 rounded-xl border border-line bg-night/35 px-4 py-3 text-center">
-          <p className="font-mono text-2xl text-gild">{heroCatalogCount}</p>
-          <p className="mt-1 font-mono text-[10px] tracking-[0.16em] text-muted uppercase">
-            {t('app.game')}
-          </p>
-        </div>
-      </section>
+      <RosterComposition heroes={heroes} />
     </div>
   )
 }

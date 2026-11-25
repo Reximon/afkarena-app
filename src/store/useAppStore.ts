@@ -12,6 +12,7 @@ import {
   withLinkedAscension,
 } from '@/features/heroes/linkedAscension'
 import { clampPetBuffs, PET_MAX_RESONANCE } from '@/features/pets/pets'
+import { moveTeam, sortTeamsByPin } from '@/features/teams/teamOrder'
 import { createId } from '@/lib/id'
 
 export const DATA_STORAGE_KEY = 'afk-astral-codex:data'
@@ -33,6 +34,7 @@ interface AppState extends AppData {
   updateTeam: (teamId: string, patch: Partial<Team>) => void
   duplicateTeam: (teamId: string) => string | null
   removeTeam: (teamId: string) => void
+  reorderTeams: (activeId: string, overId: string) => void
   importData: (data: AppData) => void
   reset: () => void
 }
@@ -285,6 +287,15 @@ export const useAppStore = create<AppState>()(
         set((state) => ({
           teams: state.teams.filter((team) => team.id !== teamId),
         }))
+      },
+
+      reorderTeams: (activeId, overId) => {
+        set((state) => {
+          const ordered = sortTeamsByPin(state.teams)
+          const teams = moveTeam(ordered, activeId, overId)
+
+          return teams === ordered ? state : { teams }
+        })
       },
 
       importData: (data) => {

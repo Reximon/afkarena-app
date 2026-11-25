@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import {
-  Gem,
   Link2,
   Pencil,
   ShieldPlus,
-  Sparkles,
   StickyNote,
   Target,
   Trash2,
@@ -232,28 +230,33 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                       : 'hover:bg-gild/5 focus-visible:bg-gild/5 focus-visible:outline-none',
                   )}
                 >
-                  <p className="font-display text-base text-gild-bright sm:text-lg">
-                    {t(`ascension.${starCount > 0 ? 'ascended' : progress.ascension}`)}
-                  </p>
-                  <Stars
-                    total={5}
-                    value={starCount}
-                    size={16}
-                    label={t('hero.ascension')}
-                    className="justify-center"
-                  />
-                  <div className="flex items-center gap-1" aria-hidden="true">
-                    {Array.from({ length: 5 }, (_, index) => (
-                      <Gem
-                        key={index}
-                        size={11}
-                        className={
-                          index < starCount
-                            ? 'fill-ember/70 text-ember'
-                            : 'fill-transparent text-muted/30'
-                        }
-                      />
-                    ))}
+                  <div className="flex flex-col items-center gap-1">
+                    <Stars
+                      total={5}
+                      value={starCount}
+                      size={24}
+                      label={t('hero.ascension')}
+                      className="justify-center gap-1.5"
+                    />
+                    <div className="flex w-full items-center justify-between" aria-hidden="true">
+                      {Array.from({ length: 9 }, (_, index) => {
+                        const filled = index < progress.furniture
+                        return (
+                          <span
+                            key={index}
+                            className={cn(
+                              'block size-3 rotate-45 rounded-[2px] border transition-colors',
+                              filled
+                                ? 'border-ember/60 bg-ember/80'
+                                : 'border-muted/30 bg-transparent',
+                              filled && (progress.furniture === 9 || progress.furniture === 36)
+                                ? 'shadow-[0_0_6px_rgba(226,106,67,0.7)]'
+                                : null,
+                            )}
+                          />
+                        )
+                      })}
+                    </div>
                   </div>
                   {ascensionLocked ? (
                     <span className="text-[10px] leading-tight text-muted">
@@ -315,9 +318,18 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                       <Pencil size={9} aria-hidden="true" />
                     </Badge>
                   </button>
-                  <Badge variant="muted">
-                    {t('hero.engraving')} {progress.engraving}
-                  </Badge>
+                  <button
+                    type="button"
+                    onClick={() => openDrawer('engrave')}
+                    aria-label={`${t('common.edit')} ${t('hero.engraving')}`}
+                    title={`${t('common.edit')} ${t('hero.engraving')}`}
+                    className="rounded-full focus-visible:ring-2 focus-visible:ring-gild/50 focus-visible:outline-none"
+                  >
+                    <Badge variant="muted" className="transition-colors hover:border-gild/50">
+                      {t('hero.engraving')} {progress.engraving}
+                      <Pencil size={9} aria-hidden="true" />
+                    </Badge>
+                  </button>
                 </div>
               </div>
 
@@ -331,31 +343,57 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                   />
                 </div>
 
-                <div className="relative flex items-center justify-center">
-                  <div
-                    aria-hidden="true"
-                    className="absolute bottom-0 left-1/2 size-40 -translate-x-1/2 translate-y-2 rounded-full opacity-25 blur-3xl sm:size-56"
-                    style={{ backgroundColor: getFactionColor(entry.faction) }}
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute bottom-2 left-1/2 size-32 -translate-x-1/2 rounded-full border border-gild/15 sm:size-44"
-                  />
-                  <div
-                    onPointerMove={onFoilPointerMove}
-                    className={cn(
-                      'relative w-full max-w-[12rem] sm:max-w-[15rem]',
-                      hasFoilEffect(progress) && 'hero-foil rounded-2xl',
-                    )}
-                  >
-                    <FramedHeroIcon
-                      heroId={entry.id}
-                      ascension={progress.ascension}
-                      signatureItem={progress.signatureItem}
-                      furniture={progress.furniture}
-                      engraving={progress.engraving}
-                      alt={entry.displayName}
-                      className="w-full drop-shadow-[0_18px_40px_rgba(8,4,2,0.7)]"
+                <div className="relative flex flex-col items-center justify-center gap-2">
+                  <div className="relative flex w-full items-center justify-center">
+                    <div
+                      aria-hidden="true"
+                      className="absolute bottom-0 left-1/2 size-40 -translate-x-1/2 translate-y-2 rounded-full opacity-25 blur-3xl sm:size-56"
+                      style={{ backgroundColor: getFactionColor(entry.faction) }}
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="absolute bottom-2 left-1/2 size-32 -translate-x-1/2 rounded-full border border-gild/15 sm:size-44"
+                    />
+                    <div
+                      onPointerMove={onFoilPointerMove}
+                      className={cn(
+                        'relative w-full max-w-[12rem] sm:max-w-[15rem]',
+                        hasFoilEffect(progress) && 'hero-foil rounded-2xl',
+                      )}
+                    >
+                      <FramedHeroIcon
+                        heroId={entry.id}
+                        ascension={progress.ascension}
+                        signatureItem={progress.signatureItem}
+                        furniture={progress.furniture}
+                        engraving={progress.engraving}
+                        alt={entry.displayName}
+                        className="w-full drop-shadow-[0_18px_40px_rgba(8,4,2,0.7)]"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="relative grid w-full max-w-[15rem] grid-cols-2 gap-1.5">
+                    <DetailAction
+                      icon={Trash2}
+                      label={
+                        confirmingRemove
+                          ? t('heroDialog.confirmRemove')
+                          : t('heroDialog.removeGear')
+                      }
+                      title={confirmingRemove ? t('heroDialog.removeAllHint') : undefined}
+                      disabledHint={t('heroDialog.noGear')}
+                      danger={confirmingRemove}
+                      disabled={!hasGear}
+                      onClick={() =>
+                        confirmingRemove ? removeAllGear() : setConfirmingRemove(true)
+                      }
+                    />
+                    <DetailAction
+                      icon={ShieldPlus}
+                      label={t('heroDialog.equipGear')}
+                      gold
+                      onClick={() => openGearPicker()}
                     />
                   </div>
                 </div>
@@ -384,33 +422,12 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
           </div>
 
           <footer className="dialog-footer relative z-10 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-4 sm:pt-3">
-            <div className="mx-auto grid max-w-2xl grid-cols-5 gap-1.5 sm:gap-2">
-              <DetailAction
-                icon={Trash2}
-                label={
-                  confirmingRemove ? t('heroDialog.confirmRemove') : t('heroDialog.removeGear')
-                }
-                title={confirmingRemove ? t('heroDialog.removeAllHint') : undefined}
-                disabledHint={t('heroDialog.noGear')}
-                danger={confirmingRemove}
-                disabled={!hasGear}
-                onClick={() => (confirmingRemove ? removeAllGear() : setConfirmingRemove(true))}
-              />
-              <DetailAction
-                icon={ShieldPlus}
-                label={t('heroDialog.equipGear')}
-                onClick={() => openGearPicker()}
-              />
-              <DetailAction
-                icon={Gem}
-                label={t('heroDialog.engrave')}
-                onClick={() => openDrawer('engrave')}
-              />
-              <DetailAction icon={Sparkles} label={t('heroDialog.skills')} disabled />
+            <div className="mx-auto flex max-w-2xl justify-center">
               <DetailAction
                 icon={StickyNote}
                 label={t('hero.notes')}
                 pressed={showNotes}
+                className="w-full max-w-xs"
                 onClick={() => {
                   setConfirmingRemove(false)
                   setShowNotes((visible) => !visible)
@@ -505,8 +522,10 @@ interface DetailActionProps {
   pressed?: boolean
   disabled?: boolean
   danger?: boolean
+  gold?: boolean
   title?: string
   disabledHint?: string
+  className?: string
 }
 
 function DetailAction({
@@ -516,8 +535,10 @@ function DetailAction({
   pressed,
   disabled,
   danger,
+  gold,
   title,
   disabledHint,
+  className,
 }: DetailActionProps) {
   const { t } = useTranslation()
 
@@ -529,13 +550,19 @@ function DetailAction({
       aria-pressed={pressed}
       title={disabled ? (disabledHint ?? t('heroDialog.readOnly')) : title}
       className={cn(
-        'detail-action flex flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-[10px] leading-tight font-semibold transition-colors sm:flex-row sm:gap-2 sm:py-2.5 sm:text-xs',
-        danger
-          ? 'border-ember/55 bg-ember/10 text-ember'
-          : pressed
-            ? 'border-gild/50 bg-gild/10 text-gild-bright'
-            : 'text-muted',
+        'flex flex-col items-center justify-center gap-1 rounded-xl px-1 py-2 text-[10px] leading-tight font-semibold transition-colors sm:flex-row sm:gap-2 sm:py-2.5 sm:text-xs',
+        gold
+          ? 'btn-gild'
+          : cn(
+              'detail-action',
+              danger
+                ? 'border-ember/55 bg-ember/10 text-ember'
+                : pressed
+                  ? 'border-gild/50 bg-gild/10 text-gild-bright'
+                  : 'text-muted',
+            ),
         disabled ? 'cursor-not-allowed opacity-45' : null,
+        className,
       )}
     >
       <Icon size={16} aria-hidden="true" className="shrink-0" />

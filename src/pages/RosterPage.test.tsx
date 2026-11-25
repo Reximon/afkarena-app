@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -38,6 +38,71 @@ describe('RosterPage sorting', () => {
 
     await user.selectOptions(select, 'ascension-asc')
     expect(viewOrder()).toEqual(['View Ainz Ooal Gown', 'View Alaro', 'View Adrian & Elyse'])
+  })
+})
+
+describe('RosterPage faction filter', () => {
+  it('filters the roster by faction emblem and clears on a second press', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('182'))
+    useAppStore.getState().addHero(createDefaultHeroProgress('131'))
+
+    render(
+      <MemoryRouter>
+        <RosterPage />
+      </MemoryRouter>,
+    )
+
+    const mauler = screen.getByRole('button', { name: 'Mauler' })
+    await user.click(mauler)
+
+    expect(mauler).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByText('Alaro')).toBeInTheDocument()
+    expect(screen.queryByText('Adrian & Elyse')).not.toBeInTheDocument()
+
+    await user.click(mauler)
+    expect(mauler).toHaveAttribute('aria-pressed', 'false')
+    expect(screen.getByText('Adrian & Elyse')).toBeInTheDocument()
+  })
+})
+
+describe('RosterPage class and role filters', () => {
+  it('filters the roster by class emblem', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('182'))
+    useAppStore.getState().addHero(createDefaultHeroProgress('131'))
+    useAppStore.getState().addHero(createDefaultHeroProgress('98'))
+
+    render(
+      <MemoryRouter>
+        <RosterPage />
+      </MemoryRouter>,
+    )
+
+    const classes = screen.getByRole('group', { name: 'All classes' })
+    await user.click(within(classes).getByRole('button', { name: 'Support' }))
+
+    expect(screen.getByText('Alaro')).toBeInTheDocument()
+    expect(screen.queryByText('Adrian & Elyse')).not.toBeInTheDocument()
+    expect(screen.queryByText('Ainz Ooal Gown')).not.toBeInTheDocument()
+  })
+
+  it('filters the roster by role emblem', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('182'))
+    useAppStore.getState().addHero(createDefaultHeroProgress('131'))
+
+    render(
+      <MemoryRouter>
+        <RosterPage />
+      </MemoryRouter>,
+    )
+
+    const roles = screen.getByRole('group', { name: 'All roles' })
+    await user.click(within(roles).getByRole('button', { name: 'Control' }))
+
+    expect(screen.getByText('Adrian & Elyse')).toBeInTheDocument()
+    expect(screen.queryByText('Alaro')).not.toBeInTheDocument()
   })
 })
 

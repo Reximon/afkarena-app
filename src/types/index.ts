@@ -200,6 +200,7 @@ export interface Team {
   mode: TeamMode
   slots: TeamSlot[]
   petId?: string
+  pinned?: boolean
   notes?: string
   createdAt: string
   updatedAt: string

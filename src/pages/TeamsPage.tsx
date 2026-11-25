@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
+import { sortTeamsByPin } from '@/features/teams/teamOrder'
 import { useAppStore } from '@/store/useAppStore'
 
 export function TeamsPage() {
@@ -17,10 +18,12 @@ export function TeamsPage() {
   const pets = useAppStore((state) => state.pets)
   const duplicateTeam = useAppStore((state) => state.duplicateTeam)
   const removeTeam = useAppStore((state) => state.removeTeam)
+  const updateTeam = useAppStore((state) => state.updateTeam)
   const [dialog, setDialog] = useState<{ teamId: string | null } | null>(null)
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
 
   const deleteTeam = deleteTarget ? teams.find((team) => team.id === deleteTarget) : undefined
+  const orderedTeams = sortTeamsByPin(teams)
 
   return (
     <div className="space-y-8">
@@ -53,7 +56,7 @@ export function TeamsPage() {
         />
       ) : (
         <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
-          {teams.map((team) => (
+          {orderedTeams.map((team) => (
             <TeamCard
               key={team.id}
               team={team}
@@ -62,6 +65,10 @@ export function TeamsPage() {
               onEdit={(teamId) => setDialog({ teamId })}
               onDuplicate={duplicateTeam}
               onDelete={setDeleteTarget}
+              onTogglePin={(teamId) => {
+                const target = teams.find((item) => item.id === teamId)
+                if (target) updateTeam(teamId, { pinned: !target.pinned })
+              }}
             />
           ))}
         </div>

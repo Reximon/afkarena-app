@@ -1,15 +1,8 @@
 import { useTranslation } from 'react-i18next'
+import { FactionIcon } from '@/components/heroes/FactionIcon'
 import { Badge } from '@/components/ui/Badge'
-import { getFactionColor } from '@/features/heroes/heroCatalog'
-import { computeFactionBonus, type FactionBonusTier } from '@/features/teams/factionBonus'
+import { computeFactionBonus, FACTION_TIER_LABELS } from '@/features/teams/factionBonus'
 import { cn } from '@/lib/cn'
-
-const TIER_LABELS: Record<FactionBonusTier, string> = {
-  three: '3',
-  threeTwo: '3+2',
-  four: '4',
-  five: '5',
-}
 
 const HYPOGEAN_EFFECT_KEYS = [
   'hypogeanDefense',
@@ -47,14 +40,10 @@ export function FactionBonusPanel({ heroIds, className }: FactionBonusPanelProps
         {counts.map(({ faction, count }) => (
           <span
             key={faction}
+            title={t(`faction.${faction}`)}
             className="inline-flex items-center gap-1.5 rounded-full border border-gild/20 bg-night/40 px-2 py-0.5 font-mono text-[10px] tracking-[0.12em] text-parch uppercase"
           >
-            <span
-              className="size-1.5 rounded-full"
-              style={{ backgroundColor: getFactionColor(faction) }}
-              aria-hidden="true"
-            />
-            {t(`faction.${faction}`)}
+            <FactionIcon faction={faction} label={t(`faction.${faction}`)} className="size-4" />
             <span className="text-muted">×{count}</span>
           </span>
         ))}
@@ -64,7 +53,7 @@ export function FactionBonusPanel({ heroIds, className }: FactionBonusPanelProps
         {regularBonus ? (
           <Badge variant="gold">
             {t('teams.factionBonusSummary', {
-              tier: TIER_LABELS[regularBonus.tier],
+              tier: FACTION_TIER_LABELS[regularBonus.tier],
               attack: regularBonus.attack,
               hp: regularBonus.hp,
             })}
@@ -75,14 +64,21 @@ export function FactionBonusPanel({ heroIds, className }: FactionBonusPanelProps
           </span>
         )}
         {celestialCount > 0 ? (
-          <span className="text-[10px] text-muted">{t('teams.celestialHint')}</span>
+          <span className="inline-flex items-center gap-1 text-[10px] text-muted">
+            <FactionIcon faction="Celestial" label={t('faction.Celestial')} className="size-4" />
+            {t('teams.celestialHint')}
+          </span>
         ) : null}
       </div>
 
       {hypogeanCount > 0 ? (
         <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-          <span className="font-mono text-[10px] tracking-[0.12em] text-ember uppercase">
-            {t('faction.Hypogean')} ×{hypogeanCount}
+          <span
+            title={t('faction.Hypogean')}
+            className="inline-flex items-center gap-1 font-mono text-[10px] tracking-[0.12em] text-ember uppercase"
+          >
+            <FactionIcon faction="Hypogean" label={t('faction.Hypogean')} className="size-4" />
+            <span>×{hypogeanCount}</span>
           </span>
           {HYPOGEAN_EFFECT_KEYS.slice(0, hypogeanCount).map((key) => (
             <Badge key={key} variant="rose">
@@ -94,8 +90,12 @@ export function FactionBonusPanel({ heroIds, className }: FactionBonusPanelProps
 
       {draconisCount > 0 ? (
         <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-          <span className="font-mono text-[10px] tracking-[0.12em] text-gild uppercase">
-            {t('faction.Draconis')} ×{draconisCount}
+          <span
+            title={t('faction.Draconis')}
+            className="inline-flex items-center gap-1 font-mono text-[10px] tracking-[0.12em] text-gild uppercase"
+          >
+            <FactionIcon faction="Draconis" label={t('faction.Draconis')} className="size-4" />
+            <span>×{draconisCount}</span>
           </span>
           <Badge variant="cyan">
             {t('teams.factionStatBonus', {

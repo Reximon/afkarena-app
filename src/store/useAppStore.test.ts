@@ -54,6 +54,17 @@ describe('useAppStore', () => {
     expect(teams[1].slots).not.toBe(teams[0].slots)
   })
 
+  it('reorders teams while keeping pinned teams first', () => {
+    useAppStore.getState().createTeam({ name: 'A' })
+    useAppStore.getState().createTeam({ name: 'B', pinned: true })
+    const c = useAppStore.getState().createTeam({ name: 'C' })
+    const a = useAppStore.getState().teams.find((team) => team.name === 'A')
+
+    useAppStore.getState().reorderTeams(c, a!.id)
+
+    expect(useAppStore.getState().teams.map((team) => team.name)).toEqual(['B', 'C', 'A'])
+  })
+
   it('keeps artifacts and collections mutually exclusive', () => {
     useAppStore.getState().addHero(
       createDefaultHeroProgress('9', {

@@ -32,6 +32,13 @@ export const FACTION_BONUS_VALUES: Record<FactionBonusTier, { attack: number; hp
   five: { attack: 25, hp: 25 },
 }
 
+export const FACTION_TIER_LABELS: Record<FactionBonusTier, string> = {
+  three: '3',
+  threeTwo: '3+2',
+  four: '4',
+  five: '5',
+}
+
 const TIER_RANK: Record<FactionBonusTier, number> = { five: 4, four: 3, threeTwo: 2, three: 1 }
 
 function resolveTier(effectiveCounts: number[]): FactionBonusTier | undefined {

@@ -1,9 +1,13 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Plus, Search, SlidersHorizontal, Target, Users } from 'lucide-react'
+import { ClassIcon } from '@/components/heroes/ClassIcon'
+import { FactionIcon } from '@/components/heroes/FactionIcon'
+import { RoleIcon } from '@/components/heroes/RoleIcon'
 import { HeroCard } from '@/components/roster/HeroCard'
 import { HeroDetailDialog } from '@/components/roster/HeroDetailDialog'
 import { HeroDetailScreen } from '@/components/roster/HeroDetailScreen'
+import { IconFilterGroup } from '@/components/roster/IconFilterGroup'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
@@ -170,33 +174,40 @@ export function RosterPage() {
           </div>
         </div>
 
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          <Select
+        <div className="flex items-center gap-3 overflow-x-auto pb-1">
+          <IconFilterGroup
+            allLabel={t('roster.allFactions')}
             value={faction}
-            onChange={(event) => setFaction(event.target.value as FactionFilter)}
-            aria-label={t('roster.allFactions')}
-          >
-            <option value="all">{t('roster.allFactions')}</option>
-            {FACTIONS.map((value) => (
-              <option key={value} value={value}>
-                {t(`faction.${value}`)}
-              </option>
-            ))}
-          </Select>
+            options={FACTIONS}
+            getOptionLabel={(value) => t(`faction.${value}`)}
+            renderIcon={(value) => <FactionIcon faction={value} />}
+            onChange={setFaction}
+          />
 
-          <Select
+          <span className="h-6 w-px shrink-0 bg-gild/15" aria-hidden="true" />
+
+          <IconFilterGroup
+            allLabel={t('roster.allClasses')}
             value={heroClass}
-            onChange={(event) => setHeroClass(event.target.value as ClassFilter)}
-            aria-label={t('roster.allClasses')}
-          >
-            <option value="all">{t('roster.allClasses')}</option>
-            {HERO_CLASSES.map((value) => (
-              <option key={value} value={value}>
-                {t(`heroClass.${value}`)}
-              </option>
-            ))}
-          </Select>
+            options={HERO_CLASSES}
+            getOptionLabel={(value) => t(`heroClass.${value}`)}
+            renderIcon={(value) => <ClassIcon heroClass={value} />}
+            onChange={setHeroClass}
+          />
 
+          <span className="h-6 w-px shrink-0 bg-gild/15" aria-hidden="true" />
+
+          <IconFilterGroup
+            allLabel={t('roster.allRoles')}
+            value={role}
+            options={HERO_ROLES}
+            getOptionLabel={(value) => value}
+            renderIcon={(value) => <RoleIcon role={value} />}
+            onChange={setRole}
+          />
+        </div>
+
+        <div className="grid gap-2 sm:grid-cols-2">
           <Select
             value={ascension}
             onChange={(event) => setAscension(event.target.value as AscensionFilter)}
@@ -206,19 +217,6 @@ export function RosterPage() {
             {ASCENSIONS.map((value) => (
               <option key={value} value={value}>
                 {t(`ascension.${value}`)}
-              </option>
-            ))}
-          </Select>
-
-          <Select
-            value={role}
-            onChange={(event) => setRole(event.target.value as RoleFilter)}
-            aria-label={t('roster.allRoles')}
-          >
-            <option value="all">{t('roster.allRoles')}</option>
-            {HERO_ROLES.map((value) => (
-              <option key={value} value={value}>
-                {value}
               </option>
             ))}
           </Select>

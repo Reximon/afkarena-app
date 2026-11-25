@@ -123,6 +123,13 @@ the way the game presents a hero.
   22% so the room's focal point shows above the portrait.
 - Every faction color comes from `FACTION_COLORS` in `src/features/heroes/heroCatalog.ts`.
   Keep lettering gold/parch; the painting is the only faction signal.
+- `FactionIcon` (`src/components/heroes/FactionIcon.tsx`) renders the official 30px
+  faction emblem from `src/assets/factions/icons/`. `ClassIcon` and `RoleIcon` do the
+  same for the 64px class/role emblems in `src/assets/classes/` and `src/assets/roles/`.
+  The roster filters faction, class and role with `IconFilterGroup`: three groups of
+  emblems, each preceded by an `All …` pill, sitting on a single scrollable line
+  separated by brass hairlines. The active state is brass (`aria-pressed`), never a
+  faction-colored ring.
 - The scene is decoration only: it must stay `pointer-events-none`, `aria-hidden`
   and darker than the foreground. Never put body copy or form fields directly on
   bare art; the header label over the stage carries a 1px black text shadow.

@@ -43,6 +43,19 @@ describe('HeroDetailDialog', () => {
     expect(screen.getByText('Furniture 3')).toBeInTheDocument()
   })
 
+  it('edits engraving from the view panel', async () => {
+    const user = userEvent.setup()
+    useAppStore.getState().addHero(createDefaultHeroProgress('182', { engraving: 60 }))
+
+    render(<HeroDetailDialog heroId="182" onClose={vi.fn()} />)
+
+    await user.click(screen.getByRole('button', { name: 'Edit Engraving' }))
+    await user.click(screen.getByRole('button', { name: 'E30' }))
+
+    expect(useAppStore.getState().heroes['182'].engraving).toBe(30)
+    expect(screen.getByText('Engraving 30')).toBeInTheDocument()
+  })
+
   it('shows the linked hero for Dimensionals', () => {
     useAppStore.getState().addHero(createDefaultHeroProgress('98', { linkedHeroId: '182' }))
 

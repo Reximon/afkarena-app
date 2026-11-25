@@ -14,6 +14,9 @@ const TeamsPage = lazy(() =>
 const PetsPage = lazy(() =>
   import('@/pages/PetsPage').then((module) => ({ default: module.PetsPage })),
 )
+const ElderTreePage = lazy(() =>
+  import('@/pages/ElderTreePage').then((module) => ({ default: module.ElderTreePage })),
+)
 const EquipmentPage = lazy(() =>
   import('@/pages/EquipmentPage').then((module) => ({ default: module.EquipmentPage })),
 )
@@ -31,6 +34,7 @@ export default function App() {
           <Route path="teams" element={<TeamsPage />} />
           <Route path="pets" element={<PetsPage />} />
           <Route path="beasts" element={<Navigate to="/pets" replace />} />
+          <Route path="elder-tree" element={<ElderTreePage />} />
           <Route path="equipment" element={<EquipmentPage />} />
           <Route path="artifacts" element={<Navigate to="/equipment" replace />} />
           <Route path="settings" element={<SettingsPage />} />

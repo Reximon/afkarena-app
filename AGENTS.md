@@ -39,7 +39,7 @@ Before finishing any task run `npm run typecheck`, `npm run lint` and `npm run t
 - `src/pages/` — route screens (Dashboard, Roster, Teams, Pets, Equipment, Settings).
 - `src/components/` — `ui/` primitives, `roster/`, `dashboard/`, `teams/`, `pets/`, `equipment/`, `heroes/`.
 - `src/components/roster/hero-detail/` — presentation pieces of the hero detail screen (portrait stage, gear pickers, investment panel). `FactionScene.tsx` paints the per-faction preview backdrop using the official paintings in `src/assets/factions/`; see `DESIGN.md`.
-- `src/assets/factions/` — official faction paintings (one WebP per faction) used by the hero preview scenes.
+- `src/assets/factions/` — official faction paintings (one WebP per faction) used by the hero preview scenes; `icons/` holds the official 30px faction emblems used by `FactionIcon` (roster faction filter). `src/assets/classes/` and `src/assets/roles/` hold the official 64px class and role emblems used by `ClassIcon` / `RoleIcon`. `src/assets/backgrounds/` holds page backdrops (the dashboard courtyard scene).
 - `src/features/` — domain logic: `heroes`, `gear`, `artifacts`, `collections`, `pets`, `teams`, `persistence`.
 - `src/store/useAppStore.ts` — Zustand store.
 - `src/types/index.ts` — all shared types and enums.
@@ -52,6 +52,7 @@ Before finishing any task run `npm run typecheck`, `npm run lint` and `npm run t
 - Persisted state is version 1; `partialize` keeps `{ schemaVersion, profile, heroes, pets, teams }`.
 - Internally heroes are always keyed by `heroId`; never key store data by display name.
 - Pets are keyed by `petId` in `pets`; presence in the record means the pet is owned. Beast level is derived (sum of the three attribute buffs); teams may reference one pet via `petId`.
+- Teams keep their manual order in the `teams` array. `Team.pinned` (optional) keeps a team at the top of the list: `sortTeamsByPin` displays pinned teams first, and dragging a team in the dashboard persists the resulting array order via `reorderTeams`. The pin flag is part of the export.
 - `Profile.petResonanceLevel` (optional, 0–54) is the player-set beast resonance target. It is informational only: pets below it show a `+N` deficit badge, and buffs are never raised automatically. The deficit is measured against `min(resonance, tier max level)`.
 - Dimensional heroes mirror the ascension of their `linkedHeroId` (helpers in `src/features/heroes/linkedAscension.ts`): linking copies it, changes to the linked hero propagate, direct ascension edits are ignored while linked, and import/rehydration normalizes divergences. Unlinking keeps the last copied ascension, and the UI disables the ascension selector while linked.
 - Deleting a linked hero does not touch other heroes' `linkedHeroId`: the Dimensional keeps a dangling link (shown via the catalog as "Linked to X"), keeps its last copied ascension, and the selector stays locked until the link is cleared manually. Only links whose target exists in `heroes` mirror or propagate ascension.

@@ -52,6 +52,7 @@ function createSampleData(): AppData {
       createEmptyTeam({
         name: 'Campaign',
         petId: '6004',
+        pinned: true,
         slots: [
           { position: 1, row: 'front', heroId: '9' },
           { position: 2, row: 'front' },
@@ -151,6 +152,13 @@ describe('import/export', () => {
 
     expect(parsed.pets).toEqual({})
     expect(parsed.teams[0].petId).toBeUndefined()
+  })
+
+  it('accepts teams without the pin flag', () => {
+    const raw = JSON.parse(serializeExport(createSampleData()))
+    delete raw.teams[0].pinned
+
+    expect(parseImport(JSON.stringify(raw)).teams[0].pinned).toBeUndefined()
   })
 
   it('rejects exports with unknown pet names', () => {
