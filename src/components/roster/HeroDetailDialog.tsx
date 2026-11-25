@@ -26,6 +26,7 @@ import {
   getHeroCatalogEntry,
   getHeroClassKey,
 } from '@/features/heroes/heroCatalog'
+import { getHeroLevel } from '@/features/heroes/heroLevel'
 import { hasFoilEffect } from '@/lib/framedIcon'
 import { cn } from '@/lib/cn'
 import { usePointerFoil } from '@/lib/usePointerFoil'
@@ -63,6 +64,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
   const progress = useAppStore((state) => state.heroes[heroId])
   const heroes = useAppStore((state) => state.heroes)
   const updateHero = useAppStore((state) => state.updateHero)
+  const crystalLevel = useAppStore((state) => state.profile.crystalLevel)
   const assignArtifact = useAppStore((state) => state.assignArtifact)
   const unassignArtifact = useAppStore((state) => state.unassignArtifact)
   const assignCollection = useAppStore((state) => state.assignCollection)
@@ -301,7 +303,7 @@ export function HeroDetailDialog({ heroId, onClose }: HeroDetailDialogProps) {
                 </button>
                 <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5">
                   <Badge variant="outline">
-                    {t('hero.level')} {progress.level}
+                    {t('hero.level')} {getHeroLevel(progress, crystalLevel)}
                   </Badge>
                   <Badge variant="cyan">
                     {t('hero.signatureItem')} {progress.signatureItem}
