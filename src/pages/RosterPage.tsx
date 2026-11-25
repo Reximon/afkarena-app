@@ -39,6 +39,7 @@ export function RosterPage() {
   const heroes = useAppStore((state) => state.heroes)
   const removeHero = useAppStore((state) => state.removeHero)
   const updateHero = useAppStore((state) => state.updateHero)
+  const crystalLevel = useAppStore((state) => state.profile.crystalLevel)
   const [search, setSearch] = useState('')
   const [faction, setFaction] = useState<FactionFilter>('all')
   const [heroClass, setHeroClass] = useState<ClassFilter>('all')
@@ -259,6 +260,7 @@ export function RosterPage() {
               key={hero.heroId}
               hero={hero}
               entry={entry}
+              crystalLevel={crystalLevel}
               onView={setDetailHeroId}
               onEdit={(heroId) => setDialog({ heroId })}
               onToggleTarget={toggleTarget}

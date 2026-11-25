@@ -7,6 +7,7 @@ import {
   getHeroCatalogEntry,
   getHeroClassKey,
 } from '@/features/heroes/heroCatalog'
+import { getHeroLevel } from '@/features/heroes/heroLevel'
 import type { HeroCatalogEntry, HeroProgress } from '@/types'
 import { cn } from '@/lib/cn'
 import { hasFoilEffect } from '@/lib/framedIcon'
@@ -15,13 +16,22 @@ import { usePointerFoil } from '@/lib/usePointerFoil'
 interface HeroCardProps {
   hero: HeroProgress
   entry: HeroCatalogEntry
+  crystalLevel: number
   onView: (heroId: string) => void
   onEdit: (heroId: string) => void
   onToggleTarget: (heroId: string) => void
   onRemove: (heroId: string) => void
 }
 
-export function HeroCard({ hero, entry, onView, onEdit, onToggleTarget, onRemove }: HeroCardProps) {
+export function HeroCard({
+  hero,
+  entry,
+  crystalLevel,
+  onView,
+  onEdit,
+  onToggleTarget,
+  onRemove,
+}: HeroCardProps) {
   const { t } = useTranslation()
   const linkedEntry = hero.linkedHeroId ? getHeroCatalogEntry(hero.linkedHeroId) : undefined
   const hasFoil = hasFoilEffect(hero)
@@ -131,7 +141,7 @@ export function HeroCard({ hero, entry, onView, onEdit, onToggleTarget, onRemove
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           <Badge variant="gold">{t(`ascension.${hero.ascension}`)}</Badge>
           <Badge variant="outline">
-            {t('hero.level')} {hero.level}
+            {t('hero.level')} {getHeroLevel(hero, crystalLevel)}
           </Badge>
           {hero.signatureItem > 0 ? <Badge variant="cyan">SI {hero.signatureItem}</Badge> : null}
           {hero.furniture > 0 ? <Badge variant="rose">F {hero.furniture}</Badge> : null}
