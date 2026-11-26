@@ -4,7 +4,7 @@ import {
   createDefaultPetProgress,
 } from '@/features/persistence/defaults'
 import { getHeroCatalogEntry } from '@/features/heroes/heroCatalog'
-import { FACTIONS, GEAR_SLOTS, type GearPiece, type HeroProgress } from '@/types'
+import { FACTIONS, type HeroProgress } from '@/types'
 import {
   getAscensionBucket,
   getAscensionCounts,
@@ -12,12 +12,6 @@ import {
   getPetOverview,
   getRosterMilestones,
 } from './insights'
-
-function t2Gear(): Record<string, GearPiece> {
-  return Object.fromEntries(
-    GEAR_SLOTS.map((slot) => [slot, { slot, tier: 't2', stars: 5 } satisfies GearPiece]),
-  )
-}
 
 describe('getRosterMilestones', () => {
   it('counts endgame investment milestones', () => {
@@ -28,14 +22,12 @@ describe('getRosterMilestones', () => {
         signatureItem: 30,
         furniture: 9,
         engraving: 60,
-        gear: t2Gear(),
       }),
       b: createDefaultHeroProgress('b', {
         ascension: 'mythic',
         signatureItem: 20,
         furniture: 3,
         engraving: 30,
-        gear: { weapon: { slot: 'weapon', tier: 't2', stars: 0 } },
       }),
     }
 
@@ -46,23 +38,7 @@ describe('getRosterMilestones', () => {
       signature30: 1,
       furniture9: 1,
       engraving60: 1,
-      gearT2: 1,
     })
-  })
-
-  it('requires all four slots above T1 for the gear milestone', () => {
-    const heroes: Record<string, HeroProgress> = {
-      a: createDefaultHeroProgress('a', {
-        gear: Object.fromEntries(
-          GEAR_SLOTS.map((slot) => [
-            slot,
-            { slot, tier: slot === 'boots' ? 't1' : 't3', stars: 0 } satisfies GearPiece,
-          ]),
-        ),
-      }),
-    }
-
-    expect(getRosterMilestones(heroes).gearT2).toBe(0)
   })
 })
 

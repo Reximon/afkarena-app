@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
-import { Armchair, Shield, Sparkles, Star, Sword } from 'lucide-react'
+import { Armchair, Sparkles, Star, Sword } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Badge } from '@/components/ui/Badge'
 import { getRosterMilestones } from '@/features/dashboard/insights'
@@ -61,20 +61,13 @@ export function InvestmentMilestones({ heroes }: { heroes: Record<string, HeroPr
       icon: Sparkles,
       accent: 'cyan',
     },
-    {
-      key: 'gear',
-      label: t('dashboard.milestoneGear'),
-      count: milestones.gearT2,
-      icon: Shield,
-      accent: 'cyan',
-    },
   ]
 
   return (
-    <section className="codex-panel p-6">
+    <section className="codex-panel p-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="panel-title text-2xl">{t('dashboard.milestoneTitle')}</h2>
+          <h2 className="panel-title text-xl">{t('dashboard.milestoneTitle')}</h2>
           <p className="mt-1 text-sm text-muted">{t('dashboard.milestoneBody')}</p>
         </div>
         <Badge variant="outline">
@@ -82,7 +75,7 @@ export function InvestmentMilestones({ heroes }: { heroes: Record<string, HeroPr
         </Badge>
       </div>
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
         {items.map((item) => (
           <MilestoneCard key={item.key} item={item} total={milestones.owned} />
         ))}
@@ -96,24 +89,24 @@ function MilestoneCard({ item, total }: { item: MilestoneItem; total: number }) 
   const Icon = item.icon
 
   return (
-    <article className="codex-panel-soft flex flex-col p-4">
+    <article className="codex-panel-soft flex flex-col p-3">
       <div className="flex items-start justify-between gap-2">
-        <span className={cn('game-medallion size-9 shrink-0', ACCENT_TEXT[item.accent])}>
-          <Icon size={16} strokeWidth={1.8} aria-hidden="true" />
+        <span className={cn('game-medallion size-8 shrink-0', ACCENT_TEXT[item.accent])}>
+          <Icon size={14} strokeWidth={1.8} aria-hidden="true" />
         </span>
         <span className="font-mono text-[10px] tracking-[0.08em] text-muted">{percent}%</span>
       </div>
 
-      <p className="mt-3 font-mono text-[9px] tracking-[0.16em] text-muted uppercase">
+      <p className="mt-2 font-mono text-[9px] tracking-[0.16em] text-muted uppercase">
         {item.label}
       </p>
-      <p className="stat-value mt-1 text-2xl leading-none">
+      <p className="stat-value mt-1 text-xl leading-none">
         {item.count}
         <span className="ml-1 font-mono text-[11px] tracking-normal text-muted">/ {total}</span>
       </p>
 
-      <div className="mt-auto pt-3">
-        <div className="h-1.5 overflow-hidden rounded-full bg-night/70 shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)]">
+      <div className="mt-auto pt-2">
+        <div className="h-1 overflow-hidden rounded-full bg-night/70 shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)]">
           <div
             className="h-full rounded-full transition-[width] duration-500"
             style={{ width: `${percent}%`, background: ACCENT_BAR[item.accent] }}

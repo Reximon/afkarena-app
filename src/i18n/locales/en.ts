@@ -52,7 +52,6 @@ export const en = {
     milestoneSignature: 'SI +30',
     milestoneFurniture: 'Furniture 9/9',
     milestoneEngraving: 'Engraving e60',
-    milestoneGear: 'Gear T2 4/4',
     compositionTitle: 'Roster composition',
     compositionFaction: 'Faction balance',
     compositionAscension: 'Ascension ladder',

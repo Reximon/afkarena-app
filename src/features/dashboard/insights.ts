@@ -9,15 +9,12 @@ import {
 import {
   ASCENSIONS,
   FACTIONS,
-  GEAR_SLOTS,
-  GEAR_TIERS,
   type Ascension,
   type Faction,
   type HeroProgress,
   type PetProgress,
 } from '@/types'
 
-const T2_TIER_INDEX = GEAR_TIERS.indexOf('t2')
 const ASCENDED_INDEX = ASCENSIONS.indexOf('ascended')
 const MYTHIC_INDEX = ASCENSIONS.indexOf('mythic')
 
@@ -28,7 +25,6 @@ export interface RosterMilestones {
   signature30: number
   furniture9: number
   engraving60: number
-  gearT2: number
 }
 
 export function getRosterMilestones(heroes: Record<string, HeroProgress>): RosterMilestones {
@@ -39,7 +35,6 @@ export function getRosterMilestones(heroes: Record<string, HeroProgress>): Roste
     signature30: 0,
     furniture9: 0,
     engraving60: 0,
-    gearT2: 0,
   }
 
   for (const hero of Object.values(heroes)) {
@@ -49,14 +44,6 @@ export function getRosterMilestones(heroes: Record<string, HeroProgress>): Roste
     if (hero.signatureItem >= 30) milestones.signature30 += 1
     if (hero.furniture >= 9) milestones.furniture9 += 1
     if (hero.engraving >= 60) milestones.engraving60 += 1
-    if (
-      GEAR_SLOTS.every((slot) => {
-        const piece = hero.gear[slot]
-        return piece ? GEAR_TIERS.indexOf(piece.tier) >= T2_TIER_INDEX : false
-      })
-    ) {
-      milestones.gearT2 += 1
-    }
   }
 
   return milestones

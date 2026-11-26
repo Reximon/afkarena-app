@@ -54,7 +54,6 @@ export const es: TranslationSchema = {
     milestoneSignature: 'SI +30',
     milestoneFurniture: 'Furniture 9/9',
     milestoneEngraving: 'Engraving e60',
-    milestoneGear: 'Gear T2 4/4',
     compositionTitle: 'Composición del roster',
     compositionFaction: 'Balance de facciones',
     compositionAscension: 'Escalera de ascensión',
