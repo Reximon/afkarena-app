@@ -27,15 +27,19 @@ export function TopTierPanel() {
 
   const topHeroes = useMemo(() => (topTier ? getTierHeroes(topTier) : []), [topTier])
 
-  const owned = topHeroes.filter((entry) => Boolean(heroes[entry.id]))
-  const average = useMemo(() => {
-    const scores = owned.map((entry) => getHeroOptimization(heroes[entry.id]).score)
-    if (scores.length === 0) return null
+  const stats = useMemo(() => {
+    const ownedHeroes = topHeroes.flatMap((entry) => (heroes[entry.id] ? [heroes[entry.id]] : []))
+    if (ownedHeroes.length === 0) return { owned: 0, average: null }
 
-    return getOptimizationGradeForScore(
-      Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length),
-    )
-  }, [owned, heroes])
+    const scores = ownedHeroes.map((hero) => getHeroOptimization(hero).score)
+
+    return {
+      owned: ownedHeroes.length,
+      average: getOptimizationGradeForScore(
+        Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length),
+      ),
+    }
+  }, [topHeroes, heroes])
 
   if (!topTier || topHeroes.length === 0) return null
 
@@ -59,10 +63,10 @@ export function TopTierPanel() {
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <Badge variant="outline">
-          {t('dashboard.topTierOwned', { owned: owned.length, total: topHeroes.length })}
+          {t('dashboard.topTierOwned', { owned: stats.owned, total: topHeroes.length })}
         </Badge>
-        {average ? (
-          <Badge variant="cyan">{t('dashboard.topTierAverage', { grade: average })}</Badge>
+        {stats.average ? (
+          <Badge variant="cyan">{t('dashboard.topTierAverage', { grade: stats.average })}</Badge>
         ) : null}
       </div>
 
