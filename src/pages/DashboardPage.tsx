@@ -43,9 +43,10 @@ export function DashboardPage() {
 
       <TargetHeroesPanel />
 
-      <TopTierPanel />
-
-      <InvestmentMilestones heroes={heroes} />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <TopTierPanel />
+        <InvestmentMilestones heroes={heroes} />
+      </div>
 
       <div className="grid gap-6 lg:grid-cols-[1.4fr_0.6fr]">
         <TeamsOverview teams={teams} heroes={heroes} pets={pets} />
