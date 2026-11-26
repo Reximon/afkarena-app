@@ -294,6 +294,51 @@ La app queda en <http://localhost:8080>. La imagen compila los estáticos y los 
 
 El despliegue a GitHub Pages deja `VITE_API_URL` vacía, así que el sitio público funciona sin cuentas ni backend.
 
+### Homelab (despliegue automático)
+
+El entorno de producción vive en el homelab y se actualiza solo: un temporizador de systemd ejecuta `scripts/deploy-homelab.sh` cada minuto. El script hace `git fetch` y, si `master` tiene commits nuevos, hace `git merge --ff-only`, sincroniza `pb_migrations/` con `~/infra/pocketbase/pb_migrations/` (reiniciando PocketBase si cambió algo) y reconstruye la imagen con `docker compose up -d --build`. El build se hornea con el `.env` del servidor (`VITE_API_URL`).
+
+Instalación en el homelab (una sola vez):
+
+```bash
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/afkarena-deploy.service <<'EOF'
+[Unit]
+Description=Deploy The Resonating Hall from master
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/afkarena-app
+ExecStart=%h/afkarena-app/scripts/deploy-homelab.sh
+EOF
+cat > ~/.config/systemd/user/afkarena-deploy.timer <<'EOF'
+[Unit]
+Description=Check for new commits every minute
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+AccuracySec=10s
+
+[Install]
+WantedBy=timers.target
+EOF
+sudo loginctl enable-linger "$USER"
+systemctl --user daemon-reload
+systemctl --user enable --now afkarena-deploy.timer
+```
+
+Comandos útiles:
+
+```bash
+systemctl --user list-timers afkarena-deploy.timer   # próxima ejecución
+journalctl --user -u afkarena-deploy -f              # registro de despliegues
+systemctl --user stop afkarena-deploy.timer          # pausar los despliegues
+bash ~/afkarena-app/scripts/deploy-homelab.sh        # forzar una comprobación ahora
+```
+
+Los cambios manuales sin commitear en el servidor bloquean el despliegue en lugar de sobrescribirse.
+
 ## Documentación adicional
 
 - [DESIGN.md](DESIGN.md): lenguaje visual, tipografía, superficies y especificación de cabecera y navegación.
