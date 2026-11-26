@@ -116,7 +116,7 @@ export function TierListPage() {
       <div
         role="tablist"
         aria-label={t('tierList.title')}
-        className="flex w-fit max-w-full gap-1 overflow-x-auto rounded-2xl border border-gild/25 bg-abyss/50 p-1 shadow-[inset_0_2px_10px_rgba(0,0,0,0.45)]"
+        className="flex w-full max-w-full gap-1 overflow-x-auto rounded-2xl border border-gild/25 bg-abyss/50 p-1 shadow-[inset_0_2px_10px_rgba(0,0,0,0.45)] lg:w-fit lg:flex-wrap lg:overflow-visible"
       >
         {tierListModes.map((item) => {
           const active = item.slug === mode.slug
