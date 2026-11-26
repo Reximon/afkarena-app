@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
 backup/
 
 # Local tooling and design-QA artifacts
