@@ -296,7 +296,9 @@ El despliegue a GitHub Pages deja `VITE_API_URL` vacía, así que el sitio públ
 
 ### Homelab (despliegue automático)
 
-El entorno de producción vive en el homelab y se actualiza solo: un temporizador de systemd ejecuta `scripts/deploy-homelab.sh` cada minuto. El script hace `git fetch` y, si `master` tiene una revisión distinta a la última construida (registrada en `~/.afkarena-deployed-rev`), hace `git merge --ff-only`, sincroniza `pb_migrations/` con `~/infra/pocketbase/pb_migrations/` (reiniciando PocketBase si cambió algo) y reconstruye la imagen con `docker compose up -d --build`. El build se hornea con el `.env` del servidor (`VITE_API_URL`).
+El entorno de producción vive en el homelab y se actualiza solo: un temporizador de systemd ejecuta `scripts/deploy-homelab.sh` cada minuto. El script hace `git fetch` y, si `master` tiene una revisión distinta a la última construida (registrada en `~/.afkarena-deployed-rev`), espera a que el CI de GitHub esté en verde, hace `git merge --ff-only`, sincroniza `pb_migrations/` con `~/infra/pocketbase/pb_migrations/` (reiniciando PocketBase si cambió algo) y reconstruye la imagen con `docker compose up -d --build`. El build se hornea con el `.env` del servidor (`VITE_API_URL`).
+
+La compuerta de CI consulta la API pública de GitHub (`actions/runs` del commit) sin token. Si algún workflow falla o se cancela, no despliega esa revisión; si no termina en 20 minutos, aborta y lo reintenta en la siguiente pasada. Ajustable con `AFKARENA_CI_TIMEOUT` (segundos, 1200 por defecto) y `AFKARENA_CI_POLL` (30 s por defecto). Si se agota el límite de peticiones sin autenticar, basta con guardar un token en `~/.config/afkarena/github-token` (o apuntar `AFKARENA_GITHUB_TOKEN_FILE` a otro fichero).
 
 Instalación en el homelab (una sola vez):
 
