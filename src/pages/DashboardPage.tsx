@@ -6,6 +6,7 @@ import { PetsOverview } from '@/components/dashboard/PetsOverview'
 import { RosterComposition } from '@/components/dashboard/RosterComposition'
 import { TargetHeroesPanel } from '@/components/dashboard/TargetHeroesPanel'
 import { TeamsOverview } from '@/components/dashboard/TeamsOverview'
+import { TopTierPanel } from '@/components/dashboard/TopTierPanel'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { buttonStyles } from '@/components/ui/buttonStyles'
 import { useAppStore } from '@/store/useAppStore'
@@ -41,6 +42,8 @@ export function DashboardPage() {
       />
 
       <TargetHeroesPanel />
+
+      <TopTierPanel />
 
       <InvestmentMilestones heroes={heroes} />
 

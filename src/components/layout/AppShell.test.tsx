@@ -31,7 +31,15 @@ describe('AppShell', () => {
 
     const drawer = screen.getByRole('dialog')
 
-    for (const name of ['Dashboard', 'Roster', 'Teams', 'Pets', 'Equipment', 'Settings']) {
+    for (const name of [
+      'Dashboard',
+      'Roster',
+      'Tier list',
+      'Teams',
+      'Pets',
+      'Equipment',
+      'Settings',
+    ]) {
       expect(within(drawer).getByRole('link', { name })).toBeInTheDocument()
     }
   })

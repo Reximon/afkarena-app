@@ -1,6 +1,6 @@
 # The Resonating Hall
 
-Aplicación web bilingüe (inglés/español) para llevar el seguimiento de tu cuenta de **AFK Arena Classic**: qué héroes tienes, en qué has invertido y qué formaciones usas. Todos los datos se guardan en el propio navegador, así que no hay backend, ni cuentas, ni base de datos remota.
+Aplicación web bilingüe (inglés/español) para llevar el seguimiento de tu cuenta de **AFK Arena Classic**: qué héroes tienes, en qué has invertido y qué formaciones usas. Por defecto todos los datos se guardan en el propio navegador; de forma opcional puedes conectar tu propio servidor PocketBase para tener una copia remota por cuenta sin perder el funcionamiento offline.
 
 **Demo en vivo:** <https://reximon.github.io/afkarena-app/> · **Versión:** 1.4.0
 
@@ -14,6 +14,7 @@ Aplicación web bilingüe (inglés/español) para llevar el seguimiento de tu cu
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Datos y catálogos](#datos-y-catálogos)
 - [Persistencia, exportación e importación](#persistencia-exportación-e-importación)
+- [Sincronización con PocketBase (opcional)](#sincronización-con-pocketbase-opcional)
 - [Idiomas](#idiomas)
 - [Calidad y pruebas](#calidad-y-pruebas)
 - [Despliegue](#despliegue)
@@ -64,6 +65,7 @@ Aplicación web bilingüe (inglés/español) para llevar el seguimiento de tu cu
 | Compilación        | Vite 8                                                                        |
 | Estilos            | Tailwind CSS v4 (CSS-first, sin `tailwind.config`; tokens en `src/index.css`) |
 | Estado             | Zustand 5 con `persist`                                                       |
+| Sincronización     | PocketBase self-hosted (opcional) y su SDK oficial                            |
 | Validación         | Zod 4                                                                         |
 | Enrutado           | `HashRouter` de react-router                                                  |
 | i18n               | i18next + react-i18next                                                       |
@@ -118,6 +120,8 @@ src/
   components/ui/                  Primitivas reutilizables (Button, Badge, Dialog, Input, Select, Field, EmptyState, PageHeader…)
   components/roster/hero-detail/  Piezas de la ficha de héroe (escena de facción, selectores, panel de inversión)
   features/                       Lógica de dominio: heroes, gear, artifacts, collections, pets, teams, persistence
+  sync/                           Sincronización opcional con PocketBase (cliente, motor, estado y validación)
+  components/sync/                Panel de cuenta, login, diálogo de conflicto e indicador de estado
   store/                          Store de Zustand (useAppStore)
   types/                          Tipos y enums compartidos
   i18n/                           Configuración y locales (en.ts, es.ts)
@@ -126,6 +130,7 @@ src/
   lib/                            Utilidades compartidas (cn, funciones auxiliares de iconos…)
   index.css                       Tokens y clases de Tailwind (CSS-first)
 scripts/                          Scripts de sincronización de los catálogos
+pb_migrations/                    Migraciones de PocketBase (colección roster_data y registro cerrado)
 docker/                           Configuración de nginx para la imagen
 backup/                           Copias reales del formato antiguo; se usan para probar compatibilidad
 .github/workflows/                CI y despliegue a GitHub Pages
@@ -148,6 +153,7 @@ Los dos ficheros de `src/data/` son generados: no los edites a mano, vuelve a la
 
 - Datos de la aplicación: clave `afk-astral-codex:data` de `localStorage`.
 - Idioma elegido: clave `afk-astral-codex:lang`.
+- Metadatos de sincronización (solo si usas PocketBase): clave `afk-astral-codex:sync` con `dirty`, `localUpdatedAt`, `lastSyncedAt` y `lastSyncedServerVersion`. La sesión la guarda el `authStore` del SDK en `pocketbase_auth`.
 - Se persiste la versión 1 del esquema con `schemaVersion`, `profile`, `heroes`, `pets` y `teams`.
 
 Internamente los héroes siempre se indexan por `heroId` y las mascotas por `petId`; nunca por nombre visible.
@@ -175,6 +181,80 @@ Si tocas `HeroProgress`, `PetProgress` o `Profile`, actualiza los cuatro puntos 
 4. Las pruebas de ida y vuelta.
 
 Para campos opcionales heredados usa `z.boolean().optional()` y similares, no `.default(...)`, para no reescribir copias antiguas.
+
+## Sincronización con PocketBase (opcional)
+
+La app sigue siendo offline-first: `localStorage` es la fuente de verdad y todo funciona igual si no configuras nada. Si compilas con `VITE_API_URL`, aparece un panel **Cuenta y sincronización** en Ajustes para iniciar sesión contra tu PocketBase y guardar un documento JSON por usuario.
+
+### Activar la sincronización
+
+La URL se incrusta en tiempo de compilación; una variable de entorno en tiempo de ejecución no basta.
+
+```bash
+# Desarrollo
+cp .env.example .env.local
+# edita .env.local con VITE_API_URL=http://api.reximon.lab
+npm run dev
+```
+
+```bash
+# Docker (el compose ya acepta la variable)
+VITE_API_URL=http://api.reximon.lab docker compose up --build -d
+```
+
+Si `VITE_API_URL` está vacía o sin definir, no se monta nada de la capa de sync: ni login, ni indicador, ni peticiones de red.
+
+### Servicio de PocketBase
+
+Añade este servicio al compose de tu homelab (por ejemplo `~/infra`):
+
+```yaml
+services:
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:0.42.3
+    container_name: pocketbase
+    restart: unless-stopped
+    command: serve --http=0.0.0.0:8090 --dir=/pb_data --migrationsDir=/pb_migrations
+    ports:
+      - '8090:8090'
+    volumes:
+      - ./pocketbase/pb_data:/pb_data
+      - ./pocketbase/pb_migrations:/pb_migrations
+```
+
+Copia `pb_migrations/` del repositorio a `~/infra/pocketbase/pb_migrations/` antes de arrancar el contenedor. En Nginx Proxy Manager crea un proxy host `api.reximon.lab` → `http://pocketbase:8090` (o `http://<ip-del-host>:8090`), sin SSL en la red local. PocketBase permite cualquier origen por defecto; si lo restringes, añade `http://afk.reximon.lab` en **Settings → Application → Allowed origins**.
+
+### Crear el primer usuario
+
+1. Abre el panel de administración en `http://api.reximon.lab/_/` y crea el superusuario inicial, o ejecuta `docker exec -it pocketbase /pocketbase superuser create tu@correo 'contraseña'`.
+2. En **Collections → users → New record**, crea la cuenta con correo y contraseña.
+3. La migración desactiva el registro público (`createRule = null`): desde la app solo se puede iniciar sesión, no registrarse.
+
+### Colección `roster_data`
+
+La migración `pb_migrations/1795651200_created_roster_data.js` crea un registro por usuario:
+
+| Campo             | Tipo     | Notas                          |
+| ----------------- | -------- | ------------------------------ |
+| `user`            | relation | Obligatorio, único, a `users`. |
+| `data`            | json     | Documento exportable completo. |
+| `schemaVersion`   | number   | Versión del esquema (1).       |
+| `clientUpdatedAt` | date     | Fecha del último cambio local. |
+
+Reglas: cada usuario solo puede listar, ver, crear y actualizar su propio registro (`user = @request.auth.id`); borrar queda reservado al administrador.
+
+### Cómo funciona
+
+- Cada cambio se escribe primero en `localStorage` y marca `dirty` con `localUpdatedAt`.
+- Con sesión, un ciclo con debounce de 2 s lee la versión del servidor y decide subir, bajar o abrir un conflicto.
+- El ciclo se repite al arrancar, al iniciar sesión y al recuperar la conexión o la pestaña (`online` / `visibilitychange`).
+- Si la subida o la bajada falla por red, se reintenta con backoff exponencial (2 s → 60 s); los datos siguen en local.
+- El documento remoto se valida con el mismo esquema Zod que el import. Si no valida o su `schemaVersion` es mayor que el de la app, no se aplica y se avisa; las versiones menores se migran.
+- `lastSyncedAt` y `lastSyncedServerVersion` detectan cambios en ambos lados. Si ambos cambiaron, se abre un diálogo con tres salidas: conservar local, usar la copia del servidor o descargar la del servidor. Nunca se sobrescribe en silencio.
+- Cerrar sesión no borra nada; si hay cambios sin subir, se pide confirmación.
+- El export/import manual de Ajustes sigue intacto.
+
+El indicador del encabezado muestra cinco estados: solo local, sincronizando, sincronizado, sin conexión (cambios pendientes) y error.
 
 ## Idiomas
 
@@ -210,7 +290,9 @@ Las rutas usan `HashRouter`, de modo que cualquier alojamiento estático funcion
 docker compose up --build
 ```
 
-La app queda en <http://localhost:8080>. La imagen compila los estáticos y los sirve con nginx. Si la alojas bajo un subdirectorio, pasa `VITE_BASE_PATH` como argumento de compilación (`docker build --build-arg VITE_BASE_PATH=/mi-subpath/ .`); el `docker-compose.yml` lo deja en `/` por defecto.
+La app queda en <http://localhost:8080>. La imagen compila los estáticos y los sirve con nginx. Si la alojas bajo un subdirectorio, pasa `VITE_BASE_PATH` como argumento de compilación (`docker build --build-arg VITE_BASE_PATH=/mi-subpath/ .`); el `docker-compose.yml` lo deja en `/` por defecto. Para activar la sincronización, pasa también `VITE_API_URL` (ver [Sincronización con PocketBase](#sincronización-con-pocketbase-opcional)); sin ella el contenedor sirve la app en modo 100 % local.
+
+El despliegue a GitHub Pages deja `VITE_API_URL` vacía, así que el sitio público funciona sin cuentas ni backend.
 
 ## Documentación adicional
 

@@ -10,14 +10,15 @@ Routing uses `HashRouter`. Path alias `@/` maps to `src/`.
 
 ## Commands
 
-| Command             | Purpose                                |
-| ------------------- | -------------------------------------- |
-| `npm run dev`       | Start the Vite dev server on port 5173 |
-| `npm run typecheck` | `tsc -b`                               |
-| `npm run lint`      | Oxlint                                 |
-| `npm run test`      | Vitest once                            |
-| `npm run format`    | Prettier                               |
-| `npm run build`     | Typecheck + production build           |
+| Command                 | Purpose                                          |
+| ----------------------- | ------------------------------------------------ |
+| `npm run dev`           | Start the Vite dev server on port 5173           |
+| `npm run typecheck`     | `tsc -b`                                         |
+| `npm run lint`          | Oxlint                                           |
+| `npm run test`          | Vitest once                                      |
+| `npm run format`        | Prettier                                         |
+| `npm run build`         | Typecheck + production build                     |
+| `npm run sync:tierlist` | Refresh `src/data/tierlist.json` from afk.global |
 
 Before finishing any task run `npm run typecheck`, `npm run lint` and `npm run test`. For UI changes, also exercise the feature in a browser against the dev server.
 
@@ -36,11 +37,12 @@ Before finishing any task run `npm run typecheck`, `npm run lint` and `npm run t
 
 ## Layout
 
-- `src/pages/` — route screens (Dashboard, Roster, Teams, Pets, Equipment, Settings).
+- `src/pages/` — route screens (Dashboard, Roster, Tier list, Teams, Pets, Elder Tree, Equipment, Settings).
 - `src/components/` — `ui/` primitives, `roster/`, `dashboard/`, `teams/`, `pets/`, `equipment/`, `heroes/`.
 - `src/components/roster/hero-detail/` — presentation pieces of the hero detail screen (portrait stage, gear pickers, investment panel). `FactionScene.tsx` paints the per-faction preview backdrop using the official paintings in `src/assets/factions/`; see `DESIGN.md`.
 - `src/assets/factions/` — official faction paintings (one WebP per faction) used by the hero preview scenes; `icons/` holds the official 30px faction emblems used by `FactionIcon` (roster faction filter). `src/assets/classes/` and `src/assets/roles/` hold the official 64px class and role emblems used by `ClassIcon` / `RoleIcon`. `src/assets/backgrounds/` holds the per-route page backdrops (dashboard courtyard, world overview, elder tree statue, teams hall, pets forest); `AppShell` maps them by route and falls back to the world overview. `src/assets/elder-tree/` holds the stained-glass backdrop and the blessing icons (`blessings/`, one WebP per blessing) used by the Elder Tree page. Every page header stays background-free; the nav rail is a solid bar welded to the viewport top (flat top with concave shoulders, 24px half-pill bottom, drop shadow under the whole silhouette, underline active state) so it reads as browser chrome and the scene shows around it.
 - `src/features/` — domain logic: `heroes`, `gear`, `artifacts`, `collections`, `pets`, `teams`, `persistence`.
+- `src/sync/` — optional PocketBase sync (config, SDK client, engine, persisted sync metadata, remote payload validation). UI lives in `src/components/sync/`.
 - `src/store/useAppStore.ts` — Zustand store.
 - `src/types/index.ts` — all shared types and enums.
 - `src/i18n/locales/` — `en.ts`, `es.ts`, `locales.test.ts`.
@@ -84,6 +86,15 @@ Import accepts both formats:
 
 When adding new references (e.g. a new hero link field), follow this dual-format pattern and extend `src/features/persistence/importExport.test.ts` with a legacy case.
 
+## Remote sync (optional)
+
+- localStorage stays the source of truth and `useAppStore` is unaware of sync. A build with `VITE_API_URL` (Dockerfile/compose build arg) enables the PocketBase layer; an empty value must keep the app fully local with no login, indicator or network calls.
+- `SyncEngine` subscribes to `useAppStore`, records `dirty`/`localUpdatedAt` in the separate `afk-astral-codex:sync` store, debounces cycles (~2 s) and retries network failures with exponential backoff. Cycles run on start, sign-in, `online` and `visibilitychange`.
+- A cycle fetches the remote record, compares `lastSyncedServerVersion` and decides push, pull, conflict or nothing (`src/sync/decision.ts`). Push payloads are the readable export built with `createExportData`; pulls validate through `parseImport` (same Zod schema as manual import) and apply with `importData`. Both sides changed means the Radix conflict dialog, never a silent overwrite.
+- PocketBase collection `roster_data` (one row per user) and its API rules live in `pb_migrations/`; the migration also disables public user registration. Keep `SYNC_SCHEMA_VERSION` aligned with the persisted `schemaVersion`.
+- Sync metadata is per browser; a different account resets the baseline and counts as a first contact. Signing out never removes local data.
+- `npm run test` covers the decision matrix, remote payload validation and the engine with a fake client.
+
 ## i18n
 
 - `src/i18n/locales/en.ts` is the source of truth and exports `TranslationSchema`; `es.ts` must satisfy it.
@@ -95,6 +106,8 @@ When adding new references (e.g. a new hero link field), follow this dual-format
 - `src/data/heroes.json` and `src/data/hero-classes.json` are generated by `npm run sync:heroes` / `npm run sync:hero-classes`; do not edit them manually.
 - In `heroes.json`, `class` is the hero type (Warrior/Ranger/Mage). The real class (Warrior/Tank/Ranger/Mage/Support) comes from `hero-classes.json`; use `entry.type` for type-based logic (e.g. gear artwork) and `entry.class` for class restrictions (artifacts, collections).
 - Display names are unique across the 255 heroes.
+- `src/data/tierlist.json` is generated by `npm run sync:tierlist` from the afk.global tier list page (embedded Next.js payload; no public API). Entries are resolved to catalog `heroId`s by display name (awakened heroes without the `Awakened` prefix and duplicate names are matched by faction); unresolved names are skipped with a warning. Do not hand-edit it.
+- The per-hero optimization grade lives in `src/features/heroes/heroOptimization.ts` (weighted ascension, SI, furniture, engraving and gear). The tier list page and the dashboard top-tier panel show it for owned heroes.
 - Artifact and collection catalogs are maintained in code under `src/features/artifacts/` and `src/features/collections/`.
 - The pet/beast catalog is maintained in `src/features/pets/pets.ts` (30 pets). Max buff per tier: Rare 6, Elite 12, Fabled 18; beast level is the sum of the three buffs. Training levels 0–3 unlock at beast levels 3/9/15 and only Elite/Fabled pets have it. `getPetResonanceDeficit` caps the resonance target per tier (18/36/54) and `PET_MAX_RESONANCE` is 54.
 - Team faction bonuses are computed in `src/features/teams/factionBonus.ts` from the actual hero factions: 3 → +10% ATK/HP, 3+2 → +15/+15, 4 → +15/20, 5 → +25/25. Celestials are wildcards for regular factions (not for the Hypogean ladder), Hypogeans stack their own bonus ladder, Draconis grant +2% ATK/HP each, and Dimensional heroes do not count.

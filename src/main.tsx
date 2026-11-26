@@ -8,9 +8,12 @@ import '@fontsource-variable/jetbrains-mono'
 import '@/i18n'
 import './index.css'
 import App from './App.tsx'
+import { startSync } from '@/sync'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
   </StrictMode>,
 )
+
+startSync()

@@ -8,6 +8,7 @@ import { Field, Input } from '@/components/ui/Input'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { parseImport, serializeExport } from '@/features/persistence/importExport'
+import { AccountPanel } from '@/components/sync/AccountPanel'
 import { downloadTextFile } from '@/lib/download'
 import { useAppStore } from '@/store/useAppStore'
 
@@ -93,6 +94,8 @@ export function SettingsPage() {
             <LanguageToggle />
           </div>
         </section>
+
+        <AccountPanel />
 
         <section className="codex-panel p-6">
           <h2 className="panel-title text-2xl">{t('settings.data')}</h2>

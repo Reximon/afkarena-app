@@ -136,6 +136,26 @@ export interface HeroClassFile {
   }>
 }
 
+export interface TierListTier {
+  tier: string
+  heroIds: string[]
+}
+
+export interface TierListMode {
+  slug: string
+  name: string
+  category: string
+  tiers: TierListTier[]
+}
+
+export interface TierListFile {
+  game: 'afk-arena-classic'
+  source: string
+  updatedAt: string | null
+  count: number
+  lists: TierListMode[]
+}
+
 export interface GearPiece {
   slot: GearSlot
   tier: GearTier

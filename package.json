@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "sync:heroes": "node scripts/sync-heroes.mjs",
     "sync:hero-classes": "node scripts/sync-hero-classes.mjs",
+    "sync:tierlist": "node scripts/sync-tierlist.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "clsx": "^2.1.1",
     "i18next": "^27.2.2",
     "lucide-react": "^1.77.0",
+    "pocketbase": "^0.29.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-i18next": "^18.0.3",

@@ -9,11 +9,14 @@ import petsBackdrop from '@/assets/backgrounds/pets.jpg'
 import ruinsBackdrop from '@/assets/backgrounds/ruins.jpg'
 import teamsBackdrop from '@/assets/backgrounds/teams.jpg'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
+import { ConflictDialog } from '@/components/sync/ConflictDialog'
+import { SyncStatusIndicator } from '@/components/sync/SyncStatusIndicator'
 import { cn } from '@/lib/cn'
 
 const navItems = [
   { to: '/', labelKey: 'nav.dashboard', end: true },
   { to: '/roster', labelKey: 'nav.roster', end: false },
+  { to: '/tier-list', labelKey: 'nav.tierList', end: false },
   { to: '/teams', labelKey: 'nav.teams', end: false },
   { to: '/pets', labelKey: 'nav.pets', end: false },
   { to: '/elder-tree', labelKey: 'nav.elderTree', end: false },
@@ -24,6 +27,7 @@ const navItems = [
 type PageTitleKey =
   | 'nav.dashboard'
   | 'nav.roster'
+  | 'nav.tierList'
   | 'nav.teams'
   | 'nav.pets'
   | 'nav.elderTree'
@@ -33,6 +37,7 @@ type PageTitleKey =
 const pageTitleKeys: Record<string, PageTitleKey> = {
   '/': 'nav.dashboard',
   '/roster': 'nav.roster',
+  '/tier-list': 'nav.tierList',
   '/teams': 'nav.teams',
   '/pets': 'nav.pets',
   '/elder-tree': 'nav.elderTree',
@@ -118,6 +123,7 @@ export function AppShell() {
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0 lg:justify-self-end lg:self-start lg:pt-1.5">
+            <SyncStatusIndicator />
             <LanguageToggle />
 
             <DialogPrimitive.Root
@@ -196,6 +202,8 @@ export function AppShell() {
           {t('app.name')} · v1.4.0 · {t('app.game')}
         </p>
       </footer>
+
+      <ConflictDialog />
     </div>
   )
 }
