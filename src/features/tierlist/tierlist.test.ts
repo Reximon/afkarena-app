@@ -5,8 +5,10 @@ import {
   getDefaultTierListMode,
   getTierHeroes,
   getTierLabel,
+  getTierListAgeDays,
   getTierListHeroCount,
   getTopTier,
+  isTierListStale,
   tierListModes,
 } from './tierlist'
 
@@ -38,5 +40,18 @@ describe('tier list catalog', () => {
     expect(getTierLabel('S_PLUS')).toBe('S+')
     expect(getTierLabel('A_PLUS')).toBe('A+')
     expect(getTierLabel('SS')).toBe('SS')
+  })
+
+  it('measures how old the ranking data is', () => {
+    expect(getTierListAgeDays('2026-10-03', new Date('2026-10-03T23:00:00Z'))).toBe(0)
+    expect(getTierListAgeDays('2026-10-03', new Date('2026-11-02T08:00:00Z'))).toBe(30)
+    expect(getTierListAgeDays(null)).toBeNull()
+  })
+
+  it('flags the ranking as stale only after 30 days', () => {
+    expect(isTierListStale('2026-10-03', new Date('2026-10-30T00:00:00Z'))).toBe(false)
+    expect(isTierListStale('2026-10-03', new Date('2026-11-02T00:00:00Z'))).toBe(false)
+    expect(isTierListStale('2026-10-03', new Date('2026-11-03T00:00:00Z'))).toBe(true)
+    expect(isTierListStale(null)).toBe(false)
   })
 })

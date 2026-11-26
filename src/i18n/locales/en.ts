@@ -141,6 +141,7 @@ export const en = {
     subtitle:
       'Community hero rankings for every mode, with your own optimization grade on each hero.',
     updated: 'Updated {{date}}',
+    stale: 'Rankings were updated {{days}} days ago and may be out of date.',
     source: 'afk.global',
     ownedCount: '{{owned}} / {{total}} owned',
     averageGrade: 'Avg {{grade}}',

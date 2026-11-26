@@ -142,6 +142,7 @@ export const es: TranslationSchema = {
     title: 'Tier list',
     subtitle: 'Ranking comunitario de héroes por modo, con tu grado de optimización en cada uno.',
     updated: 'Actualizada {{date}}',
+    stale: 'La tier list se actualizó hace {{days}} días y puede estar desfasada.',
     source: 'afk.global',
     ownedCount: '{{owned}} / {{total}} en tu roster',
     averageGrade: 'Media {{grade}}',

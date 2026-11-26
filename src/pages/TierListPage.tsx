@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { ExternalLink, Filter, Users } from 'lucide-react'
+import { ExternalLink, Filter, TriangleAlert, Users } from 'lucide-react'
 import { HeroDetailDialog } from '@/components/roster/HeroDetailDialog'
 import { TierHeroTile } from '@/components/tierlist/TierHeroTile'
 import { PageHeader } from '@/components/ui/PageHeader'
@@ -18,8 +18,10 @@ import {
   getDefaultTierListMode,
   getTierHeroes,
   getTierLabel,
+  getTierListAgeDays,
   getTierListHeroCount,
   getTierListMode,
+  TIER_LIST_STALE_DAYS,
   tierListModes,
   tierListSource,
   tierListUpdatedAt,
@@ -87,6 +89,8 @@ export function TierListPage() {
         day: 'numeric',
       })
     : null
+  const updatedAgeDays = getTierListAgeDays(tierListUpdatedAt)
+  const stale = updatedAgeDays !== null && updatedAgeDays > TIER_LIST_STALE_DAYS
 
   return (
     <div className="space-y-8">
@@ -98,7 +102,9 @@ export function TierListPage() {
         actions={
           <>
             {updatedLabel ? (
-              <Badge variant="outline">{t('tierList.updated', { date: updatedLabel })}</Badge>
+              <Badge variant={stale ? 'rose' : 'outline'}>
+                {t('tierList.updated', { date: updatedLabel })}
+              </Badge>
             ) : null}
             <a
               href={tierListSource}
@@ -112,6 +118,17 @@ export function TierListPage() {
           </>
         }
       />
+
+      {stale ? (
+        <div role="note" className="codex-panel-soft flex flex-wrap items-center gap-3 p-4">
+          <span className="game-medallion size-9 shrink-0 text-[#f6ab8c]">
+            <TriangleAlert size={16} strokeWidth={1.8} aria-hidden="true" />
+          </span>
+          <p className="min-w-0 flex-1 text-sm text-muted">
+            {t('tierList.stale', { days: updatedAgeDays })}
+          </p>
+        </div>
+      ) : null}
 
       <div
         role="tablist"

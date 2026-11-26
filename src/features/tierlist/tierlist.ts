@@ -8,6 +8,24 @@ export const tierListUpdatedAt = tierListFile.updatedAt
 export const tierListSource = tierListFile.source
 
 export const DEFAULT_TIER_LIST_SLUG = 'afk-arena-overall'
+export const TIER_LIST_STALE_DAYS = 30
+
+const DAY_MS = 86_400_000
+
+export function getTierListAgeDays(updatedAt: string | null, now = new Date()): number | null {
+  if (!updatedAt) return null
+
+  const [year, month, day] = updatedAt.split('-').map(Number)
+  const updated = Date.UTC(year, month - 1, day)
+  const current = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+
+  return Math.max(0, Math.floor((current - updated) / DAY_MS))
+}
+
+export function isTierListStale(updatedAt: string | null, now = new Date()): boolean {
+  const ageDays = getTierListAgeDays(updatedAt, now)
+  return ageDays !== null && ageDays > TIER_LIST_STALE_DAYS
+}
 
 const tierListBySlug = new Map(tierListModes.map((mode) => [mode.slug, mode]))
 

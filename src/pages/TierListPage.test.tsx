@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 import '@/i18n'
 import { createDefaultHeroProgress, createEmptyAppData } from '@/features/persistence/defaults'
 import { useAppStore } from '@/store/useAppStore'
@@ -13,6 +13,10 @@ const SLOTS: GearSlot[] = ['weapon', 'helmet', 'chest', 'boots']
 beforeEach(() => {
   localStorage.clear()
   useAppStore.setState(createEmptyAppData())
+})
+
+afterEach(() => {
+  vi.useRealTimers()
 })
 
 function renderPage() {
@@ -80,5 +84,23 @@ describe('TierListPage', () => {
     expect(
       screen.getByText('Add your heroes to see your optimization grade next to each ranking.'),
     ).toBeInTheDocument()
+  })
+
+  it('warns when the ranking data is older than 30 days', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2027-01-15T12:00:00Z'))
+    renderPage()
+
+    expect(screen.getByRole('note')).toHaveTextContent(
+      'Rankings were updated 104 days ago and may be out of date.',
+    )
+  })
+
+  it('stays quiet while the ranking data is fresh', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-10-20T12:00:00Z'))
+    renderPage()
+
+    expect(screen.queryByRole('note')).not.toBeInTheDocument()
   })
 })
