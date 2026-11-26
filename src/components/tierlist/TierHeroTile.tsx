@@ -85,7 +85,7 @@ export function TierHeroTile({ entry, hero, size = 'md', onOpen }: TierHeroTileP
       </span>
       <span
         className={cn(
-          'mt-1 block truncate text-center',
+          'mt-1 line-clamp-2 block min-h-[2.5em] leading-tight',
           size === 'sm' ? 'text-[9px]' : 'text-[10px]',
           hero ? 'font-semibold text-parch' : 'text-muted',
         )}
@@ -99,7 +99,7 @@ export function TierHeroTile({ entry, hero, size = 'md', onOpen }: TierHeroTileP
     </>
   )
 
-  const width = size === 'sm' ? 'w-[3.4rem]' : 'w-[4.4rem]'
+  const width = size === 'sm' ? 'w-[3.4rem]' : 'w-full sm:w-[4.75rem]'
 
   if (hero && onOpen) {
     return (

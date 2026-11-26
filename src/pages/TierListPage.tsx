@@ -197,7 +197,7 @@ export function TierListPage() {
                 </span>
               </div>
 
-              <div className="flex flex-wrap gap-2.5">
+              <div className="grid grid-cols-4 gap-x-2 gap-y-3 sm:flex sm:flex-wrap sm:gap-2.5">
                 {entries.map((entry) => (
                   <TierHeroTile
                     key={entry.id}
