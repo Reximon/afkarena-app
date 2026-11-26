@@ -86,6 +86,9 @@ export function createPocketBaseClient(apiUrl: string): SyncClient {
         }
         return toAccount(auth.record)
       } catch (error) {
+        if (isStatus(error, 400)) {
+          throw new SyncRequestError('auth', error instanceof Error ? error.message : undefined)
+        }
         throw mapError(error)
       }
     },
