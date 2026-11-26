@@ -301,19 +301,21 @@ El entorno de producción vive en el homelab y se actualiza solo: un temporizado
 Instalación en el homelab (una sola vez):
 
 ```bash
-mkdir -p ~/.config/systemd/user
-cat > ~/.config/systemd/user/afkarena-deploy.service <<'EOF'
+sudo tee /etc/systemd/system/afkarena-deploy.service >/dev/null <<'EOF'
 [Unit]
 Description=Deploy The Resonating Hall from master
 
 [Service]
 Type=oneshot
-WorkingDirectory=%h/afkarena-app
-ExecStart=%h/afkarena-app/scripts/deploy-homelab.sh
+User=reximon
+Group=reximon
+Environment=HOME=/home/reximon
+WorkingDirectory=/home/reximon/afkarena-app
+ExecStart=/home/reximon/afkarena-app/scripts/deploy-homelab.sh
 EOF
-cat > ~/.config/systemd/user/afkarena-deploy.timer <<'EOF'
+sudo tee /etc/systemd/system/afkarena-deploy.timer >/dev/null <<'EOF'
 [Unit]
-Description=Check for new commits every minute
+Description=Check for new commits of The Resonating Hall every minute
 
 [Timer]
 OnBootSec=2min
@@ -323,18 +325,19 @@ AccuracySec=10s
 [Install]
 WantedBy=timers.target
 EOF
-sudo loginctl enable-linger "$USER"
-systemctl --user daemon-reload
-systemctl --user enable --now afkarena-deploy.timer
+sudo systemctl daemon-reload
+sudo systemctl enable --now afkarena-deploy.timer
 ```
+
+El servicio va a nivel de sistema con `User=reximon` para que herede el grupo `docker`; un timer de usuario no lo recibía si el gestor arrancó antes de añadir el usuario al grupo.
 
 Comandos útiles:
 
 ```bash
-systemctl --user list-timers afkarena-deploy.timer   # próxima ejecución
-journalctl --user -u afkarena-deploy -f              # registro de despliegues
-systemctl --user stop afkarena-deploy.timer          # pausar los despliegues
-bash ~/afkarena-app/scripts/deploy-homelab.sh        # forzar una comprobación ahora
+systemctl list-timers afkarena-deploy.timer   # próxima ejecución
+journalctl -u afkarena-deploy -f              # registro de despliegues
+sudo systemctl stop afkarena-deploy.timer     # pausar los despliegues
+bash ~/afkarena-app/scripts/deploy-homelab.sh # forzar una comprobación ahora
 ```
 
 Los cambios manuales sin commitear en el servidor bloquean el despliegue en lugar de sobrescribirse.
