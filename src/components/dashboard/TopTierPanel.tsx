@@ -44,14 +44,14 @@ export function TopTierPanel() {
   if (!topTier || topHeroes.length === 0) return null
 
   return (
-    <section className="codex-panel p-6">
+    <section className="codex-panel p-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="panel-title text-2xl">{t('dashboard.topTierTitle')}</h2>
+          <h2 className="panel-title text-xl">{t('dashboard.topTierTitle')}</h2>
           <p className="mt-1 text-sm text-muted">{t('dashboard.topTierBody')}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="gold">
+          <Badge variant="gold" className="h-8 px-2.5">
             {mode.name} · {getTierLabel(topTier.tier)}
           </Badge>
           <Link to="/tier-list" className={buttonStyles({ variant: 'secondary', size: 'sm' })}>
@@ -61,7 +61,7 @@ export function TopTierPanel() {
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2">
+      <div className="mt-3 flex flex-wrap items-center gap-2">
         <Badge variant="outline">
           {t('dashboard.topTierOwned', { owned: stats.owned, total: topHeroes.length })}
         </Badge>
@@ -70,7 +70,7 @@ export function TopTierPanel() {
         ) : null}
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-2.5">
+      <div className="mt-4 flex flex-wrap gap-2.5">
         {topHeroes.map((entry) => (
           <TierHeroTile
             key={entry.id}
