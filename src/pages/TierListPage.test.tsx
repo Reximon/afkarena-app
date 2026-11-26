@@ -46,7 +46,7 @@ describe('TierListPage', () => {
 
     expect(screen.getByRole('tab', { name: /Overall/ })).toHaveAttribute('aria-selected', 'true')
 
-    const tile = screen.getByRole('button', { name: 'View Envydiel' })
+    const tile = screen.getByRole('button', { name: 'View Awakened Envydiel' })
     expect(within(tile).getByTitle('Optimization 100%')).toHaveTextContent('S+')
 
     expect(screen.getByText('Liberta')).toBeInTheDocument()
@@ -59,7 +59,7 @@ describe('TierListPage', () => {
 
     await user.click(screen.getByRole('button', { name: 'Owned only' }))
 
-    expect(screen.getByRole('button', { name: 'View Envydiel' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'View Awakened Envydiel' })).toBeInTheDocument()
     expect(screen.queryByText('Liberta')).not.toBeInTheDocument()
   })
 
