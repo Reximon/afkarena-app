@@ -296,7 +296,7 @@ El despliegue a GitHub Pages deja `VITE_API_URL` vacía, así que el sitio públ
 
 ### Homelab (despliegue automático)
 
-El entorno de producción vive en el homelab y se actualiza solo: un temporizador de systemd ejecuta `scripts/deploy-homelab.sh` cada minuto. El script hace `git fetch` y, si `master` tiene commits nuevos, hace `git merge --ff-only`, sincroniza `pb_migrations/` con `~/infra/pocketbase/pb_migrations/` (reiniciando PocketBase si cambió algo) y reconstruye la imagen con `docker compose up -d --build`. El build se hornea con el `.env` del servidor (`VITE_API_URL`).
+El entorno de producción vive en el homelab y se actualiza solo: un temporizador de systemd ejecuta `scripts/deploy-homelab.sh` cada minuto. El script hace `git fetch` y, si `master` tiene una revisión distinta a la última construida (registrada en `~/.afkarena-deployed-rev`), hace `git merge --ff-only`, sincroniza `pb_migrations/` con `~/infra/pocketbase/pb_migrations/` (reiniciando PocketBase si cambió algo) y reconstruye la imagen con `docker compose up -d --build`. El build se hornea con el `.env` del servidor (`VITE_API_URL`).
 
 Instalación en el homelab (una sola vez):
 
