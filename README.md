@@ -226,7 +226,7 @@ Copia `pb_migrations/` del repositorio a `~/infra/pocketbase/pb_migrations/` ant
 
 ### Crear el primer usuario
 
-1. Abre el panel de administración en `http://api.reximon.lab/_/` y crea el superusuario inicial, o ejecuta `docker exec -it pocketbase /pocketbase superuser create tu@correo 'contraseña'`.
+1. Abre el panel de administración en `http://api.reximon.lab/_/` y crea el superusuario inicial, o ejecuta `docker exec -it pocketbase /usr/local/bin/pocketbase superuser upsert tu@correo 'contraseña' --dir=/pb_data`. El `--dir=/pb_data` es obligatorio con esta imagen: sin él, el CLI escribe en `/usr/local/bin/pb_data` (dentro del contenedor) y la cuenta no llega a la base de datos real.
 2. En **Collections → users → New record**, crea la cuenta con correo y contraseña.
 3. La migración desactiva el registro público (`createRule = null`): desde la app solo se puede iniciar sesión, no registrarse.
 
