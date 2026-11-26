@@ -46,7 +46,7 @@ export function OptimizationBadge({ optimization }: { optimization?: HeroOptimiz
 interface TierHeroTileProps {
   entry: HeroCatalogEntry
   hero?: HeroProgress
-  size?: 'md' | 'sm'
+  size?: 'sm' | 'md' | 'fill'
   onOpen?: (heroId: string) => void
 }
 
@@ -99,7 +99,7 @@ export function TierHeroTile({ entry, hero, size = 'md', onOpen }: TierHeroTileP
     </>
   )
 
-  const width = size === 'sm' ? 'w-[3.4rem]' : 'w-full sm:w-[4.75rem]'
+  const width = size === 'sm' ? 'w-[3.4rem]' : size === 'md' ? 'w-full sm:w-[4.75rem]' : 'w-full'
 
   if (hero && onOpen) {
     return (

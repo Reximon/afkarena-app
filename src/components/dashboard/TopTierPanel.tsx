@@ -70,13 +70,13 @@ export function TopTierPanel() {
         ) : null}
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2.5">
+      <div className="mt-4 grid grid-cols-4 gap-x-2 gap-y-3 sm:grid-cols-5 sm:gap-2.5">
         {topHeroes.map((entry) => (
           <TierHeroTile
             key={entry.id}
             entry={entry}
             hero={heroes[entry.id]}
-            size="sm"
+            size="fill"
             onOpen={setDetailHeroId}
           />
         ))}
