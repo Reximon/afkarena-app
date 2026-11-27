@@ -24,6 +24,7 @@ export class SyncEngine {
   private pushTimer: ReturnType<typeof setTimeout> | null = null
   private retryTimer: ReturnType<typeof setTimeout> | null = null
   private retryAttempt = 0
+  private manualRequest = false
   private inFlight = false
   private rerunRequested = false
   private applyingRemote = false
@@ -71,6 +72,7 @@ export class SyncEngine {
     this.clearTimer('retry')
     this.inFlight = false
     this.rerunRequested = false
+    this.manualRequest = false
     this.started = false
   }
 
@@ -91,6 +93,7 @@ export class SyncEngine {
     this.client.signOut()
     this.clearTimer('push')
     this.clearTimer('retry')
+    this.manualRequest = false
 
     const store = useSyncStore.getState()
     store.setAccount(null)
@@ -102,6 +105,7 @@ export class SyncEngine {
 
   syncNow() {
     this.retryAttempt = 0
+    this.manualRequest = true
     this.requestCycle()
   }
 
@@ -131,7 +135,7 @@ export class SyncEngine {
     }
 
     useSyncStore.getState().setStatus('syncing')
-    await this.runPush()
+    await this.runPush(true)
   }
 
   private handleOnline = () => {
@@ -173,7 +177,10 @@ export class SyncEngine {
   }
 
   private requestCycle() {
-    if (!useSyncStore.getState().account) return
+    if (!useSyncStore.getState().account) {
+      this.manualRequest = false
+      return
+    }
 
     if (this.inFlight) {
       this.rerunRequested = true
@@ -189,13 +196,16 @@ export class SyncEngine {
       return
     }
 
+    const manual = this.manualRequest
+    this.manualRequest = false
+
     const initial = useSyncStore.getState()
     if (!initial.account || initial.conflict) return
 
     this.inFlight = true
     this.clearTimer('retry')
     const accountId = initial.account.id
-    useSyncStore.getState().setStatus('syncing')
+    if (manual) useSyncStore.getState().setStatus('syncing')
 
     try {
       const remote = await this.client.fetchRemote(accountId)
@@ -219,7 +229,7 @@ export class SyncEngine {
         useSyncStore.getState().setStatus('synced')
         this.retryAttempt = 0
       } else if (decision === 'push') {
-        await this.runPush()
+        await this.runPush(manual)
       } else if (decision === 'none' && remote) {
         current.markCheckSuccess({ serverVersion: remote.updated, accountId })
         current.setStatus('synced')
@@ -238,7 +248,7 @@ export class SyncEngine {
     }
   }
 
-  private async runPush() {
+  private async runPush(manual = false) {
     const initial = useSyncStore.getState()
     if (!initial.account) return
 
@@ -267,7 +277,7 @@ export class SyncEngine {
       this.retryAttempt = 0
 
       if (useSyncStore.getState().dirty) {
-        current.setStatus('syncing')
+        if (manual) current.setStatus('syncing')
         this.schedulePush()
       } else {
         current.setStatus('synced')

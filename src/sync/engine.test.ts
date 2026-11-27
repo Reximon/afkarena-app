@@ -83,6 +83,29 @@ describe('SyncEngine', () => {
     expect(useSyncStore.getState().lastSyncedServerVersion).toBe('v1')
   })
 
+  it('keeps background pushes silent and announces only manual syncs', async () => {
+    const client = createClient()
+    engine = new SyncEngine(client, { debounceMs: 5, baseRetryMs: 5, maxRetryMs: 10 })
+    engine.start()
+
+    await vi.waitFor(() => expect(useSyncStore.getState().status).toBe('synced'))
+    await vi.waitFor(() => expect(useSyncStore.getState().account).not.toBeNull())
+
+    const statuses: string[] = []
+    const unsubscribe = useSyncStore.subscribe((state) => statuses.push(state.status))
+
+    useAppStore.getState().setProfile({ playerName: 'Rex' })
+    await vi.waitFor(() => expect(client.pushRemote).toHaveBeenCalledTimes(1))
+    await vi.waitFor(() => expect(useSyncStore.getState().dirty).toBe(false))
+
+    expect(statuses).not.toContain('syncing')
+
+    engine.syncNow()
+    await vi.waitFor(() => expect(statuses).toContain('syncing'))
+
+    unsubscribe()
+  })
+
   it('pulls the server copy when the local data is clean', async () => {
     const client = createClient()
     client.fetchRemote.mockResolvedValue(remoteRecord())
