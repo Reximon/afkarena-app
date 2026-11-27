@@ -1,4 +1,5 @@
 import PocketBase, { ClientResponseError } from 'pocketbase'
+import { recordVersion } from './recordVersion'
 import {
   SyncRequestError,
   type PushInput,
@@ -12,9 +13,9 @@ const ROSTER_COLLECTION = 'roster_data'
 
 interface RosterRecord {
   id: string
-  updated: string
+  updated?: string
   schemaVersion: number
-  clientUpdatedAt: string
+  clientUpdatedAt?: string
   data: unknown
 }
 
@@ -28,9 +29,9 @@ function toAccount(record: { id: string; email?: unknown }): SyncAccount {
 function toRemoteRecord(record: RosterRecord): RemoteRecord {
   return {
     id: record.id,
-    updated: record.updated,
+    updated: recordVersion(record),
     schemaVersion: record.schemaVersion,
-    clientUpdatedAt: record.clientUpdatedAt,
+    clientUpdatedAt: record.clientUpdatedAt ?? '',
     data: record.data,
   }
 }
