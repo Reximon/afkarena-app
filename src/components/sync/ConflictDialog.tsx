@@ -7,8 +7,9 @@ import { downloadTextFile } from '@/lib/download'
 export function ConflictDialog() {
   const { t } = useTranslation()
   const conflict = useSyncStore((state) => state.conflict)
+  const open = useSyncStore((state) => state.conflictOpen)
 
-  if (!isSyncEnabled() || !conflict) return null
+  if (!isSyncEnabled() || !conflict || !open) return null
 
   function handleDownload() {
     if (!conflict) return

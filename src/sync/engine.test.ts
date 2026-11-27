@@ -118,7 +118,7 @@ describe('SyncEngine', () => {
     expect(useSyncStore.getState().status).toBe('synced')
   })
 
-  it('opens a conflict when both sides changed and keeps the local copy on demand', async () => {
+  it('detects a conflict without opening the dialog and keeps the local copy on demand', async () => {
     const client = createClient()
     client.fetchRemote.mockResolvedValue(remoteRecord())
     useSyncStore.setState({ dirty: true, localUpdatedAt: Date.now() })
@@ -127,6 +127,7 @@ describe('SyncEngine', () => {
     engine.start()
 
     await vi.waitFor(() => expect(useSyncStore.getState().conflict).not.toBeNull())
+    expect(useSyncStore.getState().conflictOpen).toBe(false)
     expect(client.pushRemote).not.toHaveBeenCalled()
 
     client.pushRemote.mockImplementation(async (_userId, input) => ({
@@ -144,6 +145,29 @@ describe('SyncEngine', () => {
     expect(useSyncStore.getState().conflict).toBeNull()
     expect(useSyncStore.getState().lastSyncedServerVersion).toBe('v2')
     expect(useAppStore.getState().heroes).toEqual({})
+  })
+
+  it('keeps a pending conflict quiet until the user syncs manually', async () => {
+    const client = createClient()
+    client.fetchRemote.mockResolvedValue(remoteRecord())
+    useSyncStore.setState({ dirty: true, localUpdatedAt: Date.now() })
+
+    engine = new SyncEngine(client, { debounceMs: 5, baseRetryMs: 5, maxRetryMs: 10 })
+    engine.start()
+
+    await vi.waitFor(() => expect(useSyncStore.getState().conflict).not.toBeNull())
+    expect(useSyncStore.getState().conflictOpen).toBe(false)
+    expect(useSyncStore.getState().status).toBe('conflict')
+
+    useAppStore.getState().setProfile({ playerName: 'Rex' })
+    await new Promise((resolve) => setTimeout(resolve, 30))
+    expect(useSyncStore.getState().conflictOpen).toBe(false)
+    expect(client.fetchRemote).toHaveBeenCalledTimes(1)
+
+    engine.syncNow()
+
+    expect(useSyncStore.getState().conflictOpen).toBe(true)
+    expect(client.fetchRemote).toHaveBeenCalledTimes(1)
   })
 
   it('applies the server copy when the conflict is resolved in its favour', async () => {

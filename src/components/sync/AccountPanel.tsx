@@ -42,13 +42,12 @@ export function AccountPanel() {
             <p className="mt-1 text-xs leading-relaxed text-muted">
               {syncedTime ? t('sync.lastSynced', { time: syncedTime }) : t('sync.neverSynced')}
             </p>
+            {status === 'conflict' ? (
+              <p className="mt-2 text-xs leading-relaxed text-ember">{t('sync.conflictPending')}</p>
+            ) : null}
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button
-              variant="secondary"
-              onClick={() => syncNow()}
-              disabled={status === 'syncing' || status === 'conflict'}
-            >
+            <Button variant="secondary" onClick={() => syncNow()} disabled={status === 'syncing'}>
               <RefreshCw size={16} aria-hidden="true" />
               {t('sync.syncNow')}
             </Button>

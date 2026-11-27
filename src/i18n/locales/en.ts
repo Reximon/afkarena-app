@@ -344,6 +344,7 @@ export const en = {
     keepLocal: 'Keep this browser',
     keepServer: 'Use server copy',
     downloadServer: 'Download server copy',
+    conflictPending: 'Conflict pending: press "Sync now" to choose which copy to keep.',
     status: {
       local: 'Local only',
       syncing: 'Syncing…',

@@ -344,6 +344,8 @@ export const es: TranslationSchema = {
     keepLocal: 'Conservar este navegador',
     keepServer: 'Usar copia del servidor',
     downloadServer: 'Descargar copia del servidor',
+    conflictPending:
+      'Conflicto pendiente: pulsa «Sincronizar ahora» para elegir qué copia conservar.',
     status: {
       local: 'Solo local',
       syncing: 'Sincronizando…',

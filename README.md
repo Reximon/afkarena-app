@@ -246,15 +246,16 @@ Reglas: cada usuario solo puede listar, ver, crear y actualizar su propio regist
 ### Cómo funciona
 
 - Cada cambio se escribe primero en `localStorage` y marca `dirty` con `localUpdatedAt`.
-- Con sesión, un ciclo silencioso con debounce de 2 s lee la versión del servidor y decide subir, bajar o abrir un conflicto. No toca el indicador.
+- Con sesión, un ciclo silencioso con debounce de 2 s lee la versión del servidor y decide subir, bajar o marcar un conflicto. No toca el indicador.
 - El ciclo se repite al arrancar, al iniciar sesión y al recuperar la conexión o la pestaña (`online` / `visibilitychange`).
 - Si la subida o la bajada falla por red, se reintenta con backoff exponencial (2 s → 60 s); los datos siguen en local.
 - El documento remoto se valida con el mismo esquema Zod que el import. Si no valida o su `schemaVersion` es mayor que el de la app, no se aplica y se avisa; las versiones menores se migran.
-- `lastSyncedAt` y `lastSyncedServerVersion` detectan cambios en ambos lados. Si ambos cambiaron, se abre un diálogo con tres salidas: conservar local, usar la copia del servidor o descargar la del servidor. Nunca se sobrescribe en silencio.
+- `lastSyncedAt` y `lastSyncedServerVersion` detectan cambios en ambos lados. Si ambos cambiaron, el conflicto queda pendiente (el indicador pasa a conflicto y las subidas automáticas se detienen); el diálogo con tres salidas —conservar local, usar la copia del servidor o descargarla— aparece al pulsar **Sincronizar ahora**. Nunca se sobrescribe en silencio.
+- La versión remota es el campo automático `updated` de `roster_data`; si un registro antiguo no lo tiene, se usa `clientUpdatedAt` como respaldo.
 - Cerrar sesión no borra nada; si hay cambios sin subir, se pide confirmación.
 - El export/import manual de Ajustes sigue intacto.
 
-El indicador del encabezado muestra cinco estados: solo local, sincronizando, sincronizado, sin conexión (cambios pendientes) y error. El estado «sincronizando» solo aparece al pulsar **Sincronizar ahora** o al iniciar sesión; los guardados automáticos no lo cambian.
+El indicador del encabezado muestra seis estados: solo local, sincronizando, sincronizado, sin conexión (cambios pendientes), conflicto pendiente y error. El estado «sincronizando» solo aparece al pulsar **Sincronizar ahora** o al iniciar sesión; los guardados automáticos no lo cambian.
 
 ## Idiomas
 

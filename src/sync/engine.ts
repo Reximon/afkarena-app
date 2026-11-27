@@ -97,13 +97,19 @@ export class SyncEngine {
 
     const store = useSyncStore.getState()
     store.setAccount(null)
-    store.dismissConflict()
+    store.clearConflict()
     store.setRemoteRecordId(null)
     store.setLastError(null)
     store.setStatus('local')
   }
 
   syncNow() {
+    const store = useSyncStore.getState()
+    if (store.conflict) {
+      store.showConflict()
+      return
+    }
+
     this.retryAttempt = 0
     this.manualRequest = true
     this.requestCycle()
@@ -114,15 +120,13 @@ export class SyncEngine {
     if (!store.conflict) return
 
     store.dismissConflict()
-    if (!store.account) return
-    store.setStatus(store.dirty ? 'offline' : 'synced')
   }
 
   async resolveConflict(choice: 'local' | 'server') {
     const conflict = useSyncStore.getState().conflict
     if (!conflict) return
 
-    useSyncStore.getState().dismissConflict()
+    useSyncStore.getState().clearConflict()
 
     if (choice === 'server') {
       try {
@@ -223,7 +227,7 @@ export class SyncEngine {
       })
 
       if (decision === 'conflict' && remote) {
-        current.openConflict(remote)
+        current.detectConflict(remote)
       } else if (decision === 'pull' && remote) {
         this.applyRemote(remote)
         useSyncStore.getState().setStatus('synced')

@@ -18,6 +18,7 @@ interface SyncData {
   remoteRecordId: string | null
   lastError: SyncErrorKind | null
   conflict: RemoteRecord | null
+  conflictOpen: boolean
 }
 
 interface PushSuccess {
@@ -43,8 +44,10 @@ export interface SyncState extends SyncMeta, SyncData {
   setStatus: (status: SyncStatus) => void
   setLastError: (kind: SyncErrorKind | null) => void
   setRemoteRecordId: (id: string | null) => void
-  openConflict: (remote: RemoteRecord) => void
+  detectConflict: (remote: RemoteRecord) => void
+  showConflict: () => void
   dismissConflict: () => void
+  clearConflict: () => void
   markPushSuccess: (input: PushSuccess) => void
   markPullSuccess: (input: PullSuccess) => void
   markCheckSuccess: (input: CheckSuccess) => void
@@ -61,6 +64,7 @@ export const SYNC_INITIAL_STATE = {
   remoteRecordId: null,
   lastError: null,
   conflict: null,
+  conflictOpen: false,
 } satisfies SyncMeta & SyncData
 
 export const useSyncStore = create<SyncState>()(
@@ -78,10 +82,19 @@ export const useSyncStore = create<SyncState>()(
 
       setRemoteRecordId: (remoteRecordId) => set({ remoteRecordId }),
 
-      openConflict: (remote) =>
-        set({ conflict: remote, remoteRecordId: remote.id, status: 'conflict' }),
+      detectConflict: (remote) =>
+        set({
+          conflict: remote,
+          conflictOpen: false,
+          remoteRecordId: remote.id,
+          status: 'conflict',
+        }),
 
-      dismissConflict: () => set({ conflict: null }),
+      showConflict: () => set((state) => (state.conflict ? { conflictOpen: true } : {})),
+
+      dismissConflict: () => set({ conflictOpen: false }),
+
+      clearConflict: () => set({ conflict: null, conflictOpen: false }),
 
       markPushSuccess: ({ serverVersion, accountId, syncedStamp }) =>
         set((state) => ({
