@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import '@/i18n'
@@ -25,6 +25,22 @@ describe('ElderTreePage', () => {
     await user.click(screen.getByRole('button', { name: /Support · Dura's Sustenance/ }))
 
     expect(screen.getByRole('heading', { name: "Dura's Sustenance" })).toBeInTheDocument()
+  })
+
+  it('shows the trunk level and the stats it grants', () => {
+    render(<ElderTreePage />)
+
+    expect(screen.getByText('Lv 15')).toBeInTheDocument()
+    expect(screen.getByText('2,070')).toBeInTheDocument()
+    expect(screen.getByText('180')).toBeInTheDocument()
+    expect(screen.getByText('40')).toBeInTheDocument()
+
+    fireEvent.change(screen.getByLabelText('Trunk level'), { target: { value: '100' } })
+
+    expect(screen.getByText('Lv 100')).toBeInTheDocument()
+    expect(screen.getByText('37,770')).toBeInTheDocument()
+    expect(screen.getByText('2,730')).toBeInTheDocument()
+    expect(screen.getByText('550')).toBeInTheDocument()
   })
 
   it('shows the base blessing values and updates them with the level', async () => {

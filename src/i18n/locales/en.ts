@@ -445,6 +445,8 @@ export const en = {
     allTitle: 'All branches',
     allHint: 'Each branch levels on its own. Pick one to fine-tune its blessings.',
     branchLevel: 'Branch level',
+    trunkLevel: 'Trunk level',
+    trunkHint: 'Flat HP, ATK and Defense for every hero you own.',
     virtueCount: '{{count}} branches',
     virtueBranch: "Dura's Virtues",
     virtueOf: '{{class}} virtue',

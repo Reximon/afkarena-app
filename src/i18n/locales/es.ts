@@ -447,6 +447,8 @@ export const es: TranslationSchema = {
     allTitle: 'Todas las ramas',
     allHint: 'Cada rama sube por su cuenta. Elige una para ajustar sus bendiciones.',
     branchLevel: 'Nivel de rama',
+    trunkLevel: 'Nivel del tronco',
+    trunkHint: 'HP, ATK y DEF planos para todos tus héroes.',
     virtueCount: '{{count}} ramas',
     virtueBranch: 'Virtudes de Dura',
     virtueOf: 'Virtud de {{class}}',

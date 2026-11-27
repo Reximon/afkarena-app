@@ -4,7 +4,9 @@ import { ClassIcon } from '@/components/heroes/ClassIcon'
 import {
   elderTreeVirtues,
   getBlessingState,
+  getTrunkStats,
   getVirtueMaxLevel,
+  TRUNK_MAX_LEVEL,
   type ElderTreeVirtue,
 } from '@/features/elderTree/elderTree'
 import { cn } from '@/lib/cn'
@@ -12,6 +14,8 @@ import type { HeroClass } from '@/types'
 
 interface VirtueOverviewProps {
   levels: Record<HeroClass, number>
+  trunkLevel: number
+  onTrunkLevelChange: (level: number) => void
   onSelect: (heroClass: HeroClass) => void
 }
 
@@ -116,8 +120,20 @@ function VirtueCard({
   )
 }
 
-export function VirtueOverview({ levels, onSelect }: VirtueOverviewProps) {
-  const { t } = useTranslation()
+export function VirtueOverview({
+  levels,
+  trunkLevel,
+  onTrunkLevelChange,
+  onSelect,
+}: VirtueOverviewProps) {
+  const { t, i18n } = useTranslation()
+  const trunkStats = getTrunkStats(trunkLevel)
+  const numberFormat = new Intl.NumberFormat(i18n.language)
+  const trunkRows = [
+    { label: 'HP', value: trunkStats.hp },
+    { label: 'ATK', value: trunkStats.atk },
+    { label: 'DEF', value: trunkStats.def },
+  ]
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)]">
@@ -143,6 +159,40 @@ export function VirtueOverview({ levels, onSelect }: VirtueOverviewProps) {
           <div className="space-y-4 p-5">
             <h2 className="panel-title text-2xl">{t('elderTree.allTitle')}</h2>
             <p className="text-sm leading-relaxed text-muted">{t('elderTree.allHint')}</p>
+
+            <div className="codex-panel-soft p-4">
+              <p className="font-mono text-[9px] tracking-[0.2em] text-muted uppercase">
+                {t('elderTree.trunkLevel')}
+              </p>
+              <p className="stat-value text-4xl leading-none">
+                {t('elderTree.levelShort', { level: trunkLevel })}
+                <span className="ml-1 font-mono text-xs tracking-[0.12em] text-muted">
+                  / {TRUNK_MAX_LEVEL}
+                </span>
+              </p>
+              <input
+                type="range"
+                min={1}
+                max={TRUNK_MAX_LEVEL}
+                value={trunkLevel}
+                aria-label={t('elderTree.trunkLevel')}
+                onChange={(event) => onTrunkLevelChange(Number(event.target.value))}
+                className="mt-4 w-full accent-gild"
+              />
+              <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-gild/10 pt-3">
+                {trunkRows.map((row) => (
+                  <div key={row.label}>
+                    <dt className="font-mono text-[9px] tracking-[0.18em] text-muted uppercase">
+                      {row.label}
+                    </dt>
+                    <dd className="stat-value text-lg leading-none">
+                      {numberFormat.format(row.value)}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-3 text-xs leading-relaxed text-muted">{t('elderTree.trunkHint')}</p>
+            </div>
           </div>
         </div>
       </aside>

@@ -581,6 +581,43 @@ export const elderTreeVirtues: readonly ElderTreeVirtue[] = [
   },
 ]
 
+export const TRUNK_MAX_LEVEL = 340
+
+const trunkMilestones: readonly { level: number; hp: number; atk: number; def: number }[] = [
+  { level: 1, hp: 200, atk: 0, def: 0 },
+  { level: 5, hp: 400, atk: 40, def: 8 },
+  { level: 10, hp: 800, atk: 80, def: 20 },
+  { level: 15, hp: 2070, atk: 180, def: 40 },
+  { level: 20, hp: 4170, atk: 330, def: 70 },
+]
+
+export interface TrunkStats {
+  hp: number
+  atk: number
+  def: number
+}
+
+export function getTrunkStats(level: number): TrunkStats {
+  const clamped = Math.min(Math.max(Math.round(level), 1), TRUNK_MAX_LEVEL)
+
+  if (clamped >= 20) {
+    const steps = clamped - 20
+    return { hp: 4170 + 420 * steps, atk: 330 + 30 * steps, def: 70 + 6 * steps }
+  }
+
+  const upperIndex = trunkMilestones.findIndex((entry) => entry.level >= clamped)
+  const upper = trunkMilestones[Math.max(upperIndex, 1)]
+  const lower = trunkMilestones[Math.max(upperIndex - 1, 0)]
+  const ratio = (clamped - lower.level) / (upper.level - lower.level)
+  const interpolate = (from: number, to: number) => Math.round(from + (to - from) * ratio)
+
+  return {
+    hp: interpolate(lower.hp, upper.hp),
+    atk: interpolate(lower.atk, upper.atk),
+    def: interpolate(lower.def, upper.def),
+  }
+}
+
 export function getVirtue(heroClass: HeroClass): ElderTreeVirtue {
   const virtue = elderTreeVirtues.find((entry) => entry.class === heroClass)
   if (!virtue) throw new Error(`No Elder Tree virtue for ${heroClass}`)

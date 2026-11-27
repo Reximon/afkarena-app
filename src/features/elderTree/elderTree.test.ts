@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { elderTreeVirtues, getBlessingState, getVirtueLevels, getVirtueMaxLevel } from './elderTree'
+import {
+  elderTreeVirtues,
+  getBlessingState,
+  getTrunkStats,
+  getVirtueLevels,
+  getVirtueMaxLevel,
+} from './elderTree'
 
 describe('elderTreeVirtues', () => {
   it('covers the five classes with three blessings each', () => {
@@ -33,6 +39,26 @@ describe('elderTreeVirtues', () => {
     expect(levels).toContain(15)
     expect(levels).toContain(25)
     expect(levels.at(-1)).toBe(getVirtueMaxLevel(celerity))
+  })
+})
+
+describe('getTrunkStats', () => {
+  it('matches the known trunk milestones', () => {
+    expect(getTrunkStats(1)).toEqual({ hp: 200, atk: 0, def: 0 })
+    expect(getTrunkStats(15)).toEqual({ hp: 2070, atk: 180, def: 40 })
+    expect(getTrunkStats(20)).toEqual({ hp: 4170, atk: 330, def: 70 })
+    expect(getTrunkStats(100)).toEqual({ hp: 37770, atk: 2730, def: 550 })
+    expect(getTrunkStats(340)).toEqual({ hp: 138570, atk: 9930, def: 1990 })
+  })
+
+  it('adds a fixed amount per level past 20', () => {
+    const first = getTrunkStats(21)
+    expect(first).toEqual({ hp: 4590, atk: 360, def: 76 })
+  })
+
+  it('clamps levels to the trunk range', () => {
+    expect(getTrunkStats(0)).toEqual(getTrunkStats(1))
+    expect(getTrunkStats(500)).toEqual(getTrunkStats(340))
   })
 })
 

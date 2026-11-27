@@ -29,6 +29,7 @@ export function ElderTreePage() {
   const { t } = useTranslation()
   const [selection, setSelection] = useState<Selection>('all')
   const [levels, setLevels] = useState(initialLevels)
+  const [trunkLevel, setTrunkLevel] = useState(15)
 
   const virtue = selection === 'all' ? null : getVirtue(selection)
 
@@ -89,7 +90,12 @@ export function ElderTreePage() {
           }
         />
       ) : (
-        <VirtueOverview levels={levels} onSelect={setSelection} />
+        <VirtueOverview
+          levels={levels}
+          trunkLevel={trunkLevel}
+          onTrunkLevelChange={setTrunkLevel}
+          onSelect={setSelection}
+        />
       )}
     </div>
   )
